@@ -1,6 +1,3 @@
-Working group on the SWHID identifier
-=====================================
-
 The SWHID Working Group oversees development of the SWHID materials in the [SWHID GitHub org](https://github.com/swhid), including the following:
 
 * the [SWHID Specification](https://github.com/swhid/specification) itself
