@@ -13,7 +13,7 @@ The SWHID Working Group oversees development of the SWHID materials in the [SWHI
 
 Participation in the elaboration of the SWHID standard is open to all, see the dedicated [SWHID Specification repository](https://github.com/swhid/specification) for information on how to join. The working group follows the principles stated in [the governance repository](https://github.com/swhid/governance/).
 
-### Core Team
+### Core Team {#coreteam}
 
 The current composition of the Core Team is the following, in first name alphabetical order:
 
