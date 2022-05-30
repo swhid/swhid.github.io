@@ -1,7 +1,10 @@
-The SWHID Working Group oversees development of the SWHID standard and tools hosted in the [SWHID GitHub organization](https://github.com/swhid), including the following:
+Working group on the SWHID identifier
+=====================================
+
+The SWHID Working Group oversees development of the SWHID materials in the [SWHID GitHub org](https://github.com/swhid), including the following:
 
 * the [SWHID Specification](https://github.com/swhid/specification) itself
-* various software libraries and tools provided by the SWHID project
+* the various software libraries and tools provided by the SWHID project
 
 ### Participation and governance
 
