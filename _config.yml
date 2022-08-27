@@ -32,7 +32,8 @@ github_username:  swhid
 
 # Build settings
 markdown: kramdown
-theme: "just-the-docs"
+# theme: "just-the-docs"
+remote_theme: just-the-docs/just-the-docs
 
 aux_links:
    "SWHID on GitHub":
