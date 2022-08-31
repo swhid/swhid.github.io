@@ -5,6 +5,9 @@
 layout: home
 ---
 ## SWHID Working Group
+
+SWHIDs (from "SoftWare Heritage persistent IDentifiers") are persistent, intrinsic identifiers for software source code artifacts such as source code files, source trees, commits, and other objects typically found in version control systems.
+
 The SWHID Working Group oversees development of the SWHID materials in the [SWHID GitHub repositories](https://github.com/swhid), including the following:
 
 * the SWHID specification itself
