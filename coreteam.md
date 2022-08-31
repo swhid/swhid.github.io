@@ -11,5 +11,5 @@ The current composition of the Core Team is the following, in first name alphabe
 
 * Alexios Zavras
 * Jean-François Abramatic
-* Roberto Di Cosmo
-* Stefano Zacchiroli
+* [Roberto Di Cosmo](https://dicosmo.org/)
+* [Stefano Zacchiroli](https://upsilon.cc/~zack/)
