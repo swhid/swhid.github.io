@@ -26,3 +26,5 @@ The SWHID specification is maintained by the [SWHID core team](coreteam).
 
 The working group follows the principles stated in [the governance document](https://swhid.org/governance/) maintained in the [governance repository](https://github.com/swhid/governance/).
 
+These principles follow the model proposed by the [Community Specification](https://github.com/CommunitySpecification/Community_Specification), that has been developed via the [Joint Development Foundation](http://www.jointdevelopment.org) (now part of the [Linux Foundation](https://www.linuxfoundation.org/)), with inspiration from the [Open Web Foundation agreements](http://openwebfoundation.org) and the [Alliance for Open Media Patent License 1.0](http://aomedia.org/license/patent-license/).
+
