@@ -20,7 +20,7 @@ A link is provided to the [working version of the SWHID specification](specifica
 ### Participation and governance
 
 Participation in the elaboration of the SWHID standard is open to all, 
-Design and planning is primarily done via the team [mailing list](https://groups.google.com/g/swhid-discuss) and meetings: see the dedicated [SWHID Specification repository](https://github.com/swhid/specification) for more information.
+Design and planning is primarily done via the team [mailing list](https://groups.google.com/g/swhid-discuss) (see [how to join][howto-join]) and meetings: see the dedicated [SWHID Specification repository](https://github.com/swhid/specification) for more information.
 
 The SWHID specification is maintained by the [SWHID core team](coreteam).
 
@@ -28,3 +28,4 @@ The working group follows the principles stated in [the governance document](htt
 
 These principles follow the model proposed by the [Community Specification](https://github.com/CommunitySpecification/Community_Specification), that has been developed via the [Joint Development Foundation](http://www.jointdevelopment.org) (now part of the [Linux Foundation](https://www.linuxfoundation.org/)), with inspiration from the [Open Web Foundation agreements](http://openwebfoundation.org) and the [Alliance for Open Media Patent License 1.0](http://aomedia.org/license/patent-license/).
 
+[howto-join]: https://support.google.com/a/users/answer/9304806
