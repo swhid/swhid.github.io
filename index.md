@@ -28,4 +28,11 @@ The working group follows the principles stated in [the governance document](htt
 
 These principles follow the model proposed by the [Community Specification](https://github.com/CommunitySpecification/Community_Specification), that has been developed via the [Joint Development Foundation](http://www.jointdevelopment.org) (now part of the [Linux Foundation](https://www.linuxfoundation.org/)), with inspiration from the [Open Web Foundation agreements](http://openwebfoundation.org) and the [Alliance for Open Media Patent License 1.0](http://aomedia.org/license/patent-license/).
 
+### Onboarding material
+
+A dedicated webinar has been held to help onboarding participants to this working group.
+The material is available online, and newcomers are encouraged to start here :
+* [support slides](https://annex.softwareheritage.org/public/talks/2023/2023-03-27-SWHID-kickoff.pdf) used during the webinar
+* [recording](https://annex.softwareheritage.org/public/talks/2023/2023-03-27-SWHID-kickoff.mp4) including an extensive Q&A session
+
 [howto-join]: https://support.google.com/a/users/answer/9304806
