@@ -11,7 +11,7 @@ SWHIDs (from "SoftWare Hash IDentifiers") are persistent, intrinsic identifiers 
 The SWHID Working Group oversees development of the SWHID materials in the [SWHID GitHub repositories](https://github.com/swhid), including the following:
 
 * the SWHID specification itself
-* the various software libraries and tools provided by the SWHID project
+* a list of various resources related to SWHID, like examples of use, implementations and projects adopting it.
 
 ### Working version of the specification document
 
