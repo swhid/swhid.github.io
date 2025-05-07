@@ -8,19 +8,22 @@ layout: home
 
 SWHIDs (from "SoftWare Hash IDentifiers") are persistent, intrinsic identifiers for software source code artifacts such as source code files, source trees, commits, and other objects typically found in version control systems.
 
+The SWHID was officially published as the ISO/IEC international standard 18670 on April 23, 2025.
+[Official ISO Listing](https://www.iso.org/standard/89985.html) [Free Public Specification](https://www.swhid.org/specification/v1.2/)
+
 The SWHID Working Group oversees development of the SWHID materials in the [SWHID GitHub repositories](https://github.com/swhid), including the following:
 
-* the SWHID specification itself
-* a list of various resources related to SWHID, like examples of use, implementations and projects adopting it.
+* The SWHID specification itself
+* A list of resources related to SWHID, like examples of use, implementations, and projects adopting it.
 
 ### Working version of the specification document
 
-A link is provided to the [working version of the SWHID specification](specification), that is updated automatically whenever a change is made to the [SWHID Specification repository](https://github.com/swhid/specification).
+A link is provided to the [working version of the SWHID specification](specification), which is updated automatically whenever a change is made to the [SWHID Specification repository](https://github.com/swhid/specification).
 
 ### Participation and governance
 
-Participation in the elaboration of the SWHID standard is open to all, 
-Design and planning is primarily done via the team [mailing list](https://groups.google.com/g/swhid-discuss) (see [how to join][howto-join]) and meetings: see the dedicated [SWHID Specification repository](https://github.com/swhid/specification) for more information.
+Participation in the elaboration of the SWHID standard is open to all. 
+Design and planning are primarily done via the team [mailing list](https://groups.google.com/g/swhid-discuss) (see [how to join][howto-join]) and meetings: see the dedicated [SWHID Specification repository](https://github.com/swhid/specification) for more information.
 
 The SWHID specification is maintained by the [SWHID core team](coreteam).
 
