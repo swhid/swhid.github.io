@@ -1,9 +1,9 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
+title: Homepage
+nav_order: 0
 ---
+
 ## SWHID Working Group
 
 SWHIDs (from "SoftWare Hash IDentifiers") are persistent, intrinsic identifiers for software source code artifacts such as source code files, source trees, commits, and other objects typically found in version control systems.
