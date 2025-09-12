@@ -57,7 +57,35 @@ social:
     - https://www.softwareheritage.org
 
 # Keywords for SEO
-keywords: SWHID, software artifact identification, ISO standard, software preservation, Merkle DAG, content-based identifiers, software heritage
+keywords: SWHID, software artifact identification, ISO standard, software preservation, Merkle DAG, content-based identifiers, software heritage, ISO/IEC 18670, software hash identifier, persistent identifiers, software traceability, cybersecurity, software integrity
+
+# SEO Configuration
+seo:
+  type: "WebSite"
+  name: "SWHID.org"
+  description: "The international standard for software artifact identification (ISO/IEC 18670:2025)"
+  url: "https://swhid.org"
+  image: "/assets/images/swhid-logo.png"
+  twitter:
+    card: "summary_large_image"
+    site: "@SoftwareHeritage"
+    creator: "@SoftwareHeritage"
+  facebook:
+    app_id: ""
+    publisher: ""
+    admins: ""
+
+# Open Graph configuration
+og:
+  locale: "en_US"
+  type: "website"
+  site_name: "SWHID.org"
+  image_width: 1200
+  image_height: 630
+
+# Additional SEO settings
+lang: "en"
+timezone: "UTC"
 
 # Build settings
 markdown: kramdown
@@ -91,6 +119,21 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-redirect-from
+  - jekyll-minifier
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
+
+# Sitemap configuration
+sitemap:
+  changefreq: weekly
+  priority: 0.8
+  lastmod: true
+  exclude:
+    - /search/
+    - /404.html
+    - /robots.txt
 
 # Performance optimizations
 compress_html:

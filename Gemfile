@@ -22,6 +22,11 @@ group :jekyll_plugins do
   gem "jekyll-seo-tag"
   gem "jekyll-include-cache"
   gem "jekyll-remote-theme"
+  gem "jekyll-minifier"
+  gem "jekyll-optional-front-matter"
+  gem "jekyll-readme-index"
+  gem "jekyll-default-layout"
+  gem "jekyll-titles-from-headings"
 end
 
 # Web server for Jekyll serve

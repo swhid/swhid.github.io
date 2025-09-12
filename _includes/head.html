@@ -1,1 +1,123 @@
 <link rel="stylesheet" href="{{ '/assets/css/swhid-custom.css' | relative_url }}">
+
+<!-- Enhanced SEO Meta Tags -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<meta name="bingbot" content="index, follow">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+
+<!-- Language and Region -->
+<meta http-equiv="content-language" content="en">
+<meta name="geo.region" content="FR">
+<meta name="geo.placename" content="Paris">
+
+<!-- Mobile and Responsive -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="format-detection" content="telephone=no">
+
+<!-- Theme and Browser -->
+<meta name="theme-color" content="#e20026">
+<meta name="msapplication-TileColor" content="#e20026">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<!-- Preconnect to external domains for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://www.softwareheritage.org">
+<link rel="preconnect" href="https://www.iso.org">
+
+<!-- DNS prefetch for external resources -->
+<link rel="dns-prefetch" href="//github.com">
+<link rel="dns-prefetch" href="//twitter.com">
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "SWHID.org",
+  "alternateName": "Software Hash Identifier",
+  "url": "{{ site.url }}",
+  "description": "{{ site.description }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "SWHID Working Group",
+    "url": "{{ site.url }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/images/swhid-logo.png"
+    },
+    "sameAs": [
+      "https://github.com/swhid",
+      "https://www.softwareheritage.org",
+      "https://twitter.com/SoftwareHeritage"
+    ]
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ site.url }}/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "mainEntity": {
+    "@type": "TechArticle",
+    "headline": "SWHID - Software Hash Identifier",
+    "description": "The international standard for software artifact identification (ISO/IEC 18670:2025)",
+    "datePublished": "2023-06-23",
+    "dateModified": "{{ site.time | date_to_xmlschema }}",
+    "author": {
+      "@type": "Organization",
+      "name": "SWHID Working Group"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SWHID Working Group"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Software Artifact Identification"
+      },
+      {
+        "@type": "Thing", 
+        "name": "ISO/IEC 18670:2025"
+      },
+      {
+        "@type": "Thing",
+        "name": "Software Preservation"
+      }
+    ]
+  }
+}
+</script>
+
+<!-- Additional page-specific structured data -->
+{% if page.layout == 'post' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ page.title }}",
+  "description": "{{ page.excerpt | default: page.description | strip_html | truncate: 160 }}",
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "author": {
+    "@type": "Organization",
+    "name": "{{ site.author }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.author }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/images/swhid-logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  }
+}
+</script>
+{% endif %}

@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: {{ site.url }}/sitemap.xml
+
+# Disallow certain paths
+Disallow: /_site/
+Disallow: /vendor/
+Disallow: /.bundle/
+Disallow: /.sass-cache/
+Disallow: /.jekyll-cache/
+Disallow: /.jekyll-metadata
+
+# Allow important pages
+Allow: /
+Allow: /specification/
+Allow: /faq/
+Allow: /news/
+Allow: /publications/
+Allow: /governance/
+Allow: /coreteam/
+Allow: /search/
+
+# Crawl delay (optional)
+Crawl-delay: 1
