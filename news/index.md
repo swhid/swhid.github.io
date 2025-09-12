@@ -1,7 +1,8 @@
 ---
 title: News
-layout: page
 ---
+
+# News
 
 <div class="news-container">
   {% for post in site.posts %}

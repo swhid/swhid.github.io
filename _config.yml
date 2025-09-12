@@ -18,9 +18,7 @@ description: SWHID - The international standard for software artifact identifica
 author: SWHID Working Group
 email: contact@softwareheritage.org
 
-# Custom CSS
-custom_css:
-  - assets/css/swh-branding.css
+# Custom CSS - using _sass/custom/custom.scss (blessed approach)
 
 # Sass configuration to suppress deprecation warnings
 sass:
@@ -36,6 +34,7 @@ sass:
 # Enable or disable the site search
 # Supports true (default) or false
 search_enabled: true
+
 
 # email: your-email@example.com
 # description: >- # this means to ignore newlines until "baseurl:"
@@ -89,7 +88,33 @@ timezone: "UTC"
 
 # Build settings
 markdown: kramdown
-theme: minima
+theme: just-the-docs
+
+# Just the Docs theme configuration
+search_enabled: true
+search:
+  # Split pages into sections when indexing
+  heading_level: 2
+  # Maximum number of search results per page
+  previews: 3
+  # Maximum number of preview characters per search result
+  preview_words_before: 5
+  preview_words_after: 10
+  # Search tokenizer
+  tokenizer_separator: /[\s/]+/
+  # Boost title and headings
+  boost_priority: true
+
+# Main navigation
+nav_external_links:
+  - title: "SWHID on GitHub"
+    url: "https://github.com/swhid/"
+    opens_in_new_tab: true
+  - title: "Software Heritage"
+    url: "https://www.softwareheritage.org/"
+    opens_in_new_tab: true
+
+# Auxiliary links (removed - using nav_external_links instead)
 
 # Main navigation
 navigation:
@@ -108,11 +133,6 @@ navigation:
   - title: "Core Team"
     url: /coreteam/
 
-aux_links:
-   "SWHID on GitHub":
-     - "//github.com/swhid/"
-   "Software Heritage":
-     - "//www.softwareheritage.org/"
 
 plugins:
   - jekyll-seo-tag

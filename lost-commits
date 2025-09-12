@@ -1,0 +1,5 @@
+5900a69 (HEAD -> just-the-docs) Fix #2: Use fixed positioning for full-width footer
+495435a Fix #2: Convert SCSS to CSS for proper footer styling
+8c31e41 Fix #2: Position footer completely outside sidebar and content panes
+7162536 Fix #2: Move footer outside main content area for full-width display
+6a07260 Fix #2: Move footer to full-width gray band at bottom

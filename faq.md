@@ -5,6 +5,8 @@ nav_order: 4
 permalink: /faq/
 ---
 
+# Frequently Asked Questions (FAQs)
+
 ### **🔍 What is a Software Hash IDentifier?**
 
 A **Software Hash IDentifier (SWHID)** is a persistent, content-based identifier for software artifacts—such as source code files, directories, commits, releases, or repository snapshots. Each SWHID is computed from the artifact itself, using cryptographic hashing, without relying on any central authority. Note that for an artifact that contains other artifacts, the whole recursive content is taken into account (e.g., a directory and all its sub-directories, recursively; a commit, its entire source code tree and preceding commits, etc.) when computing its SWHID.
