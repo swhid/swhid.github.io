@@ -14,11 +14,28 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: SWHID.org
-description: Working group on the SWHID identifier
+description: SWHID - The international standard for software artifact identification (ISO/IEC 18670:2025)
+author: SWHID Working Group
+email: contact@softwareheritage.org
+
+# Custom CSS
+custom_css:
+  - assets/css/swh-branding.css
+
+# Sass configuration to suppress deprecation warnings
+sass:
+  quiet_deps: true
+  style: compressed
+  sass_dir: _sass
+  silence_deprecations:
+    - import
+    - color-functions
+    - global-builtin
+    - slash-div
 
 # Enable or disable the site search
 # Supports true (default) or false
-search_enabled: false
+search_enabled: true
 
 # email: your-email@example.com
 # description: >- # this means to ignore newlines until "baseurl:"
@@ -27,20 +44,74 @@ search_enabled: false
 #  Google search results) and in your feed.xml site description.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-# twitter_username: jekyllrb
-github_username:  swhid
+# Social media
+twitter_username: SoftwareHeritage
+github_username: swhid
+
+# SEO and social sharing
+social:
+  name: SWHID
+  links:
+    - https://github.com/swhid
+    - https://twitter.com/SoftwareHeritage
+    - https://www.softwareheritage.org
+
+# Keywords for SEO
+keywords: SWHID, software artifact identification, ISO standard, software preservation, Merkle DAG, content-based identifiers, software heritage
 
 # Build settings
 markdown: kramdown
-# theme: "just-the-docs"
-remote_theme: just-the-docs/just-the-docs
+theme: minima
+
+# Main navigation
+navigation:
+  - title: "Home"
+    url: /
+  - title: "Specification"
+    url: /specification/
+  - title: "FAQ"
+    url: /faq/
+  - title: "News"
+    url: /news/
+  - title: "Publications"
+    url: /publications/
+  - title: "Governance"
+    url: /governance/
+  - title: "Core Team"
+    url: /coreteam/
 
 aux_links:
    "SWHID on GitHub":
      - "//github.com/swhid/"
+   "Software Heritage":
+     - "//www.softwareheritage.org/"
 
 plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
   - jekyll-redirect-from
+
+# Performance optimizations
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: [html, head, body]
+  blanklines: false
+  profile: false
+  ignore:
+    envs: [development]
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/
+  - .sass-cache/
+  - .jekyll-cache/
+  - .jekyll-metadata
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

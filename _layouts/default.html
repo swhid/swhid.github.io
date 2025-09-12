@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <body>
+
+    {%- include header.html -%}
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="page-content">
+          <aside class="sidebar">
+            <h3>Navigation</h3>
+            <ul>
+              <li><a href="/">Homepage</a></li>
+              <li><a href="/specification/">Specification</a></li>
+              <li><a href="/faq/">FAQ</a></li>
+              <li><a href="/news/">News</a></li>
+              <li><a href="/publications/">Publications</a></li>
+              <li><a href="/governance/">Governance</a></li>
+              <li><a href="/coreteam/">Core Team</a></li>
+            </ul>
+            
+            <h3>Resources</h3>
+            <ul>
+              <li><a href="https://www.iso.org/standard/868091.html" target="_blank">ISO Standard</a></li>
+              <li><a href="https://github.com/swhid" target="_blank">GitHub</a></li>
+              <li><a href="https://groups.google.com/g/swhid-discuss" target="_blank">Mailing List</a></li>
+            </ul>
+          </aside>
+          
+          <div class="main-content">
+            {{ content }}
+          </div>
+        </div>
+      </div>
+    </main>
+
+    {%- include footer.html -%}
+
+  </body>
+
+</html>
