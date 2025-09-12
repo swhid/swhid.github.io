@@ -9,6 +9,24 @@
   --swh-grey-dark: #333;
 }
 
+/* Site header styling */
+.site-header {
+  background-color: #fff !important;
+  border-bottom: 1px solid #e8e8e8 !important;
+  padding: 1rem 0 !important;
+}
+
+.site-title {
+  color: var(--swh-red) !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+
+.site-title:hover {
+  color: var(--swh-orange) !important;
+}
+
 /* Override Minima theme colors */
 body {
   color: var(--swh-grey) !important;

@@ -4,8 +4,11 @@
   {%- include head.html -%}
 
   <body>
-
-    {%- include header.html -%}
+    <header class="site-header">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+      </div>
+    </header>
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
@@ -24,7 +27,7 @@
             
             <h3>Resources</h3>
             <ul>
-              <li><a href="https://www.iso.org/standard/868091.html" target="_blank">ISO Standard</a></li>
+              <li><a href="https://www.iso.org/standard/89985.html" target="_blank">ISO Standard</a></li>
               <li><a href="https://github.com/swhid" target="_blank">GitHub</a></li>
               <li><a href="https://groups.google.com/g/swhid-discuss" target="_blank">Mailing List</a></li>
             </ul>

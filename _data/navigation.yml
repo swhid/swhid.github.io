@@ -1,0 +1,15 @@
+main:
+  - title: "Home"
+    url: /
+  - title: "Specification"
+    url: /specification/
+  - title: "FAQ"
+    url: /faq/
+  - title: "News"
+    url: /news/
+  - title: "Publications"
+    url: /publications/
+  - title: "Governance"
+    url: /governance/
+  - title: "Core Team"
+    url: /coreteam/

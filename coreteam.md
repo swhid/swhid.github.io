@@ -5,8 +5,6 @@ nav_order: 3
 permalink: /coreteam/
 ---
 
-### Core Team {#coreteam}
-
 The current composition of the Core Team is the following, in first name alphabetical order:
 
 * Alexios Zavras (alexios.zavras at intel.com)
