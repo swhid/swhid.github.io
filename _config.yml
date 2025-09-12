@@ -139,11 +139,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-redirect-from
-  - jekyll-minifier
-  - jekyll-optional-front-matter
-  - jekyll-readme-index
-  - jekyll-default-layout
-  - jekyll-titles-from-headings
 
 # Sitemap configuration
 sitemap:
@@ -155,22 +150,14 @@ sitemap:
     - /404.html
     - /robots.txt
 
-# Performance optimizations
-compress_html:
-  clippings: all
-  comments: all
-  endings: all
-  startings: [html, head, body]
-  blanklines: false
-  profile: false
-  ignore:
-    envs: [development]
+# Performance optimizations (GitHub Pages compatible)
 
 # Exclude from processing
 exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - QUICK_REFERENCE.md
   - vendor/
   - .sass-cache/
   - .jekyll-cache/
