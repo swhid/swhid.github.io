@@ -1,0 +1,458 @@
+# SWHID.org Website Documentation
+
+This documentation describes how the SWHID.org website is built using the Just the Docs Jekyll theme, how to customize it, and how to manage content and deployment.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Architecture](#architecture)
+- [Local Development](#local-development)
+- [Customization Guide](#customization-guide)
+- [Content Management](#content-management)
+- [Deployment](#deployment)
+- [Troubleshooting](#troubleshooting)
+
+## Overview
+
+The SWHID.org website is built using:
+- **Jekyll 4.4.1** - Static site generator
+- **Just the Docs 0.10.1** - Jekyll theme for documentation
+- **GitHub Pages** - Hosting platform
+- **GitHub Actions** - Automated deployment
+
+The site features:
+- Responsive design with SWH branding
+- Advanced search functionality
+- News and publications management
+- Custom footer with SWH links
+- SEO optimization
+- Custom domain (www.swhid.org)
+
+## Architecture
+
+### Directory Structure
+
+```
+swhid.github.io/
+├── _config.yml                 # Main Jekyll configuration
+├── _data/
+│   └── navigation.yml          # Navigation structure
+├── _includes/
+│   ├── components/
+│   │   └── footer.html         # Custom footer component
+│   └── nav_footer_custom.html  # Empty sidebar footer override
+├── _layouts/
+│   └── post.html              # Custom layout for news posts
+├── _posts/                    # News posts (Jekyll collections)
+├── _sass/
+│   └── custom/
+│       └── custom.scss        # Custom SCSS overrides
+├── assets/                    # Static assets
+├── .github/
+│   └── workflows/
+│       └── pages.yml          # GitHub Actions deployment
+├── CNAME                      # Custom domain configuration
+└── *.md                       # Content pages
+```
+
+### Key Files
+
+- **`_config.yml`**: Main configuration, navigation, SEO settings
+- **`_sass/custom/custom.scss`**: All custom styling and SWH branding
+- **`_includes/components/footer.html`**: Custom footer with SWH links
+- **`_layouts/post.html`**: Custom layout for individual news posts
+- **`.github/workflows/pages.yml`**: Automated deployment workflow
+
+## Local Development
+
+### Prerequisites
+
+- Ruby 3.1+
+- Bundler gem
+- Git
+
+### Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/swhid/swhid.github.io.git
+   cd swhid.github.io
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   bundle install
+   ```
+
+3. **Build and serve locally:**
+   ```bash
+   bundle exec jekyll serve --port 4001
+   ```
+
+4. **Access the site:**
+   Open http://127.0.0.1:4001 in your browser
+
+### Important: Clean Build
+
+**Always clean before building to avoid conflicts:**
+
+```bash
+bundle exec jekyll clean
+bundle exec jekyll build
+bundle exec jekyll serve --port 4001
+```
+
+This prevents issues with stale files in `_site/` that can cause:
+- Conflicting HTML files
+- Missing assets
+- Incorrect navigation
+- Styling issues
+
+### Development Workflow
+
+1. Make changes to content or styling
+2. **Always run `bundle exec jekyll clean` first**
+3. Test with `bundle exec jekyll serve`
+4. Verify changes in browser
+5. Commit and push changes
+
+## Customization Guide
+
+### 1. Colors and Branding
+
+All SWH branding colors are defined in `_sass/custom/custom.scss`:
+
+```scss
+:root {
+  --swh-red: #e20026;           // Primary SWH red
+  --swh-orange: #ef4426;        // SWH orange
+  --swh-light-orange: #f79622;  // Light orange
+  --swh-yellow: #fabf1f;        // SWH yellow
+  --swh-grey: #737373;          // SWH grey
+}
+```
+
+**To change colors:**
+1. Edit the CSS variables in `_sass/custom/custom.scss`
+2. Run `bundle exec jekyll clean && bundle exec jekyll serve`
+3. Test the changes
+
+### 2. Typography and Fonts
+
+Fonts are controlled by the Just the Docs theme. To customize:
+
+1. **Override font families in `_sass/custom/custom.scss`:**
+   ```scss
+   body {
+     font-family: 'Your Custom Font', sans-serif;
+   }
+   ```
+
+2. **Add custom fonts via `_includes/head_custom.html`:**
+   ```html
+   <link href="https://fonts.googleapis.com/css2?family=YourFont:wght@400;600;700&display=swap" rel="stylesheet">
+   ```
+
+### 3. Layout Modifications
+
+#### Header
+- **Site title**: Edit `title` in `_config.yml`
+- **Navigation**: Modify `navigation` section in `_config.yml`
+- **External links**: Update `nav_external_links` in `_config.yml`
+
+#### Footer
+- **Content**: Edit `_includes/components/footer.html`
+- **Styling**: Modify `.site-footer` styles in `_sass/custom/custom.scss`
+
+#### Sidebar
+- **Navigation**: Update `_data/navigation.yml`
+- **Footer**: Edit `_includes/nav_footer_custom.html` (currently empty)
+
+### 4. Page Layouts
+
+#### Standard Pages
+Use Markdown files in the root directory with front matter:
+```yaml
+---
+layout: default
+title: "Page Title"
+nav_exclude: false  # Set to true to hide from sidebar
+---
+```
+
+#### News Posts
+Use the custom `post` layout:
+```yaml
+---
+layout: post
+title: "News Title"
+date: 2025-01-15
+---
+```
+
+### 5. Styling Components
+
+#### Buttons
+```scss
+.btn {
+  background-color: var(--swh-red);
+  color: white;
+  // ... other styles
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--swh-red);
+  border-color: var(--swh-red);
+}
+```
+
+#### News Entries
+```scss
+.news-entry {
+  border: 1px solid var(--swh-grey);
+  // ... hover effects and styling
+}
+```
+
+#### SWH Banner
+```scss
+.swhid-banner {
+  background-color: var(--swh-red);
+  color: white;
+  // ... styling for the ISO standard banner
+}
+```
+
+## Content Management
+
+### Adding News Posts
+
+1. **Create a new file in `_posts/`:**
+   ```bash
+   touch _posts/YYYY-MM-DD-post-title.md
+   ```
+
+2. **Add front matter and content:**
+   ```yaml
+   ---
+   layout: post
+   title: "Your News Title"
+   date: 2025-01-15
+   ---
+   
+   Your news content here...
+   ```
+
+3. **The post will automatically appear on the news page**
+
+### Adding Publications
+
+1. **Edit `publications.md`:**
+   ```markdown
+   # Publications
+   
+   ## 2025
+   - **Title**: Your Publication Title
+     **Authors**: Author Names
+     **Journal**: Journal Name
+     **Link**: [DOI Link](https://doi.org/...)
+   ```
+
+### Managing Pages
+
+#### Core Team
+- Edit `coreteam.md`
+- Add team member information
+
+#### FAQ
+- Edit `faq.md`
+- Add questions and answers
+
+#### Governance
+- Edit `governance.md`
+- Update governance information
+
+### Navigation Updates
+
+1. **Main navigation**: Edit `navigation` in `_config.yml`
+2. **Sidebar navigation**: Edit `_data/navigation.yml`
+3. **External links**: Update `nav_external_links` in `_config.yml`
+
+### SEO Configuration
+
+Edit `_config.yml` for:
+- Site description
+- Keywords
+- Social media links
+- Open Graph settings
+- Twitter card settings
+
+## Deployment
+
+### Automatic Deployment
+
+The site uses GitHub Actions for automatic deployment:
+
+1. **Push to master branch:**
+   ```bash
+   git add .
+   git commit -m "Your commit message"
+   git push origin master
+   ```
+
+2. **GitHub Actions will automatically:**
+   - Build the site
+   - Run HTML validation
+   - Deploy to GitHub Pages
+   - Make it available at www.swhid.org
+
+### Manual Deployment
+
+If you need to deploy manually:
+
+1. **Build the site:**
+   ```bash
+   bundle exec jekyll clean
+   bundle exec jekyll build
+   ```
+
+2. **Deploy to GitHub Pages:**
+   - Go to repository Settings → Pages
+   - Select "Deploy from a branch"
+   - Choose `master` branch
+   - Select `/ (root)` folder
+
+### Deployment Workflow
+
+The `.github/workflows/pages.yml` workflow:
+
+1. **Triggers on:**
+   - Push to `master` branch
+   - Manual workflow dispatch
+
+2. **Build process:**
+   - Checks out code
+   - Sets up Ruby 3.1
+   - Installs dependencies
+   - Builds with Jekyll
+   - Validates HTML
+   - Uploads artifacts
+
+3. **Deploy process:**
+   - Deploys to GitHub Pages
+   - Updates www.swhid.org
+
+### Custom Domain
+
+The site uses a custom domain configured via:
+- **`CNAME` file**: Contains `www.swhid.org`
+- **DNS settings**: Point to GitHub Pages
+- **GitHub Pages settings**: Custom domain enabled
+
+## Troubleshooting
+
+### Common Issues
+
+#### 1. Styling Not Applied
+**Problem**: Changes to SCSS not visible
+**Solution**: 
+```bash
+bundle exec jekyll clean
+bundle exec jekyll serve
+```
+
+#### 2. Navigation Issues
+**Problem**: Pages not appearing in navigation
+**Solution**: Check `_data/navigation.yml` and page front matter
+
+#### 3. Build Failures
+**Problem**: Jekyll build errors
+**Solution**: 
+- Check for syntax errors in Markdown
+- Verify front matter format
+- Run `bundle exec jekyll clean`
+
+#### 4. External Links Not Opening in New Tab
+**Problem**: Links open in same window
+**Solution**: 
+- Use `nav_external_links` in `_config.yml`
+- Set `opens_in_new_tab: true`
+
+#### 5. Search Not Working
+**Problem**: Search returns no results
+**Solution**: 
+- Ensure `search_enabled: true` in `_config.yml`
+- Check for conflicting search files
+- Run `bundle exec jekyll clean`
+
+### Debug Commands
+
+```bash
+# Clean and rebuild
+bundle exec jekyll clean && bundle exec jekyll build
+
+# Serve with verbose output
+bundle exec jekyll serve --verbose
+
+# Check for errors
+bundle exec jekyll build --trace
+
+# Validate HTML
+htmlproofer _site --disable-external
+```
+
+### File Conflicts
+
+If you see conflicts like:
+```
+Conflict: The following destination is shared by multiple files.
+          /path/to/file.html
+           - file1.md
+           - file2.html
+```
+
+**Solution**: Delete conflicting HTML files and use Markdown only.
+
+### Port Already in Use
+
+If you get "Address already in use":
+```bash
+# Kill existing Jekyll processes
+pkill -f jekyll
+
+# Or use a different port
+bundle exec jekyll serve --port 4002
+```
+
+## Best Practices
+
+### Development
+1. **Always clean before building**
+2. **Test locally before pushing**
+3. **Use meaningful commit messages**
+4. **Keep SCSS organized and commented**
+
+### Content
+1. **Use consistent front matter**
+2. **Test all links before publishing**
+3. **Optimize images for web**
+4. **Use semantic HTML structure**
+
+### Deployment
+1. **Test on staging before production**
+2. **Monitor GitHub Actions logs**
+3. **Keep dependencies updated**
+4. **Backup important content**
+
+## Support
+
+For issues with:
+- **Jekyll**: [Jekyll Documentation](https://jekyllrb.com/docs/)
+- **Just the Docs**: [Theme Documentation](https://just-the-docs.github.io/just-the-docs/)
+- **GitHub Pages**: [GitHub Pages Documentation](https://docs.github.com/en/pages)
+- **SWHID Website**: Create an issue in the repository
+
+---
+
+*Last updated: January 2025*
