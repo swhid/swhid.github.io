@@ -40,6 +40,7 @@ bundle exec jekyll build
 if command -v npx >/dev/null 2>&1; then
   echo "Generating Pagefind search index..."
   npx pagefind --site _site
+  echo "Pagefind index generated in _site/pagefind/"
 else
   echo "Warning: npx not found, skipping Pagefind index generation"
   echo "Install Node.js to enable search functionality"
