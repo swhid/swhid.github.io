@@ -1,0 +1,22 @@
+<!-- Unified search via Pagefind -->
+<link rel="stylesheet" href="/pagefind/pagefind.css">
+<script defer src="/pagefind/pagefind.js"></script>
+<script>
+  // Inject a lightweight global search trigger without overriding JTD header
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.setAttribute('aria-label','Search the site');
+    btn.textContent = 'Search';
+    btn.style.position='fixed'; btn.style.right='1rem'; btn.style.bottom='1rem'; btn.style.zIndex='9999';
+    btn.addEventListener('click', async () => {
+      if (!document.getElementById('pagefind-ui')) {
+        const wrap = document.createElement('div'); wrap.id='pagefind-ui';
+        document.body.appendChild(wrap);
+        await new PagefindUI({ element: '#pagefind-ui', showSubResults: true });
+      }
+      document.querySelector('#pagefind-ui input')?.focus();
+    });
+    document.body.appendChild(btn);
+  });
+</script>

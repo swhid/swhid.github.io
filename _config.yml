@@ -152,18 +152,13 @@ sitemap:
 
 # Performance optimizations (GitHub Pages compatible)
 
-# Content aggregation configuration
-aggregation:
-  enabled: true
-  sources:
-    - name: specification
-      repo: swhid/specification
-      ref: integration/unified-ux
-      target_dir: specification
-    - name: governance
-      repo: swhid/governance
-      ref: integration/unified-ux
-      target_dir: governance
+# Unified UX configuration
+search_enabled: false   # Use Pagefind for unified search across Jekyll + MkDocs
+
+# Jekyll should preserve aggregated MkDocs outputs and ignore temp workspace
+keep_files:
+  - specification
+  - governance
 
 # Exclude from processing
 exclude:
@@ -175,6 +170,7 @@ exclude:
   - .sass-cache/
   - .jekyll-cache/
   - .jekyll-metadata
+  - .ext
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

@@ -1,19 +1,17 @@
-name: Deploy Jekyll site to Pages
+name: Deploy Jekyll site to Pages (integrated)
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["master"]   # 👉 change to ["main"] if your repo uses main
-  # Allows you to run this workflow manually from the Actions tab
+    branches: ["integration/unified-ux","master","main"]
+  pull_request:
+    branches: ["integration/unified-ux","master","main"]
   workflow_dispatch:
 
-# Minimal permissions for GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -22,10 +20,72 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout website
+        uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      # Read pinned refs from sources.lock.yml
+      - name: Extract pins
+        id: pins
+        run: |
+          SPEC_REF=$(ruby -ryaml -e 'p YAML.load_file("sources.lock.yml").dig("spec","ref")')
+          GOV_REF=$(ruby -ryaml -e 'p YAML.load_file("sources.lock.yml").dig("gov","ref")')
+          DSN_REF=$(ruby -ryaml -e 'p YAML.load_file("sources.lock.yml").dig("design","ref")')
+          echo "spec_ref=$SPEC_REF" >> $GITHUB_OUTPUT
+          echo "gov_ref=$GOV_REF"   >> $GITHUB_OUTPUT
+          echo "dsn_ref=$DSN_REF"   >> $GITHUB_OUTPUT
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with: { python-version: '3.11', cache: 'pip' }
+
+      - name: Install MkDocs toolchain
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs mkdocs-material
+
+      - name: Checkout specification
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          repository: swhid/specification
+          ref: ${{ steps.pins.outputs.spec_ref }}
+          path: .ext/spec
+
+      - name: Checkout governance
+        uses: actions/checkout@v4
+        with:
+          repository: swhid/governance
+          ref: ${{ steps.pins.outputs.gov_ref }}
+          path: .ext/gov
+
+      - name: Checkout swhid-design
+        uses: actions/checkout@v4
+        with:
+          repository: swhid/swhid-design
+          ref: ${{ steps.pins.outputs.dsn_ref }}
+          path: .ext/design
+
+      - name: Stage design assets into docs
+        run: |
+          mkdir -p .ext/spec/docs/assets/design .ext/gov/docs/assets/design
+          cp assets/design/tokens.css      .ext/spec/docs/assets/design/
+          cp assets/design/swhid-brand.css .ext/spec/docs/assets/design/
+          cp assets/design/tokens.css      .ext/gov/docs/assets/design/
+          cp assets/design/swhid-brand.css .ext/gov/docs/assets/design/
+
+      - name: Build specification (temp)
+        run: (cd .ext/spec && mkdocs build -d ../../.tmp_spec)
+      - name: Promote specification
+        run: |
+          test -d .tmp_spec
+          rm -rf specification && mv .tmp_spec specification
+
+      - name: Build governance (temp)
+        run: (cd .ext/gov && mkdocs build -d ../../.tmp_gov)
+      - name: Promote governance
+        run: |
+          test -d .tmp_gov
+          rm -rf governance && mv .tmp_gov governance
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -45,36 +105,29 @@ jobs:
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
+        with: { source: ./, destination: ./_site }
 
       - name: Verify build output
         run: test -d ./_site && ls -lah ./_site
 
+      # Unified search index (Pagefind)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Build Pagefind index
+        run: npx pagefind --site _site
+
       - name: Install html-proofer
         run: gem install html-proofer
-
       - name: Check site with html-proofer (warn only)
         run: |
           echo "Running html-proofer (warnings will not block deploy)…"
           set +e
-          htmlproofer ./_site \
-            --disable-external \
-            --allow-missing-href \
-            --assume-extension \
-            --check-html \
-            > htmlproofer.log 2>&1
-          EXIT_CODE=$?
-          cat htmlproofer.log
-          echo "html-proofer exit code: $EXIT_CODE (ignored for deployment)"
-          exit 0
-
+          htmlproofer ./_site --disable-external --allow-missing-href --assume-extension --check-html > htmlproofer.log 2>&1
+          EXIT_CODE=$?; cat htmlproofer.log; echo "html-proofer exit code: $EXIT_CODE (ignored for deployment)"; exit 0
       - name: Upload html-proofer log
         uses: actions/upload-artifact@v4
-        with:
-          name: htmlproofer-report
-          path: htmlproofer.log
+        with: { name: htmlproofer-report, path: htmlproofer.log }
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
