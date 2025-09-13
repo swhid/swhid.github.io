@@ -31,4 +31,18 @@ mv .tmp_spec specification
 mv .tmp_gov  governance
 
 echo "MkDocs outputs ready under ./specification and ./governance"
-echo "Now run: bundle install && bundle exec jekyll serve --livereload"
+
+# Build Jekyll (aggregated content will be preserved)
+bundle install
+bundle exec jekyll build
+
+# Generate Pagefind search index
+if command -v npx >/dev/null 2>&1; then
+  echo "Generating Pagefind search index..."
+  npx pagefind --site _site
+else
+  echo "Warning: npx not found, skipping Pagefind index generation"
+  echo "Install Node.js to enable search functionality"
+fi
+
+echo "Build complete! Run: bundle exec jekyll serve --livereload"

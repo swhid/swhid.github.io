@@ -31,11 +31,6 @@ sass:
     - global-builtin
     - slash-div
 
-# Enable or disable the site search
-# Supports true (default) or false
-search_enabled: true
-
-
 # email: your-email@example.com
 # description: >- # this means to ignore newlines until "baseurl:"
 #  Write an awesome description for your new site here. You can edit this
@@ -90,20 +85,8 @@ timezone: "UTC"
 markdown: kramdown
 theme: just-the-docs
 
-# Just the Docs theme configuration
-search_enabled: true
-search:
-  # Split pages into sections when indexing
-  heading_level: 2
-  # Maximum number of search results per page
-  previews: 3
-  # Maximum number of preview characters per search result
-  preview_words_before: 5
-  preview_words_after: 10
-  # Search tokenizer
-  tokenizer_separator: /[\s/]+/
-  # Boost title and headings
-  boost_priority: true
+# Unified UX configuration
+search_enabled: false   # Use Pagefind for unified search across Jekyll + MkDocs
 
 # Main navigation
 nav_external_links:
@@ -114,10 +97,8 @@ nav_external_links:
     url: "https://www.softwareheritage.org/"
     opens_in_new_tab: true
 
-# Auxiliary links (removed - using nav_external_links instead)
-
 # Main navigation
-navigation:
+nav:
   - title: "Home"
     url: /
   - title: "Specification"
@@ -132,6 +113,8 @@ navigation:
     url: /governance/
   - title: "Core Team"
     url: /coreteam/
+  - title: "Search"
+    url: "#"
 
 
 plugins:
@@ -152,13 +135,11 @@ sitemap:
 
 # Performance optimizations (GitHub Pages compatible)
 
-# Unified UX configuration
-search_enabled: false   # Use Pagefind for unified search across Jekyll + MkDocs
-
 # Jekyll should preserve aggregated MkDocs outputs and ignore temp workspace
 keep_files:
   - specification
   - governance
+  - pagefind
 
 # Exclude from processing
 exclude:

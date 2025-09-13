@@ -13,3 +13,6 @@ main:
     url: /governance/
   - title: "Core Team"
     url: /coreteam/
+  - title: "Search"
+    url: "#"
+    search: true
