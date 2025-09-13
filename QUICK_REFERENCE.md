@@ -45,6 +45,10 @@ git push origin master
 - **Navigation**: `_data/navigation.yml`
 - **Custom styles**: `_sass/custom/custom.scss`
 - **Custom footer**: `_includes/components/footer.html`
+- **Custom header**: `_includes/components/header.html`
+- **Design system**: `assets/design/tokens.css`, `assets/design/swhid-brand.css`
+- **Content aggregation**: `_plugins/aggregator.rb`
+- **Build config**: `sources.lock.yml`
 - **Deployment**: `.github/workflows/pages.yml`
 
 ## Common Tasks
@@ -63,7 +67,9 @@ git push origin master
 4. Clean, build, test, commit, push
 
 ### Change Colors
-1. Edit `_sass/custom/custom.scss`
+
+#### Global (affects all SWHID sites)
+1. Edit `assets/design/tokens.css`
 2. Modify CSS variables:
    ```scss
    :root {
@@ -72,6 +78,11 @@ git push origin master
      // ... other colors
    }
    ```
+3. Clean, build, test
+
+#### Site-specific override
+1. Edit `_sass/custom/custom.scss`
+2. Override CSS variables
 3. Clean, build, test
 
 ### Update Navigation
@@ -90,6 +101,25 @@ git push origin master
    ```
 3. Add to navigation in `_config.yml`
 4. Clean, build, test
+
+### Configure Content Aggregation
+1. Edit `_config.yml`
+2. Update aggregation section:
+   ```yaml
+   aggregation:
+     enabled: true
+     sources:
+       - name: specification
+         repo: swhid/specification
+         ref: integration/unified-ux
+         target_dir: specification
+   ```
+3. Clean, build, test
+
+### Disable Content Aggregation
+1. Edit `_config.yml`
+2. Set `enabled: false` in aggregation section
+3. Clean, build, test
 
 ### Fix Styling Issues
 1. **Always run**: `bundle exec jekyll clean`
@@ -128,6 +158,36 @@ bundle exec jekyll build --trace
 1. Check `search_enabled: true` in `_config.yml`
 2. Run `bundle exec jekyll clean`
 3. Rebuild and test
+
+### Design System Not Loading
+1. Check `assets/design/tokens.css` and `assets/design/swhid-brand.css` exist
+2. Verify CSS import paths in `_sass/custom/custom.scss`
+3. Run `bundle exec jekyll clean`
+4. Rebuild and test
+
+### Content Aggregation Issues
+1. Check aggregation config in `_config.yml`
+2. Verify repository access and branch names
+3. Ensure `enabled: true` in aggregation settings
+4. Run `bundle exec jekyll clean`
+5. Rebuild and test
+
+## Design System Files
+
+### Design Tokens (`assets/design/tokens.css`)
+- CSS custom properties for colors, typography, spacing
+- Shared across all SWHID sites
+- Primary source for design consistency
+
+### SWH Branding (`assets/design/swhid-brand.css`)
+- SWH-specific branding styles
+- Components and utilities
+- Consistent with design tokens
+
+### Site-Specific Overrides (`_sass/custom/custom.scss`)
+- Site-specific styling
+- Can override design system variables
+- Imports design system files
 
 ## Color Reference
 
@@ -186,6 +246,31 @@ title: "Hidden Page"
 nav_exclude: true
 ---
 ```
+
+## Content Aggregation
+
+### Configuration (`_config.yml`)
+```yaml
+aggregation:
+  enabled: true
+  sources:
+    - name: specification
+      repo: swhid/specification
+      ref: integration/unified-ux
+      target_dir: specification
+    - name: governance
+      repo: swhid/governance
+      ref: integration/unified-ux
+      target_dir: governance
+```
+
+### Adding New Sources
+1. Add to `sources` array in `_config.yml`
+2. Ensure repository is accessible
+3. Test with clean build
+
+### Disabling Aggregation
+Set `enabled: false` in aggregation config
 
 ## GitHub Actions
 

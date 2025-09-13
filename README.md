@@ -28,12 +28,15 @@ The SWHID.org website is built using:
 - **GitHub Actions** - Automated deployment
 
 The site features:
-- Responsive design with SWH branding
+- Responsive design with unified SWH branding
 - Advanced search functionality
 - News and publications management
 - Custom footer with SWH links
 - SEO optimization
 - Custom domain (www.swhid.org)
+- **Unified UX system** with shared design tokens
+- **Content aggregation** from external repositories
+- **Consistent branding** across all SWHID sites
 
 ## Architecture
 
@@ -46,29 +49,86 @@ swhid.github.io/
 │   └── navigation.yml          # Navigation structure
 ├── _includes/
 │   ├── components/
-│   │   └── footer.html         # Custom footer component
+│   │   ├── footer.html         # Custom footer component
+│   │   └── header.html         # Unified header component
 │   └── nav_footer_custom.html  # Empty sidebar footer override
 ├── _layouts/
 │   └── post.html              # Custom layout for news posts
+├── _plugins/
+│   └── aggregator.rb          # Content aggregation plugin
 ├── _posts/                    # News posts (Jekyll collections)
 ├── _sass/
 │   └── custom/
 │       └── custom.scss        # Custom SCSS overrides
-├── assets/                    # Static assets
+├── assets/
+│   └── design/                # Shared design system
+│       ├── tokens.css         # CSS design tokens
+│       └── swhid-brand.css    # SWH branding styles
 ├── .github/
 │   └── workflows/
 │       └── pages.yml          # GitHub Actions deployment
 ├── CNAME                      # Custom domain configuration
+├── sources.lock.yml           # Deterministic build configuration
 └── *.md                       # Content pages
 ```
 
 ### Key Files
 
-- **`_config.yml`**: Main configuration, navigation, SEO settings
+- **`_config.yml`**: Main configuration, navigation, SEO settings, content aggregation
 - **`_sass/custom/custom.scss`**: All custom styling and SWH branding
 - **`_includes/components/footer.html`**: Custom footer with SWH links
+- **`_includes/components/header.html`**: Unified header component
 - **`_layouts/post.html`**: Custom layout for individual news posts
+- **`_plugins/aggregator.rb`**: Content aggregation plugin for external repos
+- **`assets/design/tokens.css`**: CSS design tokens for consistent styling
+- **`assets/design/swhid-brand.css`**: SWH branding styles
+- **`sources.lock.yml`**: Deterministic build configuration
 - **`.github/workflows/pages.yml`**: Automated deployment workflow
+
+## Unified UX System
+
+The SWHID website now implements a unified user experience system that provides consistent branding and design across all SWHID-related sites.
+
+### Design System
+
+The unified UX is built on a shared design system located in `assets/design/`:
+
+- **`tokens.css`**: CSS custom properties (variables) for colors, typography, and spacing
+- **`swhid-brand.css`**: SWH-specific branding styles and components
+
+### Content Aggregation
+
+The site can aggregate content from external repositories:
+
+- **Specification**: Content from `swhid/specification` repository
+- **Governance**: Content from `swhid/governance` repository
+- **Build-time integration**: External content is fetched and integrated during build
+- **Consistent styling**: Aggregated content uses the same design system
+
+### Configuration
+
+Content aggregation is configured in `_config.yml`:
+
+```yaml
+aggregation:
+  enabled: true
+  sources:
+    - name: specification
+      repo: swhid/specification
+      ref: integration/unified-ux
+      target_dir: specification
+    - name: governance
+      repo: swhid/governance
+      ref: integration/unified-ux
+      target_dir: governance
+```
+
+### Benefits
+
+- **Consistent branding**: All SWHID sites share the same visual identity
+- **Maintainable design**: Changes to design tokens propagate across all sites
+- **Unified navigation**: Seamless navigation between different SWHID resources
+- **Single deployment**: One site serves all SWHID content with consistent UX
 
 ## Local Development
 
@@ -127,7 +187,10 @@ This prevents issues with stale files in `_site/` that can cause:
 
 ### 1. Colors and Branding
 
-All SWH branding colors are defined in `_sass/custom/custom.scss`:
+SWH branding colors are defined in the design system for consistency across all sites:
+
+**Primary location**: `assets/design/tokens.css` (design system)
+**Override location**: `_sass/custom/custom.scss` (site-specific)
 
 ```scss
 :root {
@@ -139,7 +202,12 @@ All SWH branding colors are defined in `_sass/custom/custom.scss`:
 }
 ```
 
-**To change colors:**
+**To change colors globally (affects all SWHID sites):**
+1. Edit `assets/design/tokens.css`
+2. Run `bundle exec jekyll clean && bundle exec jekyll serve`
+3. Test the changes
+
+**To override colors for this site only:**
 1. Edit the CSS variables in `_sass/custom/custom.scss`
 2. Run `bundle exec jekyll clean && bundle exec jekyll serve`
 3. Test the changes
@@ -280,6 +348,36 @@ date: 2025-01-15
 - Edit `governance.md`
 - Update governance information
 
+### Content Aggregation Management
+
+The site can aggregate content from external repositories:
+
+#### Configuration
+Edit `_config.yml` to configure aggregation:
+
+```yaml
+aggregation:
+  enabled: true  # Set to false to disable
+  sources:
+    - name: specification
+      repo: swhid/specification
+      ref: integration/unified-ux  # Branch or tag
+      target_dir: specification    # Target directory
+```
+
+#### Adding New Sources
+1. Add a new source to the `sources` array
+2. Ensure the repository is accessible
+3. Test with `bundle exec jekyll clean && bundle exec jekyll serve`
+
+#### Disabling Aggregation
+Set `enabled: false` in the aggregation configuration to disable content aggregation.
+
+#### Troubleshooting Aggregation
+- Check repository access and branch names
+- Verify target directories don't conflict with existing content
+- Run `bundle exec jekyll clean` after configuration changes
+
 ### Navigation Updates
 
 1. **Main navigation**: Edit `navigation` in `_config.yml`
@@ -391,6 +489,21 @@ bundle exec jekyll serve
 **Solution**: 
 - Ensure `search_enabled: true` in `_config.yml`
 - Check for conflicting search files
+- Run `bundle exec jekyll clean`
+
+#### 6. Design System Not Loading
+**Problem**: SWH colors and branding not applied
+**Solution**:
+- Check that `assets/design/tokens.css` and `assets/design/swhid-brand.css` exist
+- Verify CSS import paths in `_sass/custom/custom.scss`
+- Run `bundle exec jekyll clean && bundle exec jekyll serve`
+
+#### 7. Content Aggregation Issues
+**Problem**: External content not appearing
+**Solution**:
+- Check aggregation configuration in `_config.yml`
+- Verify repository access and branch names
+- Ensure `enabled: true` in aggregation settings
 - Run `bundle exec jekyll clean`
 
 ### Debug Commands
