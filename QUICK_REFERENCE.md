@@ -47,7 +47,7 @@ git push origin master
 - **Custom footer**: `_includes/components/footer.html`
 - **Custom header**: `_includes/components/header.html`
 - **Design system**: `assets/design/tokens.css`, `assets/design/swhid-brand.css`
-- **Content aggregation**: `_plugins/aggregator.rb`
+- **Content aggregation**: `scripts/bootstrap.sh`
 - **Build config**: `sources.lock.yml`
 - **Deployment**: `.github/workflows/pages.yml`
 
@@ -103,23 +103,30 @@ git push origin master
 4. Clean, build, test
 
 ### Configure Content Aggregation
-1. Edit `_config.yml`
-2. Update aggregation section:
+1. Edit `sources.lock.yml`
+2. Update repository references:
    ```yaml
-   aggregation:
-     enabled: true
-     sources:
-       - name: specification
-         repo: swhid/specification
-         ref: integration/unified-ux
-         target_dir: specification
+   spec:
+     repo: swhid/specification
+     ref: main
+   gov:
+     repo: swhid/governance
+     ref: main
+   design:
+     repo: swhid/swhid-design
+     ref: main
    ```
-3. Clean, build, test
+3. Run `./scripts/bootstrap.sh` to rebuild external content
+4. Clean, build, test
 
-### Disable Content Aggregation
-1. Edit `_config.yml`
-2. Set `enabled: false` in aggregation section
-3. Clean, build, test
+### Rebuild External Content
+1. Run `./scripts/bootstrap.sh`
+2. This will:
+   - Clone/update external repositories
+   - Install MkDocs dependencies
+   - Copy design system assets
+   - Build MkDocs sites
+   - Integrate content into Jekyll
 
 ### Fix Styling Issues
 1. **Always run**: `bundle exec jekyll clean`
@@ -155,9 +162,10 @@ bundle exec jekyll build --trace
 ```
 
 ### Search Not Working
-1. Check `search_enabled: true` in `_config.yml`
-2. Run `bundle exec jekyll clean`
-3. Rebuild and test
+1. Check `search_enabled: false` in `_config.yml` (JTD search disabled for Pagefind)
+2. Ensure Pagefind files exist in `_site/pagefind/`
+3. Run `npx pagefind --site _site` to regenerate search index
+4. Run `bundle exec jekyll clean` and rebuild
 
 ### Design System Not Loading
 1. Check `assets/design/tokens.css` and `assets/design/swhid-brand.css` exist
@@ -166,11 +174,11 @@ bundle exec jekyll build --trace
 4. Rebuild and test
 
 ### Content Aggregation Issues
-1. Check aggregation config in `_config.yml`
+1. Check `sources.lock.yml` configuration
 2. Verify repository access and branch names
-3. Ensure `enabled: true` in aggregation settings
-4. Run `bundle exec jekyll clean`
-5. Rebuild and test
+3. Run `./scripts/bootstrap.sh` to rebuild external content
+4. Ensure MkDocs is installed: `pip install mkdocs mkdocs-material`
+5. Run `bundle exec jekyll clean` and rebuild
 
 ## Design System Files
 
@@ -249,28 +257,48 @@ nav_exclude: true
 
 ## Content Aggregation
 
-### Configuration (`_config.yml`)
+### Configuration (`sources.lock.yml`)
 ```yaml
-aggregation:
-  enabled: true
-  sources:
-    - name: specification
-      repo: swhid/specification
-      ref: integration/unified-ux
-      target_dir: specification
-    - name: governance
-      repo: swhid/governance
-      ref: integration/unified-ux
-      target_dir: governance
+spec:
+  repo: swhid/specification
+  ref: main
+gov:
+  repo: swhid/governance
+  ref: main
+design:
+  repo: swhid/swhid-design
+  ref: main
 ```
 
 ### Adding New Sources
-1. Add to `sources` array in `_config.yml`
-2. Ensure repository is accessible
-3. Test with clean build
+1. Add to `sources.lock.yml`
+2. Update `scripts/bootstrap.sh` to handle new source
+3. Ensure repository is accessible
+4. Test with `./scripts/bootstrap.sh`
 
-### Disabling Aggregation
-Set `enabled: false` in aggregation config
+### Rebuilding External Content
+Run `./scripts/bootstrap.sh` to rebuild all external content
+
+## Search Implementation
+
+### Pagefind Search
+The site uses Pagefind for unified search across Jekyll and MkDocs content:
+
+#### Search Configuration
+- **Search input**: Located in top navigation bar (`_includes/components/header.html`)
+- **Search styling**: Defined in `_sass/custom/custom.scss`
+- **Search initialization**: `_includes/head_custom.html`
+
+#### Search Index Generation
+1. Jekyll builds site to `_site/`
+2. Run `npx pagefind --site _site` to generate search index
+3. Pagefind files served from `/pagefind/` (root level)
+
+#### Search Troubleshooting
+- Ensure `search_enabled: false` in `_config.yml` (JTD search disabled)
+- Check Pagefind files exist in `_site/pagefind/`
+- Regenerate index: `npx pagefind --site _site`
+- Clean and rebuild: `bundle exec jekyll clean && bundle exec jekyll build`
 
 ## GitHub Actions
 

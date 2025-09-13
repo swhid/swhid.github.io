@@ -29,13 +29,13 @@ The SWHID.org website is built using:
 
 The site features:
 - Responsive design with unified SWH branding
-- Advanced search functionality
+- **Pagefind search functionality** - unified search across Jekyll and MkDocs content
 - News and publications management
 - Custom footer with SWH links
 - SEO optimization
 - Custom domain (www.swhid.org)
 - **Unified UX system** with shared design tokens
-- **Content aggregation** from external repositories
+- **Content aggregation** from external repositories via bootstrap script
 - **Consistent branding** across all SWHID sites
 
 ## Architecture
@@ -54,8 +54,6 @@ swhid.github.io/
 │   └── nav_footer_custom.html  # Empty sidebar footer override
 ├── _layouts/
 │   └── post.html              # Custom layout for news posts
-├── _plugins/
-│   └── aggregator.rb          # Content aggregation plugin
 ├── _posts/                    # News posts (Jekyll collections)
 ├── _sass/
 │   └── custom/
@@ -74,12 +72,11 @@ swhid.github.io/
 
 ### Key Files
 
-- **`_config.yml`**: Main configuration, navigation, SEO settings, content aggregation
+- **`_config.yml`**: Main configuration, navigation, SEO settings
 - **`_sass/custom/custom.scss`**: All custom styling and SWH branding
 - **`_includes/components/footer.html`**: Custom footer with SWH links
 - **`_includes/components/header.html`**: Unified header component
 - **`_layouts/post.html`**: Custom layout for individual news posts
-- **`_plugins/aggregator.rb`**: Content aggregation plugin for external repos
 - **`assets/design/tokens.css`**: CSS design tokens for consistent styling
 - **`assets/design/swhid-brand.css`**: SWH branding styles
 - **`sources.lock.yml`**: Deterministic build configuration
@@ -98,30 +95,36 @@ The unified UX is built on a shared design system located in `assets/design/`:
 
 ### Content Aggregation
 
-The site can aggregate content from external repositories:
+The site aggregates content from external repositories using a bootstrap script:
 
 - **Specification**: Content from `swhid/specification` repository
 - **Governance**: Content from `swhid/governance` repository
-- **Build-time integration**: External content is fetched and integrated during build
+- **Build-time integration**: External content is fetched and integrated during build via `scripts/bootstrap.sh`
 - **Consistent styling**: Aggregated content uses the same design system
+- **MkDocs integration**: External repos are built with MkDocs and integrated into Jekyll
 
 ### Configuration
 
-Content aggregation is configured in `_config.yml`:
+Content aggregation is configured in `sources.lock.yml`:
 
 ```yaml
-aggregation:
-  enabled: true
-  sources:
-    - name: specification
-      repo: swhid/specification
-      ref: integration/unified-ux
-      target_dir: specification
-    - name: governance
-      repo: swhid/governance
-      ref: integration/unified-ux
-      target_dir: governance
+spec:
+  repo: swhid/specification
+  ref: main
+gov:
+  repo: swhid/governance
+  ref: main
+design:
+  repo: swhid/swhid-design
+  ref: main
 ```
+
+The bootstrap script (`scripts/bootstrap.sh`) handles:
+- Cloning external repositories
+- Installing MkDocs and dependencies
+- Copying design system assets
+- Building MkDocs sites
+- Integrating content into Jekyll
 
 ### Benefits
 
@@ -265,7 +268,46 @@ date: 2025-01-15
 ---
 ```
 
-### 5. Styling Components
+### 5. Search Implementation
+
+The site uses Pagefind for unified search across Jekyll and MkDocs content:
+
+#### Pagefind Configuration
+Search is configured in `_includes/head_custom.html`:
+
+```html
+<!-- Unified search via Pagefind -->
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css">
+<script src="/pagefind/pagefind.js"></script>
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const mount = document.querySelector('.search-form');
+  if (!mount) return;
+
+  await new PagefindUI({
+    element: mount,
+    showSubResults: true,
+    bundlePath: "/pagefind/",
+    baseUrl: "/"
+  });
+});
+</script>
+```
+
+#### Search Styling
+Search input and results are styled in `_sass/custom/custom.scss`:
+- Search input appears in the top navigation bar
+- Results appear as a fixed overlay below the top bar
+- Consistent with SWH branding colors
+
+#### Search Index Generation
+The search index is generated during build:
+1. Jekyll builds the site to `_site/`
+2. `npx pagefind --site _site` generates the search index
+3. Pagefind files are served from `/pagefind/` (root level)
+
+### 6. Styling Components
 
 #### Buttons
 ```scss
@@ -350,32 +392,41 @@ date: 2025-01-15
 
 ### Content Aggregation Management
 
-The site can aggregate content from external repositories:
+The site aggregates content from external repositories using the bootstrap script:
 
 #### Configuration
-Edit `_config.yml` to configure aggregation:
+Edit `sources.lock.yml` to configure aggregation:
 
 ```yaml
-aggregation:
-  enabled: true  # Set to false to disable
-  sources:
-    - name: specification
-      repo: swhid/specification
-      ref: integration/unified-ux  # Branch or tag
-      target_dir: specification    # Target directory
+spec:
+  repo: swhid/specification
+  ref: main  # Branch or tag
+gov:
+  repo: swhid/governance
+  ref: main
+design:
+  repo: swhid/swhid-design
+  ref: main
 ```
 
 #### Adding New Sources
-1. Add a new source to the `sources` array
-2. Ensure the repository is accessible
-3. Test with `bundle exec jekyll clean && bundle exec jekyll serve`
+1. Add a new source to `sources.lock.yml`
+2. Update `scripts/bootstrap.sh` to handle the new source
+3. Ensure the repository is accessible
+4. Test with `./scripts/bootstrap.sh && bundle exec jekyll serve`
 
-#### Disabling Aggregation
-Set `enabled: false` in the aggregation configuration to disable content aggregation.
+#### Rebuilding Aggregated Content
+Run `./scripts/bootstrap.sh` to rebuild all external content:
+- Clones/updates external repositories
+- Installs MkDocs dependencies
+- Copies design system assets
+- Builds MkDocs sites
+- Integrates content into Jekyll
 
 #### Troubleshooting Aggregation
-- Check repository access and branch names
-- Verify target directories don't conflict with existing content
+- Check repository access and branch names in `sources.lock.yml`
+- Verify MkDocs is installed: `pip install mkdocs mkdocs-material`
+- Run `./scripts/bootstrap.sh` to rebuild external content
 - Run `bundle exec jekyll clean` after configuration changes
 
 ### Navigation Updates
@@ -485,11 +536,12 @@ bundle exec jekyll serve
 - Set `opens_in_new_tab: true`
 
 #### 5. Search Not Working
-**Problem**: Search returns no results
+**Problem**: Pagefind search returns no results
 **Solution**: 
-- Ensure `search_enabled: true` in `_config.yml`
-- Check for conflicting search files
-- Run `bundle exec jekyll clean`
+- Ensure `search_enabled: false` in `_config.yml` (JTD search disabled for Pagefind)
+- Check that Pagefind files exist in `_site/pagefind/`
+- Run `npx pagefind --site _site` to regenerate search index
+- Run `bundle exec jekyll clean` and rebuild
 
 #### 6. Design System Not Loading
 **Problem**: SWH colors and branding not applied
@@ -501,10 +553,11 @@ bundle exec jekyll serve
 #### 7. Content Aggregation Issues
 **Problem**: External content not appearing
 **Solution**:
-- Check aggregation configuration in `_config.yml`
+- Check `sources.lock.yml` configuration
 - Verify repository access and branch names
-- Ensure `enabled: true` in aggregation settings
-- Run `bundle exec jekyll clean`
+- Run `./scripts/bootstrap.sh` to rebuild external content
+- Ensure MkDocs is installed: `pip install mkdocs mkdocs-material`
+- Run `bundle exec jekyll clean` and rebuild
 
 ### Debug Commands
 
