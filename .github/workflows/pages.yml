@@ -2,9 +2,9 @@ name: Deploy Jekyll site to Pages (integrated)
 
 on:
   push:
-    branches: ["integration/unified-ux","master","main"]
+    branches: ["integration/unified-ux","master","main","rewrite"]
   pull_request:
-    branches: ["integration/unified-ux","master","main"]
+    branches: ["integration/unified-ux","master","main","rewrite"]
   workflow_dispatch:
 
 permissions:
@@ -68,10 +68,10 @@ jobs:
       - name: Stage design assets into docs
         run: |
           mkdir -p .ext/spec/docs/assets/design .ext/gov/docs/assets/design
-          cp assets/design/tokens.css      .ext/spec/docs/assets/design/
-          cp assets/design/swhid-brand.css .ext/spec/docs/assets/design/
-          cp assets/design/tokens.css      .ext/gov/docs/assets/design/
-          cp assets/design/swhid-brand.css .ext/gov/docs/assets/design/
+          cp .ext/design/css/tokens.css      .ext/spec/docs/assets/design/
+          cp .ext/design/css/swhid-brand.css .ext/spec/docs/assets/design/
+          cp .ext/design/css/tokens.css      .ext/gov/docs/assets/design/
+          cp .ext/design/css/swhid-brand.css .ext/gov/docs/assets/design/
 
       - name: Build specification (temp)
         run: (cd .ext/spec && mkdocs build -d ../../.tmp_spec)
@@ -116,6 +116,13 @@ jobs:
         with: { node-version: '20' }
       - name: Build Pagefind index
         run: npx pagefind --site _site
+      - name: Verify Pagefind files
+        run: |
+          echo "Checking Pagefind files..."
+          ls -la _site/pagefind/ || echo "Pagefind directory not found"
+          test -f _site/pagefind/pagefind.js || echo "pagefind.js not found"
+          test -f _site/pagefind/pagefind-ui.js || echo "pagefind-ui.js not found"
+          test -f _site/pagefind/pagefind-ui.css || echo "pagefind-ui.css not found"
 
       - name: Install html-proofer
         run: gem install html-proofer
