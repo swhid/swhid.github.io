@@ -1,13 +1,8 @@
 /* SWH branding overrides for Just the Docs theme */
 
-/* SWH Color Variables */
-:root {
-  --swh-red: #e20026;
-  --swh-orange: #ef4426;
-  --swh-light-orange: #f79622;
-  --swh-yellow: #fabf1f;
-  --swh-grey: #737373;
-}
+/* Import design system */
+@import "../../assets/design/tokens.css";
+@import "../../assets/design/swhid-brand.css";
 
 /* Full-width, page-level footer */
 .site-footer {

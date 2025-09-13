@@ -1,0 +1,14 @@
+# Sources lockfile for deterministic builds
+# This file pins external content refs during production builds
+
+spec:
+  repo: swhid/specification
+  ref: integration/unified-ux
+
+gov:
+  repo: swhid/governance
+  ref: integration/unified-ux
+
+design:
+  repo: swhid/swhid-design
+  ref: integration/unified-ux

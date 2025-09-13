@@ -152,6 +152,19 @@ sitemap:
 
 # Performance optimizations (GitHub Pages compatible)
 
+# Content aggregation configuration
+aggregation:
+  enabled: true
+  sources:
+    - name: specification
+      repo: swhid/specification
+      ref: integration/unified-ux
+      target_dir: specification
+    - name: governance
+      repo: swhid/governance
+      ref: integration/unified-ux
+      target_dir: governance
+
 # Exclude from processing
 exclude:
   - Gemfile

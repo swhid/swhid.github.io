@@ -1,0 +1,33 @@
+:root {
+  /* SWH Brand Colors */
+  --swh-red: #e20026;
+  --swh-orange: #ef4426;
+  --swh-light-orange: #f79622;
+  --swh-yellow: #fabf1f;
+  --swh-grey: #737373;
+
+  /* Brand Semantic Colors */
+  --brand-primary: var(--swh-red);
+  --brand-accent: var(--swh-orange);
+  --brand-muted: var(--swh-grey);
+
+  /* Text and Background */
+  --text-color: #1f2937;
+  --bg-color: #fff;
+  --border-color: #e6e6e6;
+
+  /* Layout */
+  --content-max: 1120px;
+  --radius-lg: 12px;
+
+  /* Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
