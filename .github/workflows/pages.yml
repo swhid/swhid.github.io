@@ -2,9 +2,9 @@ name: Deploy Jekyll site to Pages (integrated)
 
 on:
   push:
-    branches: ["integration/unified-ux","master","main","rewrite"]
+    branches: ["integration/unified-ux","master","main"]
   pull_request:
-    branches: ["integration/unified-ux","master","main","rewrite"]
+    branches: ["integration/unified-ux","master","main"]
   workflow_dispatch:
 
 permissions:
