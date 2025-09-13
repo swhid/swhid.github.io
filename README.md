@@ -1,5 +1,12 @@
 # SWHID.org Website Documentation
 
+This is the repository for the [SWHID website](https://swhid.github.io/).
+
+[![Deploy Jekyll site to Pages](https://github.com/swhid/swhid.github.io/actions/workflows/pages.yml/badge.svg)](https://github.com/swhid/swhid.github.io/actions/workflows/pages.yml)
+[![pages-build-deployment](https://github.com/swhid/swhid.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/swhid/swhid.github.io/deployments/github-pages)
+[![SWHID site](https://img.shields.io/website?url=https%3A%2F%2Fswhid.github.io%2F&label=SWHID%20site&up_message=online&down_message=offline&color=brightgreen)](https://swhid.github.io/)
+[![Gem Version](https://img.shields.io/gem/v/just-the-docs.svg)](https://rubygems.org/gems/just-the-docs)
+
 This documentation describes how the SWHID.org website is built using the Just the Docs Jekyll theme, how to customize it, and how to manage content and deployment.
 
 ## Table of Contents
