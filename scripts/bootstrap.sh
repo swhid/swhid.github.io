@@ -77,7 +77,10 @@ EOF
 
 # Create version-select.js
 cat > specification/js/version-select.js << 'EOF'
-window.addEventListener("DOMContentLoaded", function() {
+// Version selector with retry logic
+function initVersionSelector() {
+  console.log("Version selector script loaded");
+  
   function expandPath(path) {
     // Get the base directory components.
     var expanded = window.location.pathname.split("/");
@@ -112,6 +115,9 @@ window.addEventListener("DOMContentLoaded", function() {
   // `base_url` comes from the base.html template for this theme.
   var ABS_BASE_URL = expandPath(base_url);
   var CURRENT_VERSION = ABS_BASE_URL.match(/\/([^\/]+)\/$/)[1];
+  
+  console.log("Current version:", CURRENT_VERSION);
+  console.log("Base URL:", ABS_BASE_URL);
 
   function makeSelect(options) {
     var select = document.createElement("select");
@@ -125,52 +131,101 @@ window.addEventListener("DOMContentLoaded", function() {
     return select;
   }
 
-  fetch(ABS_BASE_URL + "../versions.json").then((response) => {
-    return response.json();
-  }).then((versions) => {
-    var realVersion = versions.find(function(i) {
-      return i.version === CURRENT_VERSION ||
-             i.aliases.includes(CURRENT_VERSION);
-    }).version;
-
-    var select = makeSelect(versions.filter(function(i) {
-      return i.version === realVersion || !i.properties || !i.properties.hidden;
-    }).map(function(i) {
-      return {text: i.title, value: i.version,
-              selected: i.version === realVersion};
-    }));
-    select.id = "version-selector";
-    select.addEventListener("change", function(event) {
-      window.location.href = ABS_BASE_URL + "../" + this.value + "/";
-    });
-
+  function addVersionSelector() {
     var title = document.querySelector("div.wy-side-nav-search");
-    if (title) {
-      title.insertBefore(select, title.querySelector(".icon-home").nextSibling);
+    var iconHome = document.querySelector(".icon-home");
+    
+    console.log("Title element:", title);
+    console.log("Icon home element:", iconHome);
+    
+    if (title && iconHome) {
+      // Check if version selector already exists
+      if (document.getElementById("version-selector")) {
+        console.log("Version selector already exists");
+        return;
+      }
+      
+      fetch(ABS_BASE_URL + "../versions.json").then((response) => {
+        console.log("Fetching versions.json...");
+        return response.json();
+      }).then((versions) => {
+        console.log("Versions loaded:", versions);
+        
+        var realVersion = versions.find(function(i) {
+          return i.version === CURRENT_VERSION ||
+                 i.aliases.includes(CURRENT_VERSION);
+        }).version;
+
+        var select = makeSelect(versions.filter(function(i) {
+          return i.version === realVersion || !i.properties || !i.properties.hidden;
+        }).map(function(i) {
+          return {text: i.title, value: i.version,
+                  selected: i.version === realVersion};
+        }));
+        select.id = "version-selector";
+        select.addEventListener("change", function(event) {
+          window.location.href = ABS_BASE_URL + "../" + this.value + "/";
+        });
+
+        title.insertBefore(select, iconHome.nextSibling);
+        console.log("Version selector added successfully");
+      }).catch(function(error) {
+        console.log("Version selector not available:", error);
+      });
+    } else {
+      console.log("Could not find required elements for version selector, retrying...");
+      // Retry after a short delay
+      setTimeout(addVersionSelector, 100);
     }
-  }).catch(function(error) {
-    console.log("Version selector not available:", error);
-  });
-});
+  }
+  
+  addVersionSelector();
+}
+
+// Try to initialize immediately
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initVersionSelector);
+} else {
+  initVersionSelector();
+}
+
+// Also try after a delay to catch any dynamic content
+setTimeout(initVersionSelector, 500);
 EOF
 
 # Build v1.0
 echo "Building specification v1.0..."
 (cd .ext/spec && git checkout v1.0)
+# Apply unified theme after checkout
+mkdir -p .ext/spec/css
+cp assets/design/unified-theme.css .ext/spec/css/style.css
+cp assets/design/tokens.css .ext/spec/css/tokens.css
 (cd .ext/spec && mkdocs build -d ../../.tmp_spec_v1.0)
 
 # Build v1.1  
 echo "Building specification v1.1..."
 (cd .ext/spec && git checkout v1.1)
+# Apply unified theme after checkout
+mkdir -p .ext/spec/css
+cp assets/design/unified-theme.css .ext/spec/css/style.css
+cp assets/design/tokens.css .ext/spec/css/tokens.css
 (cd .ext/spec && mkdocs build -d ../../.tmp_spec_v1.1)
 
 # Build v1.2 (latest)
 echo "Building specification v1.2..."
 (cd .ext/spec && git checkout v1.2)
+# Apply unified theme after checkout
+mkdir -p .ext/spec/css
+cp assets/design/unified-theme.css .ext/spec/css/style.css
+cp assets/design/tokens.css .ext/spec/css/tokens.css
 (cd .ext/spec && mkdocs build -d ../../.tmp_spec_v1.2)
 
 # Build governance
 echo "Building governance..."
+# Apply unified theme to governance
+mkdir -p .ext/gov/css
+cp assets/design/unified-theme.css .ext/gov/css/style.css
+cp assets/design/tokens.css .ext/gov/css/tokens.css
 (cd .ext/gov && mkdocs build -d ../../.tmp_gov)
 
 # Create specification directory structure
@@ -178,6 +233,19 @@ mkdir -p specification
 mv .tmp_spec_v1.0 specification/v1.0
 mv .tmp_spec_v1.1 specification/v1.1  
 mv .tmp_spec_v1.2 specification/v1.2
+
+# Copy unified theme CSS to each version's output directory
+for version in v1.0 v1.1 v1.2; do
+  echo "Adding unified theme to $version..."
+  cp assets/design/unified-theme.css specification/$version/css/style.css
+  cp assets/design/tokens.css specification/$version/css/tokens.css
+done
+
+# Copy unified theme CSS to governance output directory
+echo "Adding unified theme to governance..."
+mkdir -p governance/css
+cp assets/design/unified-theme.css governance/css/style.css
+cp assets/design/tokens.css governance/css/tokens.css
 
 # Copy version selector assets to each version
 for version in v1.0 v1.1 v1.2; do
@@ -187,6 +255,10 @@ for version in v1.0 v1.1 v1.2; do
   
   # Update the HTML to include version selector assets
   find specification/$version -name "*.html" -exec sed -i 's|<link href="css/style.css" rel="stylesheet" />|<link href="css/style.css" rel="stylesheet" />\n        <link href="css/version-select.css" rel="stylesheet" />|g' {} \;
+  find specification/$version -name "*.html" -exec sed -i 's|<link href="../css/style.css" rel="stylesheet" />|<link href="../css/style.css" rel="stylesheet" />\n        <link href="../css/version-select.css" rel="stylesheet" />|g' {} \;
+  find specification/$version -name "*.html" -exec sed -i 's|<link href="./css/style.css" rel="stylesheet" />|<link href="./css/style.css" rel="stylesheet" />\n        <link href="./css/version-select.css" rel="stylesheet" />|g' {} \;
+  find specification/$version -name "*.html" -exec sed -i 's|<script src="js/theme.js"></script>|<script src="js/theme.js"></script>\n      <script src="js/version-select.js" defer></script>|g' {} \;
+  find specification/$version -name "*.html" -exec sed -i 's|<script src="../js/theme.js"></script>|<script src="../js/theme.js"></script>\n      <script src="../js/version-select.js" defer></script>|g' {} \;
   find specification/$version -name "*.html" -exec sed -i 's|<script src="./js/theme.js"></script>|<script src="./js/theme.js"></script>\n      <script src="./js/version-select.js" defer></script>|g' {} \;
 done
 

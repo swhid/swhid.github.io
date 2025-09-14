@@ -1,0 +1,197 @@
+/* SWHID Unified Theme for MkDocs Subsites */
+/* This file provides consistent styling across specification and governance subsites */
+
+/* Import SWHID design tokens */
+@import url('../../assets/design/tokens.css');
+
+/* Override ReadTheDocs theme with SWHID branding */
+:root {
+  /* SWHID Brand Colors */
+  --swh-red: #e20026;
+  --swh-orange: #ef4426;
+  --swh-light-orange: #f79622;
+  --swh-yellow: #fabf1f;
+  --swh-grey: #737373;
+  
+  /* Brand Semantic Colors */
+  --brand-primary: var(--swh-red);
+  --brand-accent: var(--swh-orange);
+  --brand-muted: var(--swh-grey);
+  
+  /* Text and Background */
+  --text-color: #1f2937;
+  --bg-color: #fff;
+  --border-color: #e6e6e6;
+  
+  /* Layout */
+  --content-max: 1120px;
+  --radius-lg: 12px;
+  
+  /* Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Apply SWHID fonts globally */
+body {
+  font-family: var(--font-sans) !important;
+  color: var(--text-color) !important;
+}
+
+/* Override ReadTheDocs sidebar search background - THIS IS THE KEY FIX */
+.wy-side-nav-search {
+  background-color: var(--brand-primary) !important;
+  color: #fff !important;
+}
+
+.wy-side-nav-search input[type="text"] {
+  background-color: #fff !important;
+  color: var(--text-color) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.wy-side-nav-search input[type="text"]::placeholder {
+  color: var(--swh-grey) !important;
+}
+
+/* Override ReadTheDocs header styling */
+.wy-nav-top {
+  background-color: var(--brand-primary) !important;
+  color: #fff !important;
+}
+
+.wy-nav-top a {
+  color: #fff !important;
+}
+
+/* Override navigation sidebar background */
+.wy-nav-side {
+  background-color: #f8f9fa !important;
+}
+
+.wy-nav-side .wy-menu-vertical {
+  background-color: #f8f9fa !important;
+}
+
+/* Override navigation styling */
+.wy-menu-vertical a {
+  color: var(--text-color) !important;
+}
+
+.wy-menu-vertical a:hover {
+  background-color: #e9ecef !important;
+  color: var(--brand-primary) !important;
+}
+
+.wy-menu-vertical .current > a {
+  background-color: var(--brand-primary) !important;
+  color: #fff !important;
+}
+
+.wy-menu-vertical .current > a:hover {
+  background-color: var(--swh-orange) !important;
+  color: #fff !important;
+}
+
+/* Override content styling */
+.rst-content {
+  color: var(--text-color) !important;
+  font-family: var(--font-sans) !important;
+}
+
+.rst-content h1,
+.rst-content h2,
+.rst-content h3,
+.rst-content h4,
+.rst-content h5,
+.rst-content h6 {
+  color: var(--text-color) !important;
+  font-weight: 600 !important;
+}
+
+.rst-content a {
+  color: var(--brand-primary) !important;
+  text-decoration: none !important;
+}
+
+.rst-content a:hover {
+  text-decoration: underline !important;
+  color: var(--swh-orange) !important;
+}
+
+/* Override code styling */
+.rst-content code {
+  background-color: #f3f4f6 !important;
+  color: var(--text-color) !important;
+  font-family: var(--font-mono) !important;
+}
+
+.rst-content pre {
+  background-color: #f3f4f6 !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+/* Override table styling */
+.rst-content table.docutils th {
+  background-color: var(--brand-primary) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+
+.rst-content table.docutils td {
+  border-color: var(--border-color) !important;
+}
+
+/* Override button styling */
+.rst-content .btn {
+  background-color: var(--brand-primary) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: var(--radius-lg) !important;
+  font-family: var(--font-sans) !important;
+}
+
+.rst-content .btn:hover {
+  background-color: var(--swh-orange) !important;
+  color: #fff !important;
+}
+
+/* Override version selector styling */
+.version-selector {
+  background-color: var(--brand-primary) !important;
+  color: #fff !important;
+  border: 1px solid var(--brand-primary) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: var(--space-2) !important;
+  font-family: var(--font-sans) !important;
+}
+
+.version-selector select {
+  background-color: var(--brand-primary) !important;
+  color: #fff !important;
+  border: none !important;
+  font-family: var(--font-sans) !important;
+}
+
+.version-selector select:focus {
+  outline: none !important;
+}
+
+/* Override footer styling */
+.rst-footer-buttons {
+  border-top: 1px solid var(--border-color) !important;
+}
+
+/* Ensure consistent spacing */
+.rst-content {
+  max-width: var(--content-max) !important;
+  margin: 0 auto !important;
+}

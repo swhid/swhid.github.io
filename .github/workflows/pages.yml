@@ -78,6 +78,21 @@ jobs:
           echo "Building specification versions with mike-style version selector..."
           rm -rf specification .tmp_spec_*
           
+          # Apply unified SWHID theme to specification and governance
+          echo "Applying unified SWHID theme to subsites..."
+          
+          # Copy unified theme to specification
+          cp assets/design/unified-theme.css .ext/spec/css/style.css
+          cp assets/design/tokens.css .ext/spec/css/tokens.css
+          
+          # Copy unified theme to governance  
+          cp assets/design/unified-theme.css .ext/gov/css/style.css
+          cp assets/design/tokens.css .ext/gov/css/tokens.css
+          
+          # Update MkDocs configs to include tokens
+          echo "- css/tokens.css" >> .ext/spec/mkdocs.yml
+          echo "- css/tokens.css" >> .ext/gov/mkdocs.yml
+          
           # Create versions.json for mike-style version management
           cat > specification/versions.json << 'EOF'
           [
@@ -124,7 +139,10 @@ jobs:
           
           # Create version-select.js
           cat > specification/js/version-select.js << 'EOF'
-          window.addEventListener("DOMContentLoaded", function() {
+          // Version selector with retry logic
+          function initVersionSelector() {
+            console.log("Version selector script loaded");
+            
             function expandPath(path) {
               var expanded = window.location.pathname.split("/");
               expanded.pop();
@@ -166,31 +184,57 @@ jobs:
               return select;
             }
             
-            fetch(ABS_BASE_URL + "../versions.json").then((response) => {
-              return response.json();
-            }).then((versions) => {
-              var realVersion = versions.find(function(i) {
-                return i.version === CURRENT_VERSION || i.aliases.includes(CURRENT_VERSION);
-              }).version;
-              
-              var select = makeSelect(versions.filter(function(i) {
-                return i.version === realVersion || !i.properties || !i.properties.hidden;
-              }).map(function(i) {
-                return {text: i.title, value: i.version, selected: i.version === realVersion};
-              }));
-              select.id = "version-selector";
-              select.addEventListener("change", function(event) {
-                window.location.href = ABS_BASE_URL + "../" + this.value + "/";
-              });
-              
+            function addVersionSelector() {
               var title = document.querySelector("div.wy-side-nav-search");
-              if (title) {
-                title.insertBefore(select, title.querySelector(".icon-home").nextSibling);
+              var iconHome = document.querySelector(".icon-home");
+              
+              if (title && iconHome) {
+                // Check if version selector already exists
+                if (document.getElementById("version-selector")) {
+                  console.log("Version selector already exists");
+                  return;
+                }
+                
+                fetch(ABS_BASE_URL + "../versions.json").then((response) => {
+                  return response.json();
+                }).then((versions) => {
+                  var realVersion = versions.find(function(i) {
+                    return i.version === CURRENT_VERSION || i.aliases.includes(CURRENT_VERSION);
+                  }).version;
+                  
+                  var select = makeSelect(versions.filter(function(i) {
+                    return i.version === realVersion || !i.properties || !i.properties.hidden;
+                  }).map(function(i) {
+                    return {text: i.title, value: i.version, selected: i.version === realVersion};
+                  }));
+                  select.id = "version-selector";
+                  select.addEventListener("change", function(event) {
+                    window.location.href = ABS_BASE_URL + "../" + this.value + "/";
+                  });
+                  
+                  title.insertBefore(select, iconHome.nextSibling);
+                  console.log("Version selector added successfully");
+                }).catch(function(error) {
+                  console.log("Version selector not available:", error);
+                });
+              } else {
+                console.log("Could not find required elements for version selector, retrying...");
+                setTimeout(addVersionSelector, 100);
               }
-            }).catch(function(error) {
-              console.log("Version selector not available:", error);
-            });
-          });
+            }
+            
+            addVersionSelector();
+          }
+          
+          // Try to initialize immediately
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initVersionSelector);
+          } else {
+            initVersionSelector();
+          }
+          
+          // Also try after a delay to catch any dynamic content
+          setTimeout(initVersionSelector, 500);
           EOF
           
           # Build v1.0
@@ -214,6 +258,19 @@ jobs:
           mv .tmp_spec_v1.1 specification/v1.1  
           mv .tmp_spec_v1.2 specification/v1.2
           
+          # Copy unified theme CSS to each version's output directory
+          for version in v1.0 v1.1 v1.2; do
+            echo "Adding unified theme to $version..."
+            cp assets/design/unified-theme.css specification/$version/css/style.css
+            cp assets/design/tokens.css specification/$version/css/tokens.css
+          done
+          
+          # Copy unified theme CSS to governance output directory
+          echo "Adding unified theme to governance..."
+          mkdir -p governance/css
+          cp assets/design/unified-theme.css governance/css/style.css
+          cp assets/design/tokens.css governance/css/tokens.css
+          
           # Copy version selector assets to each version
           for version in v1.0 v1.1 v1.2; do
             echo "Adding version selector to $version..."
@@ -222,7 +279,11 @@ jobs:
             
             # Update the HTML to include version selector assets
             find specification/$version -name "*.html" -exec sed -i 's|<link href="css/style.css" rel="stylesheet" />|<link href="css/style.css" rel="stylesheet" />\n        <link href="css/version-select.css" rel="stylesheet" />|g' {} \;
-            find specification/$version -name "*.html" -exec sed -i 's|<script src="js/theme.js" defer></script>|<script src="js/theme.js" defer></script>\n      <script src="js/version-select.js" defer></script>|g' {} \;
+            find specification/$version -name "*.html" -exec sed -i 's|<link href="../css/style.css" rel="stylesheet" />|<link href="../css/style.css" rel="stylesheet" />\n        <link href="../css/version-select.css" rel="stylesheet" />|g' {} \;
+            find specification/$version -name "*.html" -exec sed -i 's|<link href="./css/style.css" rel="stylesheet" />|<link href="./css/style.css" rel="stylesheet" />\n        <link href="./css/version-select.css" rel="stylesheet" />|g' {} \;
+            find specification/$version -name "*.html" -exec sed -i 's|<script src="js/theme.js"></script>|<script src="js/theme.js"></script>\n      <script src="js/version-select.js" defer></script>|g' {} \;
+            find specification/$version -name "*.html" -exec sed -i 's|<script src="../js/theme.js"></script>|<script src="../js/theme.js"></script>\n      <script src="../js/version-select.js" defer></script>|g' {} \;
+            find specification/$version -name "*.html" -exec sed -i 's|<script src="./js/theme.js"></script>|<script src="./js/theme.js"></script>\n      <script src="./js/version-select.js" defer></script>|g' {} \;
           done
           
           # Create redirect page to latest version
