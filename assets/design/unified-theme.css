@@ -2,7 +2,7 @@
 /* This file provides consistent styling across specification and governance subsites */
 
 /* Import SWHID design tokens */
-@import url('../../assets/design/tokens.css');
+@import url('/assets/design/tokens.css');
 
 /* Override ReadTheDocs theme with SWHID branding */
 :root {

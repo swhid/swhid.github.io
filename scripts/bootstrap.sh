@@ -18,11 +18,8 @@ mkdir -p .ext
 python3 -m venv .venv && . .venv/bin/activate
 pip install -U pip mkdocs mkdocs-material
 
-mkdir -p .ext/spec/docs/assets/design .ext/gov/docs/assets/design
-cp assets/design/tokens.css      .ext/spec/docs/assets/design/
-cp assets/design/swhid-brand.css .ext/spec/docs/assets/design/
-cp assets/design/tokens.css      .ext/gov/docs/assets/design/
-cp assets/design/swhid-brand.css .ext/gov/docs/assets/design/
+# Design assets are now centralized at site root and accessed via absolute paths
+# No need to copy assets to individual subsites
 
 # Build multiple specification versions with mike-style version management
 echo "Building specification versions with mike-style version selector..."
@@ -199,7 +196,7 @@ echo "Building specification v1.0..."
 # Apply unified theme after checkout
 mkdir -p .ext/spec/css
 cp assets/design/unified-theme.css .ext/spec/css/style.css
-cp assets/design/tokens.css .ext/spec/css/tokens.css
+# tokens.css is now accessed via absolute path from unified-theme.css
 (cd .ext/spec && mkdocs build -d ../../.tmp_spec_v1.0)
 
 # Build v1.1  
@@ -208,7 +205,7 @@ echo "Building specification v1.1..."
 # Apply unified theme after checkout
 mkdir -p .ext/spec/css
 cp assets/design/unified-theme.css .ext/spec/css/style.css
-cp assets/design/tokens.css .ext/spec/css/tokens.css
+# tokens.css is now accessed via absolute path from unified-theme.css
 (cd .ext/spec && mkdocs build -d ../../.tmp_spec_v1.1)
 
 # Build v1.2 (latest)
@@ -217,7 +214,7 @@ echo "Building specification v1.2..."
 # Apply unified theme after checkout
 mkdir -p .ext/spec/css
 cp assets/design/unified-theme.css .ext/spec/css/style.css
-cp assets/design/tokens.css .ext/spec/css/tokens.css
+# tokens.css is now accessed via absolute path from unified-theme.css
 (cd .ext/spec && mkdocs build -d ../../.tmp_spec_v1.2)
 
 # Build governance
@@ -225,7 +222,7 @@ echo "Building governance..."
 # Apply unified theme to governance
 mkdir -p .ext/gov/css
 cp assets/design/unified-theme.css .ext/gov/css/style.css
-cp assets/design/tokens.css .ext/gov/css/tokens.css
+# tokens.css is now accessed via absolute path from unified-theme.css
 (cd .ext/gov && mkdocs build -d ../../.tmp_gov)
 
 # Create specification directory structure
@@ -238,14 +235,14 @@ mv .tmp_spec_v1.2 specification/v1.2
 for version in v1.0 v1.1 v1.2; do
   echo "Adding unified theme to $version..."
   cp assets/design/unified-theme.css specification/$version/css/style.css
-  cp assets/design/tokens.css specification/$version/css/tokens.css
+  # tokens.css is now accessed via absolute path from unified-theme.css
 done
 
 # Copy unified theme CSS to governance output directory
 echo "Adding unified theme to governance..."
 mkdir -p governance/css
 cp assets/design/unified-theme.css governance/css/style.css
-cp assets/design/tokens.css governance/css/tokens.css
+# tokens.css is now accessed via absolute path from unified-theme.css
 
 # Copy version selector assets to each version
 for version in v1.0 v1.1 v1.2; do

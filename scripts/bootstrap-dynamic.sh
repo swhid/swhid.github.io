@@ -29,12 +29,8 @@ mkdir -p .ext
 python3 -m venv .venv && . .venv/bin/activate
 pip install -U pip mkdocs mkdocs-material
 
-# Copy design assets to specification and governance
-mkdir -p .ext/spec/docs/assets/design .ext/gov/docs/assets/design
-cp assets/design/tokens.css      .ext/spec/docs/assets/design/
-cp assets/design/swhid-brand.css .ext/spec/docs/assets/design/
-cp assets/design/tokens.css      .ext/gov/docs/assets/design/
-cp assets/design/swhid-brand.css .ext/gov/docs/assets/design/
+# Design assets are now centralized at site root and accessed via absolute paths
+# No need to copy assets to individual subsites
 
 # Detect specification versions dynamically
 echo "=== Detecting Specification Versions ==="
@@ -233,11 +229,14 @@ for version in "${VERSIONS[@]}"; do
   mv .tmp_spec_$version specification/$version
 done
 
-# Copy unified theme CSS to each version's output directory
+# Copy unified theme CSS and version selector assets to each version's output directory
 for version in "${VERSIONS[@]}"; do
   echo "Adding unified theme to $version..."
   cp assets/design/unified-theme.css specification/$version/css/style.css
-  cp assets/design/tokens.css specification/$version/css/tokens.css
+  # Copy version selector assets
+  cp specification/css/version-select.css specification/$version/css/
+  cp specification/js/version-select.js specification/$version/js/
+  # No need to copy tokens.css as it's accessed via absolute path from unified-theme.css
 done
 
 # Copy unified theme CSS to governance output directory
