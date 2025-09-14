@@ -1,6 +1,6 @@
 ---
 title: SWHID Specification
 nav_order: 1
-redirect_to: 
- - https://swhid.org/specification/
 ---
+
+This page has been moved to the [Specification section](/specification/) of the unified SWHID website.

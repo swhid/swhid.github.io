@@ -1,6 +1,6 @@
 ---
 title: SWHID Governance
 nav_order: 2
-redirect_to: 
- - https://swhid.org/governance/
 ---
+
+This page has been moved to the [Governance section](/governance/) of the unified SWHID website.
