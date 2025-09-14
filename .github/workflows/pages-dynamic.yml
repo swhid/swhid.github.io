@@ -80,24 +80,18 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with: { node-version: '20' }
+
       - name: Run dynamic bootstrap
         run: |
           chmod +x scripts/bootstrap-dynamic.sh
           ./scripts/bootstrap-dynamic.sh
 
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with: { source: ./, destination: ./_site }
-
       - name: Verify build output
         run: test -d ./_site && ls -lah ./_site
 
-      # Unified search index (Pagefind)
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with: { node-version: '20' }
-      - name: Build Pagefind index
-        run: npx pagefind --site _site
       - name: Verify Pagefind files
         run: |
           echo "Checking Pagefind files..."
