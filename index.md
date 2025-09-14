@@ -43,22 +43,22 @@ The SWHID Working Group oversees development of the SWHID materials in the [SWHI
   <div class="news-item">
     <h3>📋 Specification</h3>
     <p>Access the complete technical specification and reference documentation.</p>
-    <a href="specification" class="btn btn-outline">View Specification</a>
+    <a href="/specification/" class="btn btn-outline">View Specification</a>
   </div>
   <div class="news-item">
     <h3>📰 Latest News</h3>
     <p>Stay updated with announcements, releases, and community updates.</p>
-    <a href="news" class="btn btn-outline">Read News</a>
+    <a href="/news/" class="btn btn-outline">Read News</a>
   </div>
   <div class="news-item">
     <h3>📚 Publications</h3>
     <p>Academic papers, white papers, and technical publications about SWHID.</p>
-    <a href="publications" class="btn btn-outline">Browse Publications</a>
+    <a href="/publications/" class="btn btn-outline">Browse Publications</a>
   </div>
   <div class="news-item">
     <h3>👥 Core Team</h3>
     <p>Meet the maintainers and contributors behind the SWHID standard.</p>
-    <a href="coreteam" class="btn btn-outline">Meet the Team</a>
+    <a href="/coreteam/" class="btn btn-outline">Meet the Team</a>
   </div>
 </div>
 
@@ -66,18 +66,18 @@ The SWHID Working Group oversees development of the SWHID materials in the [SWHI
 
 Participation in the elaboration of the SWHID standard is open to all. Design and planning is primarily done via the team [mailing list](https://groups.google.com/g/swhid-discuss) (see [how to join][howto-join]) and regular meetings.
 
-The SWHID specification is maintained by the [SWHID core team](coreteam) and follows the principles stated in [the governance document](https://swhid.org/governance/) maintained in the [governance repository](https://github.com/swhid/governance/).
+The SWHID specification is maintained by the [SWHID core team](/coreteam/) and follows the principles stated in [the governance document](https://swhid.org/governance/) maintained in the [governance repository](https://github.com/swhid/governance/).
 
 These principles follow the model proposed by the [Community Specification](https://github.com/CommunitySpecification/Community_Specification), developed via the [Joint Development Foundation](http://www.jointdevelopment.org) (now part of the [Linux Foundation](https://www.linuxfoundation.org/)), with inspiration from the [Open Web Foundation agreements](http://openwebfoundation.org) and the [Alliance for Open Media Patent License 1.0](http://aomedia.org/license/patent-license/).
 
 ## Getting Started
 
 ### For Developers
-- **📖 Read the [specification](specification)** to understand the technical details
+- **📖 Read the [specification](/specification/)** to understand the technical details
 - **🔧 Check out [implementations](https://github.com/swhid)** for your programming language
 
 ### For Researchers
-- **📚 Browse [publications](publications)** for academic papers and research
+- **📚 Browse [publications](/publications/)** for academic papers and research
 - **📊 Explore [use cases](https://www.softwareheritage.org/how-to-archive-reference-code/)** in software preservation
 
 ### Onboarding Material
