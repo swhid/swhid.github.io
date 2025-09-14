@@ -116,16 +116,18 @@ git push origin master
      repo: swhid/swhid-design
      ref: main
    ```
-3. Run `./scripts/bootstrap.sh` to rebuild external content
-4. Clean, build, test
+3. Run `./scripts/bootstrap-dynamic.sh` to rebuild external content (recommended)
+4. Or run `./scripts/bootstrap.sh` for hardcoded versions
+5. Clean, build, test
 
 ### Rebuild External Content
-1. Run `./scripts/bootstrap.sh`
-2. This will:
+1. Run `./scripts/bootstrap-dynamic.sh` (recommended for dynamic version detection)
+2. Or run `./scripts/bootstrap.sh` (hardcoded versions)
+3. This will:
    - Clone/update external repositories
    - Install MkDocs dependencies
    - Copy design system assets
-   - Build MkDocs sites
+   - Build MkDocs sites with version selectors
    - Integrate content into Jekyll
 
 ### Fix Styling Issues
@@ -254,6 +256,35 @@ title: "Hidden Page"
 nav_exclude: true
 ---
 ```
+
+## Dynamic Version Detection
+
+### Quick Start
+```bash
+# Run dynamic bootstrap (recommended)
+./scripts/bootstrap-dynamic.sh
+
+# Start Jekyll server
+bundle exec jekyll serve --port 4000 --host 0.0.0.0
+```
+
+### Key Features
+- **Automatic Detection**: Scans git tags for specification versions
+- **Version Selectors**: Interactive dropdowns on all specification pages
+- **Latest Version Alias**: Automatically marks latest version
+- **Unified Theming**: All versions use same design system
+
+### Adding New Versions
+When a new version is tagged in upstream repository:
+1. Version detector automatically finds it
+2. Build process includes it automatically
+3. Version selector shows it automatically
+4. No manual intervention required
+
+### Scripts
+- **`scripts/bootstrap-dynamic.sh`**: Dynamic version detection and building
+- **`scripts/version-detector.sh`**: Core version detection logic
+- **`scripts/bootstrap.sh`**: Original hardcoded version script (reference)
 
 ## Content Aggregation
 

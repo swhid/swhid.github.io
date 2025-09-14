@@ -95,13 +95,14 @@ The unified UX is built on a shared design system located in `assets/design/`:
 
 ### Content Aggregation
 
-The site aggregates content from external repositories using a bootstrap script:
+The site aggregates content from external repositories using bootstrap scripts:
 
-- **Specification**: Content from `swhid/specification` repository
+- **Specification**: Content from `swhid/specification` repository with **dynamic version detection**
 - **Governance**: Content from `swhid/governance` repository
-- **Build-time integration**: External content is fetched and integrated during build via `scripts/bootstrap.sh`
+- **Build-time integration**: External content is fetched and integrated during build
 - **Consistent styling**: Aggregated content uses the same design system
 - **MkDocs integration**: External repos are built with MkDocs and integrated into Jekyll
+- **Automatic versioning**: New specification versions are detected and built automatically
 
 ### Configuration
 
@@ -119,11 +120,14 @@ design:
   ref: main
 ```
 
-The bootstrap script (`scripts/bootstrap.sh`) handles:
+The bootstrap scripts handle:
+- **`scripts/bootstrap.sh`**: Original hardcoded version script (kept for reference)
+- **`scripts/bootstrap-dynamic.sh`**: Dynamic version detection and building
+- **`scripts/version-detector.sh`**: Automatic version detection from git tags
 - Cloning external repositories
 - Installing MkDocs and dependencies
 - Copying design system assets
-- Building MkDocs sites
+- Building MkDocs sites with version selectors
 - Integrating content into Jekyll
 
 ### Benefits
@@ -132,6 +136,63 @@ The bootstrap script (`scripts/bootstrap.sh`) handles:
 - **Maintainable design**: Changes to design tokens propagate across all sites
 - **Unified navigation**: Seamless navigation between different SWHID resources
 - **Single deployment**: One site serves all SWHID content with consistent UX
+- **Automatic versioning**: New specification versions are detected and built without manual intervention
+- **Version selectors**: Users can easily switch between specification versions
+- **Scalable architecture**: Supports unlimited number of versions
+
+## Dynamic Version Detection
+
+The SWHID website now features an advanced dynamic version detection system that automatically manages specification versions without manual intervention.
+
+### How It Works
+
+1. **Version Detection**: The `version-detector.sh` script automatically detects available specification versions from git tags
+2. **Dynamic Building**: The `bootstrap-dynamic.sh` script builds all detected versions with unified theming
+3. **Version Selectors**: Interactive dropdowns allow users to switch between specification versions
+4. **Automatic Updates**: New versions are automatically detected and built when tagged in the upstream repository
+
+### Key Features
+
+- **Automatic Detection**: Scans git tags matching pattern `^v[0-9]+\.[0-9]+$`
+- **Version Sorting**: Properly sorts versions (v1.0, v1.1, v1.2, etc.)
+- **Latest Version Alias**: Automatically marks the latest version with "latest" alias
+- **Version Selectors**: Interactive dropdowns on all specification pages
+- **Redirect Logic**: Automatic redirects from `/specification/` to latest version
+- **Unified Theming**: All versions use the same design system and branding
+
+### Usage
+
+#### Local Development
+```bash
+# Run dynamic bootstrap (recommended)
+./scripts/bootstrap-dynamic.sh
+
+# Start Jekyll server
+bundle exec jekyll serve --port 4000 --host 0.0.0.0
+```
+
+#### CI/CD
+The system includes a GitHub Actions workflow (`.github/workflows/pages-dynamic.yml`) that:
+- Automatically detects versions on each build
+- Builds all available versions
+- Deploys to GitHub Pages
+
+### Adding New Versions
+
+When a new version is tagged in the upstream specification repository:
+1. The version detector automatically finds it
+2. The build process includes it automatically
+3. The version selector shows it automatically
+4. No manual intervention required
+
+### Migration from Hardcoded Versions
+
+The system maintains backward compatibility:
+- **`scripts/bootstrap.sh`**: Original hardcoded version script (kept for reference)
+- **`scripts/bootstrap-dynamic.sh`**: New dynamic version detection script
+- **`scripts/version-detector.sh`**: Core version detection logic
+
+For more details, see `scripts/README-dynamic-versioning.md`.
 
 ## Local Development
 
