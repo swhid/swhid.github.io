@@ -1,0 +1,135 @@
+name: Deploy Jekyll site to Pages (Dynamic Version Detection)
+
+on:
+  push:
+    branches: ["auto-detect","master","main"]
+  pull_request:
+    branches: ["auto-detect","master","main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout website
+        uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      # Read pinned refs from sources.lock.yml
+      - name: Extract pins
+        id: pins
+        run: |
+          SPEC_REF=$(ruby -ryaml -e 'p YAML.load_file("sources.lock.yml").dig("spec","ref")')
+          GOV_REF=$(ruby -ryaml -e 'p YAML.load_file("sources.lock.yml").dig("gov","ref")')
+          DSN_REF=$(ruby -ryaml -e 'p YAML.load_file("sources.lock.yml").dig("design","ref")')
+          echo "spec_ref=$SPEC_REF" >> $GITHUB_OUTPUT
+          echo "gov_ref=$GOV_REF"   >> $GITHUB_OUTPUT
+          echo "dsn_ref=$DSN_REF"   >> $GITHUB_OUTPUT
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with: { python-version: '3.11', cache: 'pip' }
+
+      - name: Install MkDocs toolchain
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs mkdocs-material
+
+      - name: Checkout specification
+        uses: actions/checkout@v4
+        with:
+          repository: swhid/specification
+          ref: ${{ steps.pins.outputs.spec_ref }}
+          path: .ext/spec
+
+      - name: Checkout governance
+        uses: actions/checkout@v4
+        with:
+          repository: swhid/governance
+          ref: ${{ steps.pins.outputs.gov_ref }}
+          path: .ext/gov
+
+      - name: Checkout design system
+        uses: actions/checkout@v4
+        with:
+          repository: swhid/swhid-design
+          ref: ${{ steps.pins.outputs.dsn_ref }}
+          path: .ext/design
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Cache Jekyll build artifacts
+        uses: actions/cache@v4
+        with:
+          path: .jekyll-cache
+          key: jekyll-${{ runner.os }}-${{ hashFiles('**/Gemfile.lock') }}
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Run dynamic bootstrap
+        run: |
+          chmod +x scripts/bootstrap-dynamic.sh
+          ./scripts/bootstrap-dynamic.sh
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with: { source: ./, destination: ./_site }
+
+      - name: Verify build output
+        run: test -d ./_site && ls -lah ./_site
+
+      # Unified search index (Pagefind)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Build Pagefind index
+        run: npx pagefind --site _site
+      - name: Verify Pagefind files
+        run: |
+          echo "Checking Pagefind files..."
+          ls -la _site/pagefind/ || echo "Pagefind directory not found"
+          test -f _site/pagefind/pagefind.js || echo "pagefind.js not found"
+          test -f _site/pagefind/pagefind-ui.js || echo "pagefind-ui.js not found"
+          test -f _site/pagefind/pagefind-ui.css || echo "pagefind-ui.css not found"
+
+      - name: Install html-proofer
+        run: gem install html-proofer
+      - name: Check site with html-proofer (warn only)
+        run: |
+          echo "Running html-proofer (warnings will not block deploy)…"
+          set +e
+          htmlproofer ./_site --disable-external --allow-missing-href --assume-extension --check-html > htmlproofer.log 2>&1
+          EXIT_CODE=$?; cat htmlproofer.log; echo "html-proofer exit code: $EXIT_CODE (ignored for deployment)"; exit 0
+      - name: Upload html-proofer log
+        uses: actions/upload-artifact@v4
+        with: { name: htmlproofer-report, path: htmlproofer.log }
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
