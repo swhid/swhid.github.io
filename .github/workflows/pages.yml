@@ -2,10 +2,10 @@ name: Deploy Jekyll site to Pages (integrated)
 
 on:
   push:
-    branches: ["integration/unified-ux","master","main"]
+    branches: ["integration/unified-ux"]  # Removed "master","main" - use pages-dynamic.yml instead
   pull_request:
-    branches: ["integration/unified-ux","master","main"]
-  workflow_dispatch:
+    branches: ["integration/unified-ux"]  # Removed "master","main" - use pages-dynamic.yml instead
+  workflow_dispatch:  # Keep manual trigger for testing
 
 permissions:
   contents: read
