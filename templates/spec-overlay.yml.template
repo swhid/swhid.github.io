@@ -1,0 +1,70 @@
+# Auto-generated overlay for {{VERSION}} (do not edit; run scripts/bootstrap-versions.sh)
+site_name: "swhid-specification/{{VERSION}}"
+site_url: ""
+use_directory_urls: true
+
+# Reuse the monorepo theme/plugins but point docs_dir at the version submodule.
+docs_dir: ../sources/specification-{{VERSION}}/Chapters
+
+# Use material theme with custom overrides to get version selector
+theme:
+  name: material
+  custom_dir: ../../overrides
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.expand
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+    - toc.integrate
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+  icon:
+    logo: material/fingerprint
+  language: en
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - redirects:
+      redirect_maps: {}
+  - monorepo
+
+extra_css:
+  - ../../assets/stylesheets/extra.css
+
+extra_javascript:
+  - ../../assets/javascripts/hide-version-tabs.js
+
+markdown_extensions:
+  - codehilite:
+     guess_lang: false
+
+# Basic navigation structure
+# NOTE: This list is hardcoded for forward compatibility.
+# For v1.0, use underscores (5_Core_identifiers.md, 6_Qualified_identifiers.md)
+# For v1.1+, use dots (5.Core_identifiers.md, 6.Qualified_identifiers.md)
+# The v1.0-specific template handles this difference automatically.
+nav:
+  - 'Copyright': index.md
+  - 'Foreword': 0.Foreword.md
+  - 'Introduction': 0.Introduction.md
+  - 'Clause 1: Scope': 1.Scope.md
+  - 'Clause 2: Normative references': 2.Normative_references.md
+  - 'Clause 3: Terms and definitions': 3.Terms_and_definitions.md
+  - 'Clause 4: Syntax': 4.Syntax.md
+  - 'Clause 5: Core Identifiers': 5.Core_identifiers.md
+  - 'Clause 6: Qualified Identifiers': 6.Qualified_identifiers.md
+  - 'Annex A: Conformance': A.Conformance.md
+  - 'Annex B: Bibliography': B.Bibliography.md
+
+# Version configuration for selector
+extra:
+  swhid_spec_versions:
+    - v1.2
+    - v1.1
+    - v1.0

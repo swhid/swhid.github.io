@@ -1,0 +1,61 @@
+{# overrides/main.html #}
+{% extends "base.html" %}
+
+{# Add Pagefind CSS and JavaScript #}
+{% block extrahead %}
+  {{ super() }}
+  <script>window.__BASE_URL__ = "{{ base_url | default('') }}";</script>
+  <link rel="stylesheet" href="{{ base_url }}/pagefind/pagefind-ui.css">
+
+  {# Section + spec version #}
+  {% set _url = page and page.url or '' %}
+  {% if _url.startswith('swhid-specification/') %}
+    <meta data-pagefind-filter="section:specification">
+    {% set segs = _url.split('/') %}
+    {% if segs|length > 1 %}<meta data-pagefind-filter="spec_version:{{ segs[1] }}">{% endif %}
+  {% elif _url.startswith('swhid-governance/') %}
+    <meta data-pagefind-filter="section:governance">
+  {% else %}
+    <meta data-pagefind-filter="section:main">
+  {% endif %}
+
+  {# Front-matter tags -> filter "tag" (multiple allowed) #}
+  {% if page and page.meta and page.meta.tags %}
+    {% for t in page.meta.tags %}
+      <meta data-pagefind-filter="tag:{{ t }}">
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{# We keep Material's stock header completely untouched #}
+{% block header %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  {# Only include the selector on spec pages (e.g. /swhid-specification/..., including index) #}
+  {% if page and page.url %}
+    {% set segs = page.url.split('/') %}
+    {% if segs and segs[0] == 'swhid-specification' %}
+      {% include "partials/version-selector.html" %}
+    {% endif %}
+  {% endif %}
+
+  {{ super() }}
+{% endblock %}
+
+{# Redirect header search to /search/ with query parameter #}
+<script>
+  document.addEventListener("keydown", function(e) {
+    const el = document.activeElement;
+    if (el && el.matches('input[type="text"].md-search__input, input[aria-label="Search"]')) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const q = el.value.trim();
+        const BASE = (window.__BASE_URL__ || "").replace(/\/+$/, "");
+        const url = q ? (BASE + "/search/?q=" + encodeURIComponent(q)) : (BASE + "/search/");
+        window.location.href = url;
+      }
+    }
+  });
+</script>

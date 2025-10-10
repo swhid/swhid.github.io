@@ -1,0 +1,84 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install Node.js dependencies
+      run: npm install
+    
+    - name: Test cleanup bootstrap build workflow
+      run: |
+        echo "Testing complete cleanup -> bootstrap -> build workflow..."
+        make cleanup
+        make bootstrap
+        make build
+        echo "✅ Cleanup -> Bootstrap -> Build workflow completed successfully"
+    
+    - name: Verify build artifacts
+      run: |
+        echo "Verifying build artifacts..."
+        ls -la site/
+        echo "Checking for Pagefind index..."
+        ls -la site/pagefind/ || echo "⚠️ Pagefind index not found"
+        echo "Checking for main pages..."
+        test -f site/index.html || (echo "❌ index.html not found" && exit 1)
+        test -f site/search/index.html || (echo "❌ search page not found" && exit 1)
+        echo "✅ All build artifacts verified"
+    
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: site
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
+  preview:
+    if: github.event_name == 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Preview to GitHub Pages
+        uses: actions/deploy-pages@v4
+        with:
+          preview: true

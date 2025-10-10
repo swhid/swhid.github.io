@@ -1,0 +1,6 @@
+[submodule "sources/specification"]
+	path = sources/specification
+	url = https://github.com/swhid/specification.git
+[submodule "sources/governance"]
+	path = sources/governance
+	url = https://github.com/swhid/governance.git

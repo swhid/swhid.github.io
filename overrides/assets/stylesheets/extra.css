@@ -1,0 +1,473 @@
+
+/* SWH palette */
+:root {
+  --swh-red: #e20026;
+  --swh-orange: #ef4426;
+  --swh-light-orange: #f79622;
+  --swh-yellow: #fabf1f;
+  --swh-grey: #737373;
+}
+
+/* Material palette hook */
+.md-typeset a { color: var(--swh-red); }
+/* .md-typeset a:visited { color: var(--swh-yellow); } */
+.md-header { background: var(--swh-red); }
+.md-tabs { background: var(--swh-grey); }
+
+/* Responsive navigation fixes - keep tabs visible until they would wrap */
+/* Override Material theme's default responsive behavior */
+.md-tabs {
+  display: block !important;
+}
+
+.md-tabs__list {
+  display: flex !important;
+  flex-wrap: nowrap; /* Prevent wrapping - hide instead */
+  justify-content: center;
+  padding: 0 1rem;
+  overflow: hidden; /* Hide items that don't fit */
+}
+
+.md-tabs__item {
+  margin: 0 0.5rem;
+  white-space: nowrap;
+  flex-shrink: 0; /* Prevent items from shrinking */
+}
+
+/* Medium screens - reduce spacing but keep visible */
+@media screen and (max-width: 76.1875em) {
+  .md-tabs__list {
+    padding: 0 0.75rem;
+  }
+  .md-tabs__item {
+    margin: 0 0.4rem;
+  }
+}
+
+/* Smaller screens - more compact but still visible */
+@media screen and (max-width: 59.9375em) {
+  .md-tabs__list {
+    padding: 0 0.5rem;
+  }
+  .md-tabs__item {
+    margin: 0 0.3rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Even smaller screens - very compact but still visible */
+@media screen and (max-width: 44.9375em) {
+  .md-tabs__list {
+    padding: 0 0.25rem;
+  }
+  .md-tabs__item {
+    margin: 0 0.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Hide tabs when they would wrap - around 768px */
+@media screen and (max-width: 48em) {
+  .md-tabs {
+    display: none !important;
+  }
+}
+
+/* Thin top banner */
+.swhid-banner {
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.swhid-banner__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: .35rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: .875rem;
+}
+.swhid-home {
+  color: var(--swh-red);
+  font-weight: 700;
+}
+
+/* --- Version switcher placement & responsiveness --- */
+.spec-version-switcher {
+  /* live just under the header, matching Material spacing rhythm */
+  margin: 0 auto;
+  padding: 0.35rem 1rem;
+  max-width: 64rem;            /* aligns with content width */
+}
+
+@media (min-width: 76.25rem) { /* matches Material wide breakpoint */
+  .spec-version-switcher {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* If your selector renders a bar or card, keep it subtle */
+.spec-version-switcher .card,
+.spec-version-switcher .bar {
+  border-radius: 0.5rem;
+}
+
+
+/* Inline version selector styling */
+.version-selector-inline {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.version-selector-inline select {
+  background: var(--md-primary-bg-color);
+  color: var(--md-primary-fg-color);
+  border: 1px solid var(--md-primary-fg-color--light);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+.version-selector-inline select:focus {
+  outline: none;
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 0 0 2px var(--md-accent-fg-color--transparent);
+}
+
+.version-selector-inline select option {
+  background: var(--md-primary-bg-color);
+  color: var(--md-primary-fg-color);
+}
+
+@media (max-width: 720px) {
+  .version-selector-inline {
+    width: 100%;
+  }
+  .version-selector-inline select {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+  text-decoration: none;
+}
+.swhid-links a {
+  margin-left: 1rem;
+  color: var(--swh-grey);
+  text-decoration: none;
+}
+.swhid-links a:hover {
+  color: var(--swh-red);
+  text-decoration: underline;
+}
+
+/* Specification Navigation */
+.swhid-spec-nav {
+  background: #f8f9fa;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  padding: 1rem 0;
+}
+
+.swhid-spec-nav__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.swhid-spec-nav h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--swh-red);
+}
+
+.swhid-spec-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.swhid-spec-links a {
+  padding: 0.25rem 0.75rem;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  color: var(--swh-grey);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.swhid-spec-links a:hover {
+  background: var(--swh-red);
+  color: #fff;
+  border-color: var(--swh-red);
+}
+
+.swhid-spec-links a.active {
+  background: var(--swh-red);
+  color: #fff;
+  border-color: var(--swh-red);
+}
+
+/* Governance Navigation */
+.swhid-gov-nav {
+  background: #f8f9fa;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  padding: 1rem 0;
+}
+
+.swhid-gov-nav__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.swhid-gov-nav h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--swh-red);
+}
+
+.swhid-gov-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.swhid-gov-links a {
+  padding: 0.25rem 0.75rem;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  color: var(--swh-grey);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.swhid-gov-links a:hover {
+  background: var(--swh-red);
+  color: #fff;
+  border-color: var(--swh-red);
+}
+
+.swhid-gov-links a.active {
+  background: var(--swh-red);
+  color: #fff;
+  border-color: var(--swh-red);
+}
+
+/* SWHID Banner Styling - Eye-catching ISO standard highlight */
+.swhid-banner {
+  background-color: #fff; /* White background */
+  border: 2px solid #e20026; /* Red border */
+  border-radius: 12px; /* Rounded corners */
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(226, 0, 38, 0.1); /* Subtle shadow */
+  text-align: center;
+}
+
+.swhid-banner h2 {
+  color: #e20026; /* Red text for heading */
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.swhid-banner p {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.swhid-banner .btn {
+  background-color: #e20026; /* Red background for buttons */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.swhid-banner .btn:hover {
+  background-color: #ef4426; /* Orange on hover */
+  color: white;
+  text-decoration: none;
+}
+
+/* Quick Access Grid Styling - Multi-column layout for home page */
+.quick-access-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* News Item Grid Styling - Single column layout for news listing */
+.news-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.news-item {
+  background-color: #fff; /* White background */
+  border: 2px solid #e20026; /* Red border */
+  border-radius: 12px; /* Rounded corners */
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(226, 0, 38, 0.1); /* Subtle shadow */
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.news-item:hover {
+  border-color: #ef4426; /* Orange border on hover */
+  box-shadow: 0 6px 16px rgba(226, 0, 38, 0.15); /* Enhanced shadow on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.news-item h3 {
+  color: #e20026; /* Red text for headings */
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.news-item p {
+  color: #333;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.news-item .btn,
+.news-item .btn-outline {
+  background-color: #e20026; /* Red background for buttons */
+  color: white;
+  border: 2px solid #e20026;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.news-item .btn:hover,
+.news-item .btn-outline:hover {
+  background-color: #ef4426; /* Orange on hover */
+  border-color: #ef4426;
+  color: white;
+  text-decoration: none;
+  transform: translateY(-1px); /* Slight lift effect */
+}
+
+/* News Entry Styling (for news listing) */
+.news-entry {
+  background-color: #fff; /* White background */
+  border: 2px solid #e20026; /* Red border */
+  border-radius: 12px; /* Rounded corners */
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(226, 0, 38, 0.1); /* Subtle shadow */
+  transition: all 0.3s ease;
+  position: relative; /* For absolute positioning of read more */
+  padding-bottom: 3rem; /* Space for overlapping read more button */
+}
+
+.news-entry:hover {
+  border-color: #ef4426; /* Orange border on hover */
+  box-shadow: 0 6px 16px rgba(226, 0, 38, 0.15); /* Enhanced shadow on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.news-date {
+  color: var(--swh-grey);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.news-title {
+  color: #e20026; /* Red text for headings */
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.news-excerpt {
+  color: #333;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+a.news-read-more {
+  background-color: #e20026; /* Red background */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px 6px 0 0; /* Rounded top corners only */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: absolute;
+  bottom: -1px; /* Overlap the bottom border */
+  right: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 -2px 4px rgba(226, 0, 38, 0.2);
+}
+
+a.news-read-more:hover {
+  background-color: #ef4426; /* Orange on hover */
+  color: white;
+  text-decoration: none;
+  transform: translateY(-2px); /* Lift effect on hover */
+  box-shadow: 0 -4px 8px rgba(226, 0, 38, 0.3);
+}
+
+.news-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--swh-grey);
+  font-style: italic;
+}
+
+/* =============================================================================
+   VERSION TAB HIDING - Hide individual version tabs from horizontal navigation
+   ============================================================================= */
+
+/* Hide any tab we mark programmatically */
+.md-tabs__item.swhid-hidden-tab {
+  display: none !important;
+}
+
+/* (Optional) If you also choose to hide versions in the left primary nav */
+.md-nav__item.swhid-hidden-nav {
+  display: none !important;
+}
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important; height: 1px !important;
+  padding: 0 !important; margin: -1px !important;
+  overflow: hidden !important; clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important; border: 0 !important;
+}
+

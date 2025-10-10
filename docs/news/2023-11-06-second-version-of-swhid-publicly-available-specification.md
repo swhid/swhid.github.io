@@ -1,0 +1,20 @@
+---
+title: Second version of SWHID Publicly Available Specification
+date: 2023-11-06
+authors:
+  - Software Heritage
+tags:
+  - specification
+  - release
+  - v1.1
+summary: We are excited to announce that we have now released the SWHID Approved Specification, version 1.1, congratulations!
+---
+
+We are excited to announce that we have now released the SWHID Approved Specification, version 1.1, congratulations!
+
+As a consequence, the following updates have been made to the official SWHID website and the development repository:
+- The release of the frozen sources of this approved specification is available as [tag v1.1](https://github.com/swhid/specification/releases/tag/v1.1)
+- A branch named [v1.1](https://github.com/swhid/specification/tree/v1.1) has been created in the repository: it will allow us to update the v1.1 with minor changes if needed
+- The link to the specification from [SWHID.org](https://swhid.org) now points to the released [version v1.1](https://www.swhid.org/specification/v1.1/)
+- The version selector available on the top left of the specification page, has been updated: we have "v1.1" as the default, as well as "v1.0" for the first approved specification and "dev" that is currently identical to v1.1, as we just released v1.1
+We believe we are now ready to move to the next step, which is the preparation of the submission to ISO of v1.1 in order to become a standard.

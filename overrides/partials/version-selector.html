@@ -1,0 +1,54 @@
+<div id="swhid-version-selector" class="version-selector-inline" hidden>
+  <label for="version-selector" class="sr-only">Specification version</label>
+  <select id="version-selector" aria-label="Specification version"></select>
+</div>
+
+<script>
+(function () {
+  const container = document.getElementById('swhid-version-selector');
+  const select = document.getElementById('version-selector');
+  const BASE = (window.__BASE_URL__ || "").replace(/\/+$/, "");
+  const path = location.pathname.replace(/\/+$/, ''); // trim trailing slash
+
+  // Versions list from mkdocs.yml -> extra.swhid_spec_versions
+  const versions = [
+    {% if config.extra and config.extra.swhid_spec_versions %}
+      {% for v in config.extra.swhid_spec_versions %}"{{ v }}"{% if not loop.last %},{% endif %}{% endfor %}
+    {% else %}
+      "v1.2","v1.1","v1.0","dev"
+    {% endif %}
+  ];
+  const latest = versions[0]; // convention: first is latest
+
+  // Try to parse current version from URL
+  let current = null;
+  // /swhid-specification/vX.Y/... or /swhid-specification/dev/...
+  const m = path.match(/^\/swhid-specification\/(v\d+\.\d+(?:\.\d+)?|dev)(?:\/|$)/);
+  if (m) current = m[1];
+
+  // Build options
+  select.innerHTML = [
+    '<option value="" disabled selected>Select version…</option>',
+    ...versions.map(v => `<option value="${v}" ${v === current ? 'selected' : ''}>${v}${v === latest ? ' (latest)' : ''}</option>`)
+  ].join('');
+
+  // When switching version, preserve the rest of the path if versioned; otherwise go to index of chosen version
+  select.addEventListener('change', () => {
+    const v = select.value;
+    if (!v) return;
+
+    let target;
+    if (current) {
+      // Preserve the remainder after the version segment
+      const rest = path.replace(/^\/swhid-specification\/(v\d+\.\d+(?:\.\d+)?|dev)\/?/, '');
+      target = `${BASE}/swhid-specification/${v}/${rest}`;
+    } else {
+      // Unversioned index → jump to the chosen version root
+      target = `${BASE}/swhid-specification/${v}/`;
+    }
+    location.href = target.replace(/\/+$/, '/'); // ensure trailing slash
+  });
+
+  container.hidden = false;
+})();
+</script>

@@ -1,0 +1,517 @@
+# API Reference
+
+## Overview
+
+This document provides a comprehensive reference for the SWHID.org website's technical components, including MkDocs configuration, custom scripts, and development tools.
+
+## MkDocs Configuration
+
+### Site Configuration
+
+```yaml
+# mkdocs.yml
+site_name: SWHID.org
+site_url: https://swhid.org
+repo_url: https://github.com/swhid/swhid.github.io
+edit_uri: edit/main/swhid.github.io/
+```
+
+### Theme Configuration
+
+```yaml
+theme:
+  name: material
+  custom_dir: overrides
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.expand
+    - content.code.copy
+    - toc.integrate
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+  icon:
+    logo: material/fingerprint
+  language: en
+```
+
+### Plugin Configuration
+
+```yaml
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - redirects:
+      redirect_maps: {}
+  - monorepo
+```
+
+## Custom Scripts
+
+### Link Checking Scripts
+
+#### Bash Script (`scripts/check-links.sh`)
+
+```bash
+#!/bin/bash
+# SWHID.org Link Checker
+
+# Usage: ./scripts/check-links.sh [file]
+# If no file is specified, checks all markdown files
+
+SITE_DIR="site"
+DOCS_DIR="docs"
+BROKEN_LINKS=()
+
+# Functions
+check_external_links() {
+    echo "Checking external links..."
+    # Implementation
+}
+
+check_internal_links() {
+    echo "Checking internal links..."
+    # Implementation
+}
+
+check_markdown_links() {
+    echo "Checking markdown links..."
+    # Implementation
+}
+
+main() {
+    echo "SWHID.org Link Checker"
+    echo "====================="
+    
+    if [ $# -eq 0 ]; then
+        check_all_links
+    else
+        check_specific_file "$1"
+    fi
+    
+    report_results
+}
+
+main "$@"
+```
+
+#### Python Script (`scripts/check-links.py`)
+
+```python
+#!/usr/bin/env python3
+"""
+SWHID.org Link Checker
+
+A comprehensive link checking tool for the SWHID.org website.
+"""
+
+import os
+import re
+import sys
+import time
+import urllib.parse
+from pathlib import Path
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+class LinkChecker:
+    def __init__(self, site_dir="site", docs_dir="docs"):
+        self.site_dir = Path(site_dir)
+        self.docs_dir = Path(docs_dir)
+        self.broken_links = []
+        self.session = self._create_session()
+    
+    def _create_session(self):
+        """Create a requests session with retry strategy."""
+        session = requests.Session()
+        retry_strategy = Retry(
+            total=3,
+            backoff_factor=1,
+            status_forcelist=[429, 500, 502, 503, 504],
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        return session
+    
+    def check_external_links(self):
+        """Check all external links."""
+        pass
+    
+    def check_internal_links(self):
+        """Check all internal links."""
+        pass
+    
+    def check_markdown_links(self):
+        """Check all markdown links."""
+        pass
+    
+    def run(self):
+        """Run all link checks."""
+        pass
+
+if __name__ == "__main__":
+    checker = LinkChecker()
+    checker.run()
+```
+
+### Build Scripts
+
+#### Makefile
+
+```makefile
+.PHONY: bootstrap build serve clean test
+
+bootstrap:
+	git submodule update --init --recursive
+	pip install -r requirements.txt
+	mkdocs build
+
+build:
+	mkdocs build
+
+serve:
+	mkdocs serve
+
+clean:
+	rm -rf site/
+
+test:
+	./scripts/check-links.sh
+```
+
+## Custom CSS
+
+### Main Stylesheet (`overrides/assets/stylesheets/extra.css`)
+
+```css
+/* Brand tokens */
+:root {
+  --swh-red: #e20026;
+  --swh-orange: #ef4426;
+  --swh-light-orange: #f79622;
+  --swh-yellow: #fabf1f;
+  --swh-grey: #737373;
+}
+
+/* Core hooks into Material */
+.md-typeset a { color: var(--swh-red); }
+.md-header { background: var(--swh-red); }
+.md-tabs { background: var(--swh-grey); }
+
+/* Example component styles */
+.swhid-banner h2 { color: #e20026; }
+.news-entry { background-color: #fff; border: 2px solid #e20026; }
+```
+
+## Custom JavaScript
+
+### Version Tab Hiding (`overrides/assets/javascripts/hide-version-tabs.js`)
+
+```javascript
+(function () {
+  'use strict';
+
+  // Match v1.0, v1.2.3, etc. Adjust if you want only major.minor.
+  const VERSION_LABEL_RE = /^v\d+\.\d+(?:\.\d+)?$/i;
+
+  function hideVersionTabs() {
+    // Top horizontal tabs (first-level nav)
+    document.querySelectorAll('.md-tabs__list .md-tabs__item').forEach((item) => {
+      const a = item.querySelector('a');
+      if (!a) return;
+      const label = (a.textContent || '').trim();
+      if (VERSION_LABEL_RE.test(label)) {
+        item.classList.add('swhid-hidden-tab');
+      }
+    });
+  }
+
+  // Optional: also hide versions at top level of the left primary nav
+  function hideVersionPrimaryNav() {
+    document
+      .querySelectorAll('.md-nav--primary > .md-nav__list > .md-nav__item')
+      .forEach((li) => {
+        const a = li.querySelector(':scope > .md-nav__link');
+        if (!a) return;
+        const label = (a.textContent || '').trim();
+        if (VERSION_LABEL_RE.test(label)) {
+          li.classList.add('swhid-hidden-nav'); // requires the optional CSS rule
+        }
+      });
+  }
+
+  function run() {
+    hideVersionTabs();
+    // Uncomment next line if you also want to hide the top-level left items:
+    // hideVersionPrimaryNav();
+  }
+
+  // Material for MkDocs is a SPA; run on load and on page changes.
+  document.addEventListener('DOMContentLoaded', run);
+  document.addEventListener('navigation', run);
+})();
+```
+
+## GitHub Actions
+
+### Deployment Workflow (`.github/workflows/site.yml`)
+
+```yaml
+name: Build & Deploy site (preview / staging / production)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Build with MkDocs
+        run: mkdocs build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+## File Structure
+
+### Directory Structure
+
+```
+swhid.github.io/
+├── docs/                      # Main site content
+├── overrides/                 # Theme customizations
+│   ├── assets/
+│   │   ├── stylesheets/       # Custom CSS (extra.css)
+│   │   └── javascripts/       # Custom JS
+│   └── partials/              # Custom HTML templates
+├── assets/
+│   ├── stylesheets/           # Search styles (pagefind-header.css)
+│   └── javascripts/           # Search JS (pagefind-header.js)
+├── mkdocs.yml                 # Main configuration
+└── Makefile                   # Build commands
+```
+
+### Key Files
+
+- **`mkdocs.yml`**: Main MkDocs configuration
+- **`Makefile`**: Build commands and automation
+- **`requirements.txt`**: Python dependencies
+- **`overrides/`**: Theme customizations
+- **`scripts/`**: Build and maintenance scripts
+- **`sources/`**: Git submodules for external content
+
+## Environment Variables
+
+### Development
+
+```bash
+# Enable debug mode
+export MKDOCS_DEBUG=1
+
+# Set custom site URL
+export MKDOCS_SITE_URL=http://localhost:8000
+
+# Set custom port
+export MKDOCS_PORT=8000
+```
+
+### Production
+
+```bash
+# Set production site URL
+export MKDOCS_SITE_URL=https://swhid.org
+
+# Set production configuration
+export MKDOCS_CONFIG_FILE=mkdocs.yml
+```
+
+## Dependencies
+
+### Python Dependencies (`requirements.txt`)
+
+```
+mkdocs==1.6.0
+mkdocs-material==9.5.39
+mkdocs-monorepo-plugin==1.1.2
+mkdocs-redirects==1.2.1
+mkdocs-git-revision-date-localized-plugin==1.2.5
+mkdocs-rss-plugin==1.7.0
+Jinja2==3.1.4
+Pygments==2.18.0
+Markdown==3.6
+```
+
+### Node.js Dependencies (`package.json`)
+
+```json
+{
+  "name": "swhid-org",
+  "version": "1.0.0",
+  "description": "SWHID.org website",
+  "scripts": {
+    "build": "mkdocs build",
+    "serve": "mkdocs serve",
+    "clean": "rm -rf site/"
+  },
+  "devDependencies": {
+    "pagefind": "^1.0.0"
+  }
+}
+```
+
+## Configuration Options
+
+### MkDocs Options
+
+- **`site_name`**: Site name displayed in navigation
+- **`site_url`**: Base URL for the site
+- **`repo_url`**: Repository URL for edit links
+- **`edit_uri`**: URI pattern for edit links
+- **`theme`**: Theme configuration
+- **`nav`**: Navigation structure
+- **`plugins`**: Plugin configuration
+- **`extra_css`**: Additional CSS files
+- **`extra_javascript`**: Additional JavaScript files
+
+### Material Theme Options
+
+- **`name`**: Theme name (material)
+- **`custom_dir`**: Custom theme directory
+- **`features`**: Enabled theme features
+- **`palette`**: Color palette configuration
+- **`font`**: Font configuration
+- **`logo`**: Logo configuration
+- **`favicon`**: Favicon configuration
+
+### Plugin Options
+
+- **`search`**: Search functionality
+- **`material/blog`**: Blog functionality (built into Material theme)
+- **`tags`**: Tag functionality (built into Material theme)
+- **`rss`**: RSS feed generation
+- **`git-revision-date-localized`**: Git revision dates
+- **`redirects`**: URL redirects
+- **`monorepo`**: Monorepo integration
+
+## Troubleshooting
+
+### Common Issues
+
+#### Build Failures
+
+- **Missing Dependencies**: Install required packages
+- **Configuration Errors**: Check `mkdocs.yml` syntax
+- **Submodule Issues**: Initialize and update submodules
+- **File Permissions**: Check file permissions
+
+#### Link Issues
+
+- **Broken External Links**: Check external URLs
+- **Broken Internal Links**: Check file paths
+- **Markdown Syntax**: Check Markdown syntax
+- **Redirect Issues**: Check redirect configuration
+
+#### Navigation Issues
+
+- **Missing Navigation**: Check navigation configuration
+- **Version Links**: Check version hiding configuration
+- **Submodule Navigation**: Check submodule configuration
+- **Theme Issues**: Check theme configuration
+
+### Debug Commands
+
+```bash
+# Enable debug mode
+export MKDOCS_DEBUG=1
+
+# Check configuration
+mkdocs config
+
+# Validate configuration
+mkdocs build --strict
+
+# Check for errors
+mkdocs build 2>&1 | tee build.log
+```
+
+## Performance Optimization
+
+### Build Optimization
+
+- **Incremental Builds**: Use incremental builds
+- **Parallel Processing**: Use parallel processing
+- **Caching**: Use build caching
+- **Resource Limits**: Set appropriate limits
+
+### Runtime Optimization
+
+- **CDN**: Use CDN for static assets
+- **Compression**: Use compression
+- **Minification**: Minify CSS and JavaScript
+- **Image Optimization**: Optimize images
+
+## Security Considerations
+
+### Content Security
+
+- **Input Validation**: Validate all inputs
+- **XSS Protection**: Protect against XSS
+- **CSRF Protection**: Protect against CSRF
+- **Content Security Policy**: Use CSP headers
+
+### Infrastructure Security
+
+- **HTTPS Only**: Use HTTPS
+- **Secure Headers**: Use security headers
+- **Dependency Scanning**: Scan dependencies
+- **Regular Updates**: Keep dependencies updated
