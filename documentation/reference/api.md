@@ -50,113 +50,9 @@ plugins:
 
 ## Custom Scripts
 
-### Link Checking Scripts
+### Link Checking
 
-#### Bash Script (`scripts/check-links.sh`)
-
-```bash
-#!/bin/bash
-# SWHID.org Link Checker
-
-# Usage: ./scripts/check-links.sh [file]
-# If no file is specified, checks all markdown files
-
-SITE_DIR="site"
-DOCS_DIR="docs"
-BROKEN_LINKS=()
-
-# Functions
-check_external_links() {
-    echo "Checking external links..."
-    # Implementation
-}
-
-check_internal_links() {
-    echo "Checking internal links..."
-    # Implementation
-}
-
-check_markdown_links() {
-    echo "Checking markdown links..."
-    # Implementation
-}
-
-main() {
-    echo "SWHID.org Link Checker"
-    echo "====================="
-    
-    if [ $# -eq 0 ]; then
-        check_all_links
-    else
-        check_specific_file "$1"
-    fi
-    
-    report_results
-}
-
-main "$@"
-```
-
-#### Python Script (`scripts/check-links.py`)
-
-```python
-#!/usr/bin/env python3
-"""
-SWHID.org Link Checker
-
-A comprehensive link checking tool for the SWHID.org website.
-"""
-
-import os
-import re
-import sys
-import time
-import urllib.parse
-from pathlib import Path
-import requests
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
-
-class LinkChecker:
-    def __init__(self, site_dir="site", docs_dir="docs"):
-        self.site_dir = Path(site_dir)
-        self.docs_dir = Path(docs_dir)
-        self.broken_links = []
-        self.session = self._create_session()
-    
-    def _create_session(self):
-        """Create a requests session with retry strategy."""
-        session = requests.Session()
-        retry_strategy = Retry(
-            total=3,
-            backoff_factor=1,
-            status_forcelist=[429, 500, 502, 503, 504],
-        )
-        adapter = HTTPAdapter(max_retries=retry_strategy)
-        session.mount("http://", adapter)
-        session.mount("https://", adapter)
-        return session
-    
-    def check_external_links(self):
-        """Check all external links."""
-        pass
-    
-    def check_internal_links(self):
-        """Check all internal links."""
-        pass
-    
-    def check_markdown_links(self):
-        """Check all markdown links."""
-        pass
-    
-    def run(self):
-        """Run all link checks."""
-        pass
-
-if __name__ == "__main__":
-    checker = LinkChecker()
-    checker.run()
-```
+The website does not include built-in link checking scripts. External tools should be used for link validation.
 
 ### Build Scripts
 
@@ -180,7 +76,7 @@ clean:
 	rm -rf site/
 
 test:
-	./scripts/check-links.sh
+	mkdocs build
 ```
 
 ## Custom CSS

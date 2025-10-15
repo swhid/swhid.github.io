@@ -292,8 +292,8 @@ Validate navigation structure:
 # Check navigation configuration
 mkdocs config
 
-# Validate navigation links
-./scripts/check-links.sh --internal-only
+# Validate navigation links using external tools
+# Use browser developer tools or online link checkers
 
 # Test navigation functionality
 make test-navigation
@@ -370,8 +370,8 @@ mkdocs config --quiet | jq '.nav'
 #### Validate Links
 
 ```bash
-# Validate navigation links
-./scripts/check-links.sh --internal-only
+# Validate navigation links using external tools
+# Use browser developer tools or online link checkers
 ```
 
 ## Advanced Features

@@ -264,8 +264,8 @@ This guide provides solutions to common issues encountered when working with the
 
 1. **Check Link URLs**
    ```bash
-   # Use link checker
-   ./scripts/check-links.sh
+   # Use external link checking tools
+   # Use browser developer tools or online link checkers
    ```
 
 2. **Fix Broken Links**

@@ -40,7 +40,7 @@ The system first discovers available versions by:
 
 ### 2. Configuration Generation
 The `scripts/generate-config.py` script:
-1. Loads versions from `build/meta/versions.json`
+1. Discovers available versions from the filesystem
 2. Generates specification overlay files for each version
 3. Generates the main `mkdocs.yml` with dynamic navigation
 4. Ensures all files use consistent configuration

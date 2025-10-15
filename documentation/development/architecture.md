@@ -55,9 +55,11 @@ swhid.github.io/
 │       │   └── extra.css    # Main custom styles
 │       └── javascripts/
 │           └── hide-version-tabs.js
-├── shared-branding/         # Shared branding system
-│   ├── swh-variables.css    # Color variables and design tokens
-│   └── swh-components.css   # Reusable UI components
+├── overrides/               # Theme customizations
+│   ├── assets/
+│   │   ├── stylesheets/     # Custom CSS (extra.css)
+│   │   └── javascripts/     # Custom JS
+│   └── partials/            # Custom HTML templates
 ├── scripts/                 # Build and deployment scripts
 │   ├── bootstrap.sh         # Main bootstrap script
 │   ├── bootstrap-versions.sh # Version management

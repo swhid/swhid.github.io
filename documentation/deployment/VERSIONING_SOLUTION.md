@@ -29,7 +29,7 @@ Each overlay file:
 #### **For Regular Updates:**
 1. **Submodules update automatically** - No manual intervention needed
 2. **Overlay files remain stable** - Only need updates for major structural changes
-3. **Bootstrap script handles patching** - Automatically patches `site_name` if needed
+3. **Bootstrap script handles configuration** - Automatically generates overlay files
 
 #### **For New Versions:**
 1. Add new submodule: `git submodule add <url> sources/specification-v1.X`
@@ -56,7 +56,9 @@ swhid.github.io/
 │   └── specification-v1.0/       # Version 1.0
 ├── scripts/
 │   ├── bootstrap.sh              # Main bootstrap script
-│   └── patch-site-names.sh      # Patches site_name if needed
+│   ├── bootstrap-versions.sh     # Version management
+│   ├── generate-config.py        # Configuration generation
+│   └── generate-tags.py          # Tags page generation
 └── mkdocs.yml                    # Main configuration
 ```
 

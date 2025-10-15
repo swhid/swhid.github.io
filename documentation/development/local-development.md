@@ -160,11 +160,11 @@ make serve
 ### Link Checking
 
 ```bash
-# Check all links
-./scripts/check-links.sh
+# Check all links using external tools
+# Use browser developer tools or online link checkers
 
-# Check specific file
-./scripts/check-links.sh docs/publications.md
+# Check specific files manually
+# Review files for broken links
 ```
 
 ### Build Verification

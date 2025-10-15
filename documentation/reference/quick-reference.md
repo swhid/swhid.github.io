@@ -62,7 +62,7 @@ swhid-iso/
 ├── swhid.github.io/          # Main website
 ├── governance/               # Governance submodule
 ├── specification/            # Specification submodule
-├── shared-branding/          # Shared branding assets
+├── overrides/               # Theme customizations
 ├── docs/                    # Consolidated documentation
 └── README.md                # Main README
 ```
@@ -189,7 +189,7 @@ clean:
 	rm -rf site/
 
 test:
-	./scripts/check-links.sh
+	mkdocs build
 ```
 
 ## Common Tasks
@@ -211,10 +211,10 @@ test:
 
 ### Checking Links
 
-1. **Check All Links**: `./scripts/check-links.sh`
-2. **Check Specific File**: `./scripts/check-links.sh docs/publications.md`
+1. **Check All Links**: Use external link checking tools
+2. **Check Specific File**: Review files manually for broken links
 3. **Fix Broken Links**: Edit files to fix broken links
-4. **Re-check**: Run link checker again
+4. **Re-check**: Verify links work after fixes
 
 ### Customizing Theme
 
@@ -243,11 +243,8 @@ git submodule status
 #### Links Broken
 
 ```bash
-# Check all links
-./scripts/check-links.sh
-
-# Check specific file
-./scripts/check-links.sh docs/publications.md
+# Check all links using external tools
+# Use browser developer tools or online link checkers
 
 # Fix broken links
 # Edit files to fix broken links
@@ -318,20 +315,11 @@ export MKDOCS_CONFIG_FILE=mkdocs.yml
 ### Link Checking
 
 ```bash
-# Check all links
-./scripts/check-links.sh
+# Check all links using external tools
+# Use browser developer tools or online link checkers
 
-# Check external links only
-./scripts/check-links.sh --external-only
-
-# Check internal links only
-./scripts/check-links.sh --internal-only
-
-# Check markdown links only
-./scripts/check-links.sh --markdown-only
-
-# Check specific file
-./scripts/check-links.sh docs/publications.md
+# Check specific files manually
+# Review files for broken links
 ```
 
 ### Build Scripts
