@@ -11,7 +11,8 @@
 
 /* Expand the search container when active */
 #pf-header:focus-within,
-#pf-header .pagefind-ui__form:focus-within {
+#pf-header .pagefind-ui__form:focus-within,
+#pf-header.expanded .pagefind-ui__form {
   max-width: min(60rem, 80vw);
   width: 100%;
 }
@@ -29,6 +30,10 @@
   color: var(--md-default-fg-color);
   padding: 0 0.75rem;
   font: inherit;
+  font-size: 1rem;
+}
+#pf-header .pagefind-ui__search-clear {
+  font-size: 0.6rem;
 }
 #pf-header .pagefind-ui__drawer {
   /* Dropdown panel under the input */

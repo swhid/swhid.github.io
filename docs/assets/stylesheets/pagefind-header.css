@@ -14,7 +14,8 @@
 
 /* Expand when typing but keep centered */
 #pf-header:focus-within,
-#pf-header .pagefind-ui__form:focus-within {
+#pf-header .pagefind-ui__form:focus-within,
+#pf-header.expanded .pagefind-ui__form {
   width: 24rem; /* Expand to reasonable width when typing */
   max-width: 24rem;
 }
@@ -44,8 +45,13 @@
   border: 1px solid var(--md-default-fg-color--lightest);
   background: var(--md-default-bg-color);
   color: var(--md-default-fg-color);
-  padding: 0 0.75rem;
+  padding: 0 1.75rem;
   font: inherit;
+  font-size: 0.75rem;
+}
+
+#pf-header .pagefind-ui__search-clear {
+  font-size: 0.6rem;
 }
 
 #pf-header input:focus {

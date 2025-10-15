@@ -81,13 +81,11 @@
     }
     function isDrawerOpen(drawer) {
       if (!drawer) return false;
-      if (drawer.hasAttribute("hidden")) return false;
-      // Visible in layout (covers style/display toggles too)
-      return drawer.offsetParent !== null;
+      return !drawer.classList.contains("pagefind-ui__hidden");
     }
     function applyExpanded(host) {
       const open = isDrawerOpen(getDrawer(host));
-      host.classList.toggle("expanded", !!open);
+      host.classList.toggle("expanded", open);
     }
 
     // --- attribute observer for a given drawer ---
@@ -133,7 +131,6 @@
       if (!drawer) return;
 
       if (host.contains(ev.target) || drawer.contains(ev.target)) return;
-      drawer.setAttribute("hidden", "");
       applyExpanded(host);
     });
 
