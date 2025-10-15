@@ -6,6 +6,10 @@
   --swh-light-orange: #f79622;
   --swh-yellow: #fabf1f;
   --swh-grey: #737373;
+  /* colors of side menu for small resolution displays */
+  --md-primary-fg-color: #e20026;
+  --md-primary-fg-color--dark: #ef4426;
+  --md-accent-fg-color: #e20026;
 }
 
 /* Material palette hook */
