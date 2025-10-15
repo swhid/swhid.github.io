@@ -7,7 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const a = item.querySelector("a");
     if (!a) return;
     const label = (a.textContent || "").trim();
-    if (VERSION_RE.test(label) || label.toLowerCase() === "dev") {
+    if (label == "Specification") {
+      // specification nav menu entry should always be visible
+      a.style.setProperty("display", "block", "important");
+    } else if (VERSION_RE.test(label) || label.toLowerCase() === "dev") {
       item.classList.add("swhid-hidden-tab");
     }
   });
