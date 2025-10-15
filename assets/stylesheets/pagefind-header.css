@@ -11,7 +11,8 @@
 
 /* Expand the search container when active */
 #pf-header:focus-within,
-#pf-header .pagefind-ui__form:focus-within {
+#pf-header .pagefind-ui__form:focus-within,
+#pf-header.expanded .pagefind-ui__form {
   max-width: min(60rem, 80vw);
   width: 100%;
 }

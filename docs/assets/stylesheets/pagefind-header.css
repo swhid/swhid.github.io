@@ -14,7 +14,8 @@
 
 /* Expand when typing but keep centered */
 #pf-header:focus-within,
-#pf-header .pagefind-ui__form:focus-within {
+#pf-header .pagefind-ui__form:focus-within,
+#pf-header.expanded .pagefind-ui__form {
   width: 24rem; /* Expand to reasonable width when typing */
   max-width: 24rem;
 }
