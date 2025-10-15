@@ -12,6 +12,7 @@ build/
 .monorepo-overlays/spec-*.mkdocs.yml
 docs/swhid-specification/
 nav.yml
+sources/specification-v*
 
 # Python cache
 __pycache__/
