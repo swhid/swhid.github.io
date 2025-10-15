@@ -457,7 +457,7 @@ a.news-read-more:hover {
   display: none !important;
 }
 
-/* (Optional) If you also choose to hide versions in the left primary nav */
+/* Hide version links from mobile sidebar navigation */
 .md-nav__item.swhid-hidden-nav {
   display: none !important;
 }

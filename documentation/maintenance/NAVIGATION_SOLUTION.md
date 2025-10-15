@@ -24,7 +24,7 @@ Simple CSS classes to hide elements programmatically:
   display: none !important;
 }
 
-/* (Optional) If you also choose to hide versions in the left primary nav */
+/* Hide version links from mobile sidebar navigation */
 .md-nav__item.swhid-hidden-nav {
   display: none !important;
 }
@@ -53,24 +53,23 @@ A lightweight JavaScript filter that targets tabs by their visible text content:
     });
   }
 
-  // Optional: also hide versions at top level of the left primary nav
+  // Hide from mobile sidebar navigation
   function hideVersionPrimaryNav() {
     document
-      .querySelectorAll('.md-nav--primary > .md-nav__list > .md-nav__item')
+      .querySelectorAll('.md-nav--primary .md-nav__item')
       .forEach((li) => {
-        const a = li.querySelector(':scope > .md-nav__link');
+        const a = li.querySelector('a');
         if (!a) return;
         const label = (a.textContent || '').trim();
-        if (VERSION_LABEL_RE.test(label)) {
-          li.classList.add('swhid-hidden-nav'); // requires the optional CSS rule
+        if (VERSION_LABEL_RE.test(label) || label.toLowerCase() === 'dev') {
+          li.classList.add('swhid-hidden-nav');
         }
       });
   }
 
   function run() {
     hideVersionTabs();
-    // Uncomment next line if you also want to hide the top-level left items:
-    // hideVersionPrimaryNav();
+    hideVersionPrimaryNav(); // Hide from mobile sidebar navigation
   }
 
   // Material for MkDocs is a SPA; run on load and on page changes.
@@ -91,17 +90,19 @@ extra_javascript:
 ## How It Works
 
 1. **Build Time**: All version links remain in the navigation configuration, ensuring the monorepo build system includes all versions
-2. **Runtime**: JavaScript scans the horizontal navigation tabs for version labels (v1.0, v1.1, v1.2, etc.)
-3. **Filtering**: Tabs with version labels are marked with the `swhid-hidden-tab` class
-4. **Hiding**: CSS hides elements with the `swhid-hidden-tab` class
-5. **Result**: Only the main "Specification" link is visible in the horizontal navigation
+2. **Runtime**: JavaScript scans both horizontal navigation tabs and mobile sidebar navigation for version labels (v1.0, v1.1, v1.2, dev, etc.)
+3. **Filtering**: Navigation items with version labels are marked with the appropriate CSS class:
+   - Horizontal tabs: `swhid-hidden-tab` class
+   - Mobile sidebar: `swhid-hidden-nav` class
+4. **Hiding**: CSS hides elements with these classes
+5. **Result**: Only the main "Specification" link is visible in both horizontal navigation and mobile sidebar
 
 ## Key Benefits
 
 - **Future-Proof**: Automatically handles any new version labels (v2.0, v3.1, etc.) without code changes
 - **Non-Destructive**: All content remains accessible, only the UI is curated
 - **Monorepo Compatible**: Build system gets all versions it needs
-- **Clean UI**: Only "Specification" tab visible in horizontal navigation
+- **Clean UI**: Only "Specification" tab visible in both horizontal navigation and mobile sidebar
 - **Version Selector**: Dropdown remains fully functional on specification pages
 - **Text-Based**: Reliable filtering based on visible labels, not URLs
 - **Lightweight**: Minimal JavaScript with no external dependencies
@@ -157,6 +158,7 @@ nav:
 2. Verify the CSS classes are being applied
 3. Check browser console for JavaScript errors
 4. Ensure the regex pattern matches your version labels
+5. Test both desktop and mobile views to ensure version links are hidden in both navigation areas
 
 ### JavaScript Not Working
 
@@ -185,9 +187,10 @@ To test the solution:
 1. Build the site: `make build`
 2. Open the site in a browser
 3. Check that only the "Specification" link is visible in the horizontal navigation
-4. Verify that all version pages are still accessible via direct URLs
-5. Test the version selector dropdown on specification pages
-6. Test on different browsers and screen sizes
+4. Test mobile view (resize browser or use mobile device) and verify version links are hidden in the mobile sidebar
+5. Verify that all version pages are still accessible via direct URLs
+6. Test the version selector dropdown on specification pages
+7. Test on different browsers and screen sizes
 
 ## Maintenance
 

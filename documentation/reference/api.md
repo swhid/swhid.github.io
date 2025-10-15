@@ -108,48 +108,30 @@ test:
 ### Version Tab Hiding (`overrides/assets/javascripts/hide-version-tabs.js`)
 
 ```javascript
-(function () {
-  'use strict';
-
-  // Match v1.0, v1.2.3, etc. Adjust if you want only major.minor.
-  const VERSION_LABEL_RE = /^v\d+\.\d+(?:\.\d+)?$/i;
-
-  function hideVersionTabs() {
-    // Top horizontal tabs (first-level nav)
-    document.querySelectorAll('.md-tabs__list .md-tabs__item').forEach((item) => {
-      const a = item.querySelector('a');
-      if (!a) return;
-      const label = (a.textContent || '').trim();
-      if (VERSION_LABEL_RE.test(label)) {
-        item.classList.add('swhid-hidden-tab');
-      }
-    });
-  }
-
-  // Optional: also hide versions at top level of the left primary nav
-  function hideVersionPrimaryNav() {
-    document
-      .querySelectorAll('.md-nav--primary > .md-nav__list > .md-nav__item')
-      .forEach((li) => {
-        const a = li.querySelector(':scope > .md-nav__link');
-        if (!a) return;
-        const label = (a.textContent || '').trim();
-        if (VERSION_LABEL_RE.test(label)) {
-          li.classList.add('swhid-hidden-nav'); // requires the optional CSS rule
-        }
-      });
-  }
-
-  function run() {
-    hideVersionTabs();
-    // Uncomment next line if you also want to hide the top-level left items:
-    // hideVersionPrimaryNav();
-  }
-
-  // Material for MkDocs is a SPA; run on load and on page changes.
-  document.addEventListener('DOMContentLoaded', run);
-  document.addEventListener('navigation', run);
-})();
+// Hide any top tab whose label looks like a version (vX.Y[.Z]) or is "dev".
+document.addEventListener("DOMContentLoaded", () => {
+  const VERSION_RE = /^v\d+\.\d+(?:\.\d+)?$/i;
+  
+  // Hide from horizontal navigation tabs
+  document.querySelectorAll(".md-tabs__list .md-tabs__item").forEach((item) => {
+    const a = item.querySelector("a");
+    if (!a) return;
+    const label = (a.textContent || "").trim();
+    if (VERSION_RE.test(label) || label.toLowerCase() === "dev") {
+      item.classList.add("swhid-hidden-tab");
+    }
+  });
+  
+  // Hide from mobile sidebar navigation
+  document.querySelectorAll(".md-nav--primary .md-nav__item").forEach((item) => {
+    const a = item.querySelector("a");
+    if (!a) return;
+    const label = (a.textContent || "").trim();
+    if (VERSION_RE.test(label) || label.toLowerCase() === "dev") {
+      item.classList.add("swhid-hidden-nav");
+    }
+  });
+});
 ```
 
 ## GitHub Actions
