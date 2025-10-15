@@ -30,6 +30,10 @@
   color: var(--md-default-fg-color);
   padding: 0 0.75rem;
   font: inherit;
+  font-size: 1rem;
+}
+#pf-header .pagefind-ui__search-clear {
+  font-size: 0.6rem;
 }
 #pf-header .pagefind-ui__drawer {
   /* Dropdown panel under the input */
