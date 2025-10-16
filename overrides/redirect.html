@@ -2,13 +2,13 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0; url={{ page.redirect_url }}">
-    <link rel="canonical" href="{{ page.redirect_url }}">
+    <meta http-equiv="refresh" content="0; url={{ page.meta.redirect_url }}">
+    <link rel="canonical" href="{{ page.meta.redirect_url }}">
     <script>
-        window.location.replace("{{ page.redirect_url }}");
+        window.location.replace("{{ page.meta.redirect_url }}");
     </script>
 </head>
 <body>
-    <p>If you are not redirected automatically, <a href="{{ page.redirect_url }}">click here</a>.</p>
+    <p>If you are not redirected automatically, <a href="{{ page.meta.redirect_url }}">click here</a>.</p>
 </body>
 </html>
