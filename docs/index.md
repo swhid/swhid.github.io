@@ -58,7 +58,7 @@ The SWHID Working Group oversees development of the SWHID materials in the [SWHI
 
 ## Participation and Governance
 
-Participation in the elaboration of the SWHID standard is open to all. Design and planning is primarily done via the team [mailing list](https://groups.google.com/g/swhid-discuss) (see [how to join][howto-join]) and regular meetings.       
+Participation in the elaboration of the SWHID standard is open to all. Design and planning are primarily done via the team [mailing list](https://groups.google.com/g/swhid-discuss) (see [how to join][howto-join]) and regular meetings.
 
 The SWHID specification is maintained by the [SWHID core team](coreteam.md) and follows the principles stated in [the governance document](swhid-governance/index.md) maintained in the [governance repository](https://github.com/swhid/governance/). 
 
@@ -74,7 +74,7 @@ These principles follow the model proposed by the [Community Specification](http
 - **Browse [publications](publications/)** for academic papers and research
 - **Explore [use cases](https://www.softwareheritage.org/how-to-archive-reference-code/)** in software preservation
 
-### Onboarding Material
+### Onboarding Materials
 
 A dedicated webinar has been held to help onboarding participants to this working group. The material is available online, and newcomers are encouraged to start here:                                                                          
 
