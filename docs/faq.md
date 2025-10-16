@@ -34,5 +34,5 @@ Absolutely! SWHID is designed to enable reliable citation and referencing of sof
 ## Where can I learn more?
 
 - [Specification](../swhid-specification) - Complete technical documentation
-- [Governance](../swhid-governance) - Community guidelines and processes
+- [Governance](../swhid-governance/0._Contributor_License_Agreement) - Community guidelines and processes
 - [News](../news) - Latest updates and announcements

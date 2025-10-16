@@ -60,7 +60,7 @@ The SWHID Working Group oversees development of the SWHID materials in the [SWHI
 
 Participation in the elaboration of the SWHID standard is open to all. Design and planning are primarily done via the team [mailing list](https://groups.google.com/g/swhid-discuss) (see [how to join][howto-join]) and regular meetings.
 
-The SWHID specification is maintained by the [SWHID core team](coreteam.md) and follows the principles stated in [the governance document](swhid-governance/index.md) maintained in the [governance repository](https://github.com/swhid/governance/). 
+The SWHID specification is maintained by the [SWHID core team](coreteam.md) and follows the principles stated in [the governance document](swhid-governance/0._Contributor_License_Agreement) maintained in the [governance repository](https://github.com/swhid/governance/).
 
 These principles follow the model proposed by the [Community Specification](https://github.com/CommunitySpecification/Community_Specification), developed via the [Joint Development Foundation](http://www.jointdevelopment.org) (now part of the [Linux Foundation](https://www.linuxfoundation.org/)), with inspiration from the [Open Web Foundation agreements](http://openwebfoundation.org) and the [Alliance for Open Media Patent License 1.0](http://aomedia.org/license/patent-license/).                                                                            
 
