@@ -17,5 +17,5 @@ adopter.
 
 A dedicated webinar has been held to help onboarding participants to this working group. The material is available online, and newcomers are encouraged to start here:
 
-- [📊 Support slides](https://hal.science/hal-04121507) used during the webinar
-- [🎥 Recording](https://annex.softwareheritage.org/public/talks/2023/2023-03-27-SWHID-kickoff.mp4) including an extensive Q&A session
+- [Support slides](https://hal.science/hal-04121507) used during the webinar
+- [Recording](https://annex.softwareheritage.org/public/talks/2023/2023-03-27-SWHID-kickoff.mp4) including an extensive Q&A session
