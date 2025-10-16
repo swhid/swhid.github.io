@@ -8,8 +8,8 @@
   --swh-red: #e20026;
   --swh-orange: #ef4426;
   --swh-grey: #737373;
-  --swh-primary: var(--swh-red); /* Main brand color */
-  --swh-secondary: var(--swh-orange); /* Hover/secondary color */
+  --swh-primary: var(--swh-orange); /* Main brand color */
+  --swh-secondary: var(--swh-light-orange); /* Hover/secondary color */
   --swh-neutral: var(--swh-grey); /* Neutral color */
 }
 ```

@@ -38,8 +38,8 @@ The site uses a consistent Software Heritage color palette:
   --swh-light-orange: #f79622;
   --swh-yellow: #fabf1f;
   --swh-grey: #737373;
-  --swh-primary: var(--swh-red); /* Primary - headers, links, buttons */
-  --swh-secondary: var(--swh-orange); /* Secondary - hover states */
+  --swh-primary: var(--swh-orange); /* Primary - headers, links, buttons */
+  --swh-secondary: var(--swh-light-orange); /* Secondary - hover states */
   --swh-accent: var(--swh-light-orange); /* Light - accents */
   --swh-highlight: var(--swh-yellow); /* Highlights */
   --swh-neutral: var(--swh-grey); /* Neutral - secondary text */

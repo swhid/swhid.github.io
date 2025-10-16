@@ -91,8 +91,8 @@ test:
   --swh-light-orange: #f79622;
   --swh-yellow: #fabf1f;
   --swh-grey: #737373;
-  --swh-primary: var(--swh-red);
-  --swh-secondary: var(--swh-orange);
+  --swh-primary: var(--swh-orange);
+  --swh-secondary: var(--swh-light-orange);
   --swh-neutral: var(--swh-grey);
 }
 

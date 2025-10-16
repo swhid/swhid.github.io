@@ -56,8 +56,8 @@ The website uses a **consistent color palette** defined in the main CSS file:
   --swh-light-orange: #f79622; /* Light orange */
   --swh-yellow: #fabf1f;
   --swh-grey: #737373;
-  --swh-primary: var(--swh-red); /* Primary color */
-  --swh-secondary: var(--swh-orange); /* Secondary color */
+  --swh-primary: var(--swh-orange); /* Primary color */
+  --swh-secondary: var(--swh-light-orange); /* Secondary color */
   --swh-neutral: var(--swh-orange); /* Neutral color */
   --swh-accent: var(--swh-light-orange); /* Accent color */
   --swh-highlight: var(--swh-yellow); /* Highlight color */
