@@ -67,12 +67,12 @@ These principles follow the model proposed by the [Community Specification](http
 ## Getting Started
 
 ### For Developers
-- **Read the [specification](swhid-specification/)** to understand the technical details
-- **Check out [implementations](https://github.com/swhid)** for your programming language
+- Read the [specification](swhid-specification/) to understand the technical details
+- Check out [implementations](https://github.com/swhid) for your programming language
 
 ### For Researchers
-- **Browse [publications](publications/)** for academic papers and research
-- **Explore [use cases](https://www.softwareheritage.org/how-to-archive-reference-code/)** in software preservation
+- Browse [publications](publications/) for academic papers and research
+- Explore [use cases](https://www.softwareheritage.org/how-to-archive-reference-code/) in software preservation
 
 ### Onboarding Materials
 
