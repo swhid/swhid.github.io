@@ -6,17 +6,20 @@
   --swh-light-orange: #f79622;
   --swh-yellow: #fabf1f;
   --swh-grey: #737373;
+  --swh-primary: var(--swh-red);
+  --swh-secondary: var(--swh-orange);
+  --swh-neutral: var(--swh-grey);
   /* colors of side menu for small resolution displays */
-  --md-primary-fg-color: #e20026;
-  --md-primary-fg-color--dark: #ef4426;
-  --md-accent-fg-color: #e20026;
+  --md-primary-fg-color: var(--swh-primary);
+  --md-primary-fg-color--dark: var(--swh-secondary);
+  --md-accent-fg-color: var(--swh-primary);
 }
 
 /* Material palette hook */
-.md-typeset a { color: var(--swh-red); }
+.md-typeset a { color: var(--swh-primary); }
 /* .md-typeset a:visited { color: var(--swh-yellow); } */
-.md-header { background: var(--swh-red); }
-.md-tabs { background: var(--swh-grey); }
+.md-header { background: var(--swh-primary); }
+.md-tabs { background: var(--swh-neutral); }
 
 /* Responsive navigation fixes - keep tabs visible until they would wrap */
 /* Override Material theme's default responsive behavior */
@@ -101,7 +104,7 @@
   font-size: .875rem;
 }
 .swhid-home {
-  color: var(--swh-red);
+  color: var(--swh-primary);
   font-weight: 700;
 }
 
@@ -170,11 +173,11 @@
 }
 .swhid-links a {
   margin-left: 1rem;
-  color: var(--swh-grey);
+  color: var(--swh-neutral);
   text-decoration: none;
 }
 .swhid-links a:hover {
-  color: var(--swh-red);
+  color: var(--swh-primary);
   text-decoration: underline;
 }
 
@@ -195,7 +198,7 @@
   margin: 0 0 0.5rem 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--swh-red);
+  color: var(--swh-primary);
 }
 
 .swhid-spec-links {
@@ -209,22 +212,22 @@
   background: #fff;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: var(--swh-grey);
+  color: var(--swh-neutral);
   text-decoration: none;
   font-size: 0.875rem;
   transition: all 0.2s ease;
 }
 
 .swhid-spec-links a:hover {
-  background: var(--swh-red);
+  background: var(--swh-primary);
   color: #fff;
-  border-color: var(--swh-red);
+  border-color: var(--swh-primary);
 }
 
 .swhid-spec-links a.active {
-  background: var(--swh-red);
+  background: var(--swh-primary);
   color: #fff;
-  border-color: var(--swh-red);
+  border-color: var(--swh-primary);
 }
 
 /* Governance Navigation */
@@ -244,7 +247,7 @@
   margin: 0 0 0.5rem 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--swh-red);
+  color: var(--swh-primary);
 }
 
 .swhid-gov-links {
@@ -258,28 +261,28 @@
   background: #fff;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: var(--swh-grey);
+  color: var(--swh-neutral);
   text-decoration: none;
   font-size: 0.875rem;
   transition: all 0.2s ease;
 }
 
 .swhid-gov-links a:hover {
-  background: var(--swh-red);
+  background: var(--swh-primary);
   color: #fff;
-  border-color: var(--swh-red);
+  border-color: var(--swh-primary);
 }
 
 .swhid-gov-links a.active {
-  background: var(--swh-red);
+  background: var(--swh-primary);
   color: #fff;
-  border-color: var(--swh-red);
+  border-color: var(--swh-primary);
 }
 
 /* SWHID Banner Styling - Eye-catching ISO standard highlight */
 .swhid-banner {
   background-color: #fff; /* White background */
-  border: 2px solid #e20026; /* Red border */
+  border: 2px solid var(--swh-primary); /* Primary border */
   border-radius: 12px; /* Rounded corners */
   padding: 2rem;
   margin: 2rem 0;
@@ -288,7 +291,7 @@
 }
 
 .swhid-banner h2 {
-  color: #e20026; /* Red text for heading */
+  color: var(--swh-primary); /* Primary text for heading */
   margin-bottom: 1rem;
   font-size: 1.8rem;
   font-weight: 700;
@@ -301,7 +304,7 @@
 }
 
 .swhid-banner .btn {
-  background-color: #e20026; /* Red background for buttons */
+  background-color: var(--swh-primary); /* Primary background for buttons */
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -314,7 +317,7 @@
 }
 
 .swhid-banner .btn:hover {
-  background-color: #ef4426; /* Orange on hover */
+  background-color: var(--swh-secondary); /* Secondary on hover */
   color: white;
   text-decoration: none;
 }
@@ -337,7 +340,7 @@
 
 .news-item {
   background-color: #fff; /* White background */
-  border: 2px solid #e20026; /* Red border */
+  border: 2px solid var(--swh-primary); /* Primary border */
   border-radius: 12px; /* Rounded corners */
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(226, 0, 38, 0.1); /* Subtle shadow */
@@ -346,13 +349,13 @@
 }
 
 .news-item:hover {
-  border-color: #ef4426; /* Orange border on hover */
+  border-color: var(--swh-secondary); /* Secondary border on hover */
   box-shadow: 0 6px 16px rgba(226, 0, 38, 0.15); /* Enhanced shadow on hover */
   transform: translateY(-2px); /* Slight lift effect */
 }
 
 .news-item h3 {
-  color: #e20026; /* Red text for headings */
+  color: var(--swh-primary); /* Primary text for headings */
   margin-bottom: 1rem;
   font-size: 1.3rem;
   font-weight: 700;
@@ -366,9 +369,9 @@
 
 .news-item .btn,
 .news-item .btn-outline {
-  background-color: #e20026; /* Red background for buttons */
+  background-color: var(--swh-primary); /* Primary background for buttons */
   color: white;
-  border: 2px solid #e20026;
+  border: 2px solid var(--swh-primary);
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   text-decoration: none;
@@ -381,8 +384,8 @@
 
 .news-item .btn:hover,
 .news-item .btn-outline:hover {
-  background-color: #ef4426; /* Orange on hover */
-  border-color: #ef4426;
+  background-color: var(--swh-secondary); /* Secondary on hover */
+  border-color: var(--swh-secondary);
   color: white;
   text-decoration: none;
   transform: translateY(-1px); /* Slight lift effect */
@@ -391,7 +394,7 @@
 /* News Entry Styling (for news listing) */
 .news-entry {
   background-color: #fff; /* White background */
-  border: 2px solid #e20026; /* Red border */
+  border: 2px solid var(--swh-primary); /* Primary border */
   border-radius: 12px; /* Rounded corners */
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -402,13 +405,13 @@
 }
 
 .news-entry:hover {
-  border-color: #ef4426; /* Orange border on hover */
+  border-color: var(--swh-secondary); /* Secondary border on hover */
   box-shadow: 0 6px 16px rgba(226, 0, 38, 0.15); /* Enhanced shadow on hover */
   transform: translateY(-2px); /* Slight lift effect */
 }
 
 .news-date {
-  color: var(--swh-grey);
+  color: var(--swh-neutral);
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -417,7 +420,7 @@
 }
 
 .news-title {
-  color: #e20026; /* Red text for headings */
+  color: var(--swh-primary); /* Primary text for headings */
   margin-bottom: 1rem;
   font-size: 1.4rem;
   font-weight: 700;
@@ -432,7 +435,7 @@
 }
 
 a.news-read-more {
-  background-color: #e20026; /* Red background */
+  background-color: var(--swh-primary); /* Primary background */
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 6px 6px 0 0; /* Rounded top corners only */
@@ -447,7 +450,7 @@ a.news-read-more {
 }
 
 a.news-read-more:hover {
-  background-color: #ef4426; /* Orange on hover */
+  background-color: var(--swh-secondary); /* Secondary on hover */
   color: white;
   text-decoration: none;
   transform: translateY(-2px); /* Lift effect on hover */
@@ -457,7 +460,7 @@ a.news-read-more:hover {
 .news-empty {
   text-align: center;
   padding: 3rem 1rem;
-  color: var(--swh-grey);
+  color: var(--swh-neutral);
   font-style: italic;
 }
 

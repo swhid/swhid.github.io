@@ -51,11 +51,16 @@ The website uses a **consistent color palette** defined in the main CSS file:
 ```css
 /* SWHID Brand Colors */
 :root {
-  --swh-red: #e20026;        /* Primary red */
-  --swh-orange: #ef4426;     /* Secondary orange */
+  --swh-red: #e20026;
+  --swh-orange: #ef4426;
   --swh-light-orange: #f79622; /* Light orange */
-  --swh-yellow: #fabf1f;     /* Accent yellow */
-  --swh-grey: #737373;       /* Neutral gray */
+  --swh-yellow: #fabf1f;
+  --swh-grey: #737373;
+  --swh-primary: var(--swh-red); /* Primary color */
+  --swh-secondary: var(--swh-orange); /* Secondary color */
+  --swh-neutral: var(--swh-orange); /* Neutral color */
+  --swh-accent: var(--swh-light-orange); /* Accent color */
+  --swh-highlight: var(--swh-yellow); /* Highlight color */
 }
 ```
 
@@ -79,18 +84,18 @@ overrides/assets/stylesheets/
 
 /* Custom Header Styling */
 .md-header {
-  background: var(--swh-red);
+  background: var(--swh-primary);
 }
 
 /* Custom Button Styling */
 .md-button--primary {
-  background-color: var(--swh-red);
-  border-color: var(--swh-red);
+  background-color: var(--swh-primary);
+  border-color: var(--swh-primary);
 }
 
 .md-button--primary:hover {
-  background-color: var(--swh-orange);
-  border-color: var(--swh-orange);
+  background-color: var(--swh-secondary);
+  border-color: var(--swh-secondary);
 }
 ```
 
@@ -104,7 +109,7 @@ overrides/assets/stylesheets/
 
 /* Custom navigation styling */
 .md-nav__item--active > .md-nav__link {
-  color: var(--swh-red);
+  color: var(--swh-primary);
   font-weight: 600;
 }
 ```
