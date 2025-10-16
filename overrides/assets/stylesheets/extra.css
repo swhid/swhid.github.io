@@ -46,6 +46,15 @@
   .md-tabs__item {
     margin: 0 0.4rem;
   }
+  /* Ensure search form can be expanded horizontally */
+  .md-header__title {
+    flex-grow: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .pagefind-ui__search-clear {
+    height: calc(53px * var(--pagefind-ui-scale)) !important;
+  }
 }
 
 /* Smaller screens - more compact but still visible */
@@ -474,4 +483,3 @@ a.news-read-more:hover {
   overflow: hidden !important; clip: rect(0,0,0,0) !important;
   white-space: nowrap !important; border: 0 !important;
 }
-
