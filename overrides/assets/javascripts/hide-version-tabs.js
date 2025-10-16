@@ -18,10 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Hide from mobile sidebar navigation
   document.querySelectorAll(".md-nav--primary .md-nav__item").forEach((item) => {
     const a = item.querySelector("a");
-    if (!a) return;
-    const label = (a.textContent || "").trim();
-    if (VERSION_RE.test(label) || label.toLowerCase() === "dev") {
-      item.classList.add("swhid-hidden-nav");
+    const span = item.querySelector("span.md-ellipsis");
+    for (let elt of [a, span]) {
+      if (!elt) continue;
+      const label = (elt.textContent || "").trim();
+      if (VERSION_RE.test(label) || label.toLowerCase() === "dev") {
+        item.classList.add("swhid-hidden-nav");
+        return;
+      }
     }
   });
 });
