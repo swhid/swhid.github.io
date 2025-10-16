@@ -51,10 +51,10 @@
     }
 
     // Ensure Pagefind UI bundle is available on every page
+    let BASE = (window.__BASE_URL__ || "").replace(/\/+$/, "");
+    BASE = BASE === "." ? "" : BASE + "/";
     try {
-      const BASE = (window.__BASE_URL__ || "").replace(/\/+$/, "");
-      const ROOT = BASE === "." ? "" : BASE;
-      await ensureScript(`${ROOT}/pagefind/pagefind-ui.js`);
+      await ensureScript(`${BASE}pagefind/pagefind-ui.js`);
     } catch (e) {
       console.warn("Pagefind UI script not found");
       return;
@@ -63,12 +63,8 @@
     // Initialize Pagefind UI directly in the header.
     // It will render its own input + live results dropdown.
     /* global PagefindUI */
-    const BASE = (window.__BASE_URL__ || "").replace(/\/+$/, "");
-    const ROOT = BASE === "." ? "" : BASE;
     const pagefind = new PagefindUI({
       element: "#pf-header-ui",
-      bundlePath: `${ROOT}/pagefind/`,
-      baseUrl: `${ROOT}/`,
       showSubResults: true,
       showImages: false,
       showFilters: ["section", "spec_version", "tag"],

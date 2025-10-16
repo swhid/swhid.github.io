@@ -8,8 +8,8 @@ hide:
 
 <script>
 (function () {
-  const BASE = (window.__BASE_URL__ || "").replace(/\/+$/, "");
-  const ROOT = BASE === "." ? "" : BASE;
+  let BASE = (window.__BASE_URL__ || "").replace(/\/+$/, "");
+  BASE = BASE === "." ? "" : BASE + "/";
   const ensure = (href, tag, attr) => {
     return new Promise((res, rej) => {
       if (tag === "script" && window.PagefindUI) return res();
@@ -25,8 +25,6 @@ hide:
     /* global PagefindUI */
     const ui = new PagefindUI({
       element: "#pagefind-search",
-      bundlePath: `${ROOT}/pagefind/`,
-      baseUrl: `${ROOT}/`,
       showSubResults: true,
       showImages: false,
       showFilters: ["section","spec_version","tag"],
@@ -42,8 +40,8 @@ hide:
   };
 
   Promise.all([
-    ensure(`${ROOT}/pagefind/pagefind-ui.css`, "link", "href"),
-    ensure(`${ROOT}/pagefind/pagefind-ui.js`, "script", "src")
+    ensure(`${BASE}pagefind/pagefind-ui.css`, "link", "href"),
+    ensure(`${BASE}pagefind/pagefind-ui.js`, "script", "src")
   ]).then(init);
 })();
 </script>
