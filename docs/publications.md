@@ -4,7 +4,7 @@
 ## Standards & Specifications
 - **ISO/IEC 18670:2025 — Software Hash Identifier (SWHID)**  
   [ISO listing](https://www.iso.org/standard/89985.html)  
-  [Public specification portal](/swhid-specification/)
+  [Public specification portal](../swhid-specification/)
 
 ## Tutorials
 - **Software Hash Identifier Tutorial** — [Software Heritage blog, June 13, 2025](https://www.softwareheritage.org/2025/06/13/software-hash-identifier-swhid-tutorial/)

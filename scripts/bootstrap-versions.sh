@@ -103,13 +103,13 @@ selector_md="$SELECTOR_DIR/index.md"
   for (( idx=${#versions[@]}-1 ; idx>=0 ; idx-- )); do
     v="${versions[$idx]}"
     if [[ "$v" == "$latest" ]]; then
-      echo "- [${v} (latest)](/swhid-specification/${v}/)"
+      echo "- [${v} (latest)](../swhid-specification/${v}/)"
     else
-      echo "- [${v}](/swhid-specification/${v}/)"
+      echo "- [${v}](../swhid-specification/${v}/)"
     fi
   done
   echo
-  echo "- [latest](/swhid-specification/latest/)"
+  echo "- [latest](../swhid-specification/latest/)"
 } > "$selector_md"
 echo "📝 Wrote $selector_md"
 

@@ -110,7 +110,7 @@ def generate_tags_page():
             for tag in tags:
                 tag_pages[tag].append({
                     'title': title,
-                    'url': f'/{url_path}',
+                    'url': f'../{url_path}',
                     'file': str(rel_path)
                 })
     

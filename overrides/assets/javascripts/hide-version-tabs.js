@@ -18,7 +18,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Hide from mobile sidebar navigation
   document.querySelectorAll(".md-nav--primary .md-nav__item").forEach((item) => {
     const a = item.querySelector("a");
-    const span = item.querySelector("span.md-ellipsis");
+    let span = item.querySelector(".md-nav__link span.md-ellipsis");
+    if (span) {
+      for (let sibling of span.parentNode.children) {
+        if (sibling !== span) {
+          if (window.getComputedStyle(sibling).display == 'none') {
+            // menu entry for non mobile sidebar, ignore
+            span = null;
+          }
+        }
+      }
+    }
     for (let elt of [a, span]) {
       if (!elt) continue;
       const label = (elt.textContent || "").trim();

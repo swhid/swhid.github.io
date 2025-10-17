@@ -5,27 +5,30 @@
 ### Primary Brand Colors
 ```css
 :root {
-  --swh-red: #e20026;           /* Main brand color */
-  --swh-orange: #ef4426;        /* Hover/secondary color */
-  --swh-grey: #737373;          /* Neutral color */
+  --swh-red: #e20026;
+  --swh-orange: #ef4426;
+  --swh-grey: #737373;
+  --swh-primary: var(--swh-orange); /* Main brand color */
+  --swh-secondary: var(--swh-light-orange); /* Hover/secondary color */
+  --swh-neutral: var(--swh-grey); /* Neutral color */
 }
 ```
 
 ### Change Header Color
 ```css
 .md-header {
-  background: var(--swh-red);   /* Or any color */
+  background: var(--swh-primary);   /* Or any color */
 }
 ```
 
 ### Change Link Colors
 ```css
 .md-typeset a {
-  color: var(--swh-red);        /* Link color */
+  color: var(--swh-primary);        /* Link color */
 }
 
 .md-typeset a:hover {
-  color: var(--swh-orange);     /* Hover color */
+  color: var(--swh-secondary);     /* Hover color */
 }
 ```
 
@@ -169,7 +172,7 @@
 ```css
 @media (prefers-color-scheme: dark) {
   :root {
-    --swh-red: #ff4444;              /* Brighter for dark mode */
+    --swh-primary: #ff4444;              /* Brighter for dark mode */
   }
   
   .swhid-banner {

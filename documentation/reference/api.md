@@ -91,16 +91,19 @@ test:
   --swh-light-orange: #f79622;
   --swh-yellow: #fabf1f;
   --swh-grey: #737373;
+  --swh-primary: var(--swh-orange);
+  --swh-secondary: var(--swh-light-orange);
+  --swh-neutral: var(--swh-grey);
 }
 
 /* Core hooks into Material */
-.md-typeset a { color: var(--swh-red); }
-.md-header { background: var(--swh-red); }
-.md-tabs { background: var(--swh-grey); }
+.md-typeset a { color: var(--swh-primary); }
+.md-header { background: var(--swh-primary); }
+.md-tabs { background: var(--swh-neutral); }
 
 /* Example component styles */
-.swhid-banner h2 { color: #e20026; }
-.news-entry { background-color: #fff; border: 2px solid #e20026; }
+.swhid-banner h2 { color: var(--swh-primary); }
+.news-entry { background-color: #fff; border: 2px solid var(--swh-primary); }
 ```
 
 ## Custom JavaScript

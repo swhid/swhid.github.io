@@ -33,11 +33,16 @@ The site uses a consistent Software Heritage color palette:
 
 ```css
 :root {
-  --swh-red: #e20026;           /* Primary red - headers, links, buttons */
-  --swh-orange: #ef4426;        /* Secondary orange - hover states */
-  --swh-light-orange: #f79622;  /* Light orange - accents */
-  --swh-yellow: #fabf1f;        /* Yellow - highlights */
-  --swh-grey: #737373;          /* Neutral grey - secondary text */
+  --swh-red: #e20026;
+  --swh-orange: #ef4426;
+  --swh-light-orange: #f79622;
+  --swh-yellow: #fabf1f;
+  --swh-grey: #737373;
+  --swh-primary: var(--swh-orange); /* Primary - headers, links, buttons */
+  --swh-secondary: var(--swh-light-orange); /* Secondary - hover states */
+  --swh-accent: var(--swh-light-orange); /* Light - accents */
+  --swh-highlight: var(--swh-yellow); /* Highlights */
+  --swh-neutral: var(--swh-grey); /* Neutral - secondary text */
 }
 ```
 
@@ -46,25 +51,25 @@ The site uses a consistent Software Heritage color palette:
 ```css
 /* Material theme color overrides */
 .md-typeset a { 
-  color: var(--swh-red); 
+  color: var(--swh-primary);
 }
 
 .md-header { 
-  background: var(--swh-red); 
+  background: var(--swh-primary);
 }
 
 .md-tabs { 
-  background: var(--swh-grey); 
+  background: var(--swh-neutral);
 }
 ```
 
 ### Color Usage Guidelines
 
-- **Primary Red (`--swh-red`)**: Headers, main links, buttons, active states
-- **Orange (`--swh-orange`)**: Hover states, secondary actions
-- **Grey (`--swh-grey`)**: Secondary text, borders, inactive elements
-- **Light Orange (`--swh-light-orange`)**: Accent elements, highlights
-- **Yellow (`--swh-yellow`)**: Special highlights, warnings
+- **Primary Primary (`--swh-primary`)**: Headers, main links, buttons, active states
+- **Secondary (`--swh-secondary`)**: Hover states, secondary actions
+- **Neutral (`--swh-neutral`)**: Secondary text, borders, inactive elements
+- **Light (`--swh-accent`)**: Accent elements, highlights
+- **Highlight (`--swh-highlight`)**: Special highlights, warnings
 
 ## Typography
 
@@ -75,7 +80,7 @@ The site inherits Material theme's typography system with custom overrides:
 ```css
 /* Headings */
 .md-content h1 {
-  color: var(--swh-red);
+  color: var(--swh-primary);
   font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.2;
@@ -83,7 +88,7 @@ The site inherits Material theme's typography system with custom overrides:
 }
 
 .md-content h2 {
-  color: var(--swh-grey);
+  color: var(--swh-neutral);
   font-size: 2rem;
   font-weight: 600;
   line-height: 1.3;
@@ -100,12 +105,12 @@ The site inherits Material theme's typography system with custom overrides:
 
 /* Links */
 .md-typeset a {
-  color: var(--swh-red);
+  color: var(--swh-primary);
   text-decoration: none;
 }
 
 .md-typeset a:hover {
-  color: var(--swh-orange);
+  color: var(--swh-secondary);
   text-decoration: underline;
 }
 ```
@@ -136,7 +141,7 @@ The site inherits Material theme's typography system with custom overrides:
 ```css
 /* Main header */
 .md-header {
-  background: var(--swh-red);
+  background: var(--swh-primary);
   box-shadow: 0 0 0.2rem 0 rgba(0,0,0,.1), 0 0.2rem 0.4rem 0 rgba(0,0,0,.1);
 }
 
@@ -157,7 +162,7 @@ The site inherits Material theme's typography system with custom overrides:
 ```css
 /* Tab bar */
 .md-tabs {
-  background: var(--swh-grey);
+  background: var(--swh-neutral);
   border-bottom: 0.05rem solid rgba(0,0,0,.07);
 }
 
@@ -228,13 +233,13 @@ The site inherits Material theme's typography system with custom overrides:
 
 /* Content headings */
 .md-content h1 {
-  color: var(--swh-red);
-  border-bottom: 2px solid var(--swh-orange);
+  color: var(--swh-primary);
+  border-bottom: 2px solid var(--swh-secondary);
   padding-bottom: 0.5rem;
 }
 
 .md-content h2 {
-  color: var(--swh-grey);
+  color: var(--swh-neutral);
   margin-top: 2rem;
 }
 
@@ -263,7 +268,7 @@ The site inherits Material theme's typography system with custom overrides:
 .md-content th {
   background-color: #f8f9fa;
   font-weight: 600;
-  color: var(--swh-red);
+  color: var(--swh-primary);
 }
 ```
 
@@ -272,17 +277,17 @@ The site inherits Material theme's typography system with custom overrides:
 ```css
 /* Sidebar navigation */
 .md-nav__item--active > .md-nav__link {
-  color: var(--swh-red);
+  color: var(--swh-primary);
   font-weight: 600;
 }
 
 .md-nav__link:hover {
-  color: var(--swh-orange);
+  color: var(--swh-secondary);
 }
 
 /* Nested navigation */
 .md-nav--secondary .md-nav__item--active > .md-nav__link {
-  color: var(--swh-orange);
+  color: var(--swh-secondary);
 }
 ```
 
@@ -294,7 +299,7 @@ The site inherits Material theme's typography system with custom overrides:
 /* Main banner styling */
 .swhid-banner {
   background-color: #fff;           /* White background */
-  border: 2px solid #e20026;        /* Red border */
+  border: 2px solid var(--swh-primary);        /* Primary border */
   border-radius: 12px;              /* Rounded corners */
   padding: 2rem;
   margin: 2rem 0;
@@ -303,7 +308,7 @@ The site inherits Material theme's typography system with custom overrides:
 }
 
 .swhid-banner h2 {
-  color: #e20026;                   /* Red heading */
+  color: var(--swh-primary);                   /* Primary heading */
   margin-bottom: 1rem;
   font-size: 1.8rem;
   font-weight: 700;
@@ -316,7 +321,7 @@ The site inherits Material theme's typography system with custom overrides:
 }
 
 .swhid-banner .btn {
-  background-color: #e20026;        /* Red button */
+  background-color: var(--swh-primary);        /* Primary button */
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -329,7 +334,7 @@ The site inherits Material theme's typography system with custom overrides:
 }
 
 .swhid-banner .btn:hover {
-  background-color: #ef4426;        /* Orange on hover */
+  background-color: var(--swh-secondary);        /* Secondary on hover */
   color: white;
   text-decoration: none;
 }
@@ -350,7 +355,7 @@ The site inherits Material theme's typography system with custom overrides:
 
 .news-item {
   background-color: #fff;           /* White background */
-  border: 2px solid #e20026;        /* Red border */
+  border: 2px solid var(--swh-primary);        /* Primary border */
   border-radius: 12px;              /* Rounded corners */
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(226, 0, 38, 0.1);
@@ -359,22 +364,22 @@ The site inherits Material theme's typography system with custom overrides:
 }
 
 .news-item:hover {
-  border-color: #ef4426;            /* Orange border on hover */
+  border-color: var(--swh-secondary);            /* Secondary border on hover */
   box-shadow: 0 6px 16px rgba(226, 0, 38, 0.15);
   transform: translateY(-2px);      /* Lift effect */
 }
 
 .news-item h3 {
-  color: #e20026;                   /* Red heading */
+  color: var(--swh-primary);                   /* Primary heading */
   margin-bottom: 1rem;
   font-size: 1.3rem;
   font-weight: 700;
 }
 
 .news-item .btn {
-  background-color: #e20026;        /* Red button */
+  background-color: var(--swh-primary);        /* Primary button */
   color: white;
-  border: 2px solid #e20026;
+  border: 2px solid var(--swh-primary);
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   text-decoration: none;
@@ -386,8 +391,8 @@ The site inherits Material theme's typography system with custom overrides:
 }
 
 .news-item .btn:hover {
-  background-color: #ef4426;        /* Orange on hover */
-  border-color: #ef4426;
+  background-color: var(--swh-secondary);        /* Secondary on hover */
+  border-color: var(--swh-secondary);
   color: white;
   text-decoration: none;
   transform: translateY(-1px);
@@ -400,7 +405,7 @@ The site inherits Material theme's typography system with custom overrides:
 /* Individual news entries */
 .news-entry {
   background-color: #fff;           /* White background */
-  border: 2px solid #e20026;        /* Red border */
+  border: 2px solid var(--swh-primary);        /* Primary border */
   border-radius: 12px;              /* Rounded corners */
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -411,13 +416,13 @@ The site inherits Material theme's typography system with custom overrides:
 }
 
 .news-entry:hover {
-  border-color: #ef4426;            /* Orange border on hover */
+  border-color: var(--swh-secondary);            /* Secondary border on hover */
   box-shadow: 0 6px 16px rgba(226, 0, 38, 0.15);
   transform: translateY(-2px);      /* Lift effect */
 }
 
 .news-date {
-  color: var(--swh-grey);
+  color: var(--swh-neutral);
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -426,7 +431,7 @@ The site inherits Material theme's typography system with custom overrides:
 }
 
 .news-title {
-  color: #e20026;                   /* Red heading */
+  color: var(--swh-primary);                   /* Primary heading */
   margin-bottom: 1rem;
   font-size: 1.4rem;
   font-weight: 700;
@@ -441,7 +446,7 @@ The site inherits Material theme's typography system with custom overrides:
 }
 
 a.news-read-more {
-  background-color: #e20026;        /* Red button */
+  background-color: var(--swh-primary);        /* Primary button */
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 6px 6px 0 0;      /* Rounded top corners only */
@@ -456,7 +461,7 @@ a.news-read-more {
 }
 
 a.news-read-more:hover {
-  background-color: #ef4426;        /* Orange on hover */
+  background-color: var(--swh-secondary);        /* Secondary on hover */
   color: white;
   text-decoration: none;
   transform: translateY(-2px);
@@ -532,7 +537,7 @@ a.news-read-more:hover {
   margin: 0 0 0.5rem 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--swh-red);
+  color: var(--swh-primary);
 }
 
 .swhid-spec-links {
@@ -546,22 +551,22 @@ a.news-read-more:hover {
   background: #fff;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: var(--swh-grey);
+  color: var(--swh-neutral);
   text-decoration: none;
   font-size: 0.875rem;
   transition: all 0.2s ease;
 }
 
 .swhid-spec-links a:hover {
-  background: var(--swh-red);
+  background: var(--swh-primary);
   color: #fff;
-  border-color: var(--swh-red);
+  border-color: var(--swh-primary);
 }
 
 .swhid-spec-links a.active {
-  background: var(--swh-red);
+  background: var(--swh-primary);
   color: #fff;
-  border-color: var(--swh-red);
+  border-color: var(--swh-primary);
 }
 ```
 
@@ -585,7 +590,7 @@ a.news-read-more:hover {
   margin: 0 0 0.5rem 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--swh-red);
+  color: var(--swh-primary);
 }
 
 .swhid-gov-links {
@@ -599,22 +604,22 @@ a.news-read-more:hover {
   background: #fff;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: var(--swh-grey);
+  color: var(--swh-neutral);
   text-decoration: none;
   font-size: 0.875rem;
   transition: all 0.2s ease;
 }
 
 .swhid-gov-links a:hover {
-  background: var(--swh-red);
+  background: var(--swh-primary);
   color: #fff;
-  border-color: var(--swh-red);
+  border-color: var(--swh-primary);
 }
 
 .swhid-gov-links a.active {
-  background: var(--swh-red);
+  background: var(--swh-primary);
   color: #fff;
-  border-color: var(--swh-red);
+  border-color: var(--swh-primary);
 }
 ```
 
@@ -691,22 +696,22 @@ The site uses Material theme's responsive breakpoints:
 ```css
 /* Update the main color variables */
 :root {
-  --swh-red: #your-primary-color;      /* Main brand color */
-  --swh-orange: #your-secondary-color; /* Hover/secondary color */
-  --swh-grey: #your-neutral-color;     /* Neutral color */
+  --swh-primary: #your-primary-color;      /* Main brand color */
+  --swh-secondary: #your-secondary-color; /* Hover/secondary color */
+  --swh-neutral: #your-neutral-color;     /* Neutral color */
 }
 
 /* Update Material theme integration */
 .md-typeset a { 
-  color: var(--swh-red); 
+  color: var(--swh-primary);
 }
 
 .md-header { 
-  background: var(--swh-red); 
+  background: var(--swh-primary);
 }
 
 .md-tabs { 
-  background: var(--swh-grey); 
+  background: var(--swh-neutral);
 }
 ```
 
@@ -840,8 +845,8 @@ The site uses Material theme's responsive breakpoints:
 /* Dark mode color overrides */
 @media (prefers-color-scheme: dark) {
   :root {
-    --swh-red: #ff4444;              /* Brighter red for dark mode */
-    --swh-orange: #ff6b35;           /* Brighter orange for dark mode */
+    --swh-primary: #ff4444;              /* Brighter red for dark mode */
+    --swh-secondary: #ff6b35;           /* Brighter orange for dark mode */
     --swh-grey: #a0a0a0;             /* Lighter grey for dark mode */
   }
   
@@ -868,12 +873,12 @@ The site uses Material theme's responsive breakpoints:
 ```css
 /* Use efficient selectors */
 .md-content h1 {                     /* Good: specific */
-  color: var(--swh-red);
+  color: var(--swh-primary);
 }
 
 /* Avoid overly specific selectors */
 div.container .content .main h1 {    /* Bad: too specific */
-  color: var(--swh-red);
+  color: var(--swh-primary);
 }
 
 /* Use CSS custom properties for repeated values */
@@ -895,14 +900,14 @@ div.container .content .main h1 {    /* Bad: too specific */
 ```css
 /* Above-the-fold critical styles */
 .md-header {
-  background: var(--swh-red);
+  background: var(--swh-primary);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .md-content h1 {
-  color: var(--swh-red);
+  color: var(--swh-primary);
   font-size: 2.5rem;
   font-weight: 700;
 }
