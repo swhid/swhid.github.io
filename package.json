@@ -1,0 +1,18 @@
+{
+  "name": "swhid-org",
+  "version": "1.0.0",
+  "description": "SWHID.org documentation site with Pagefind search",
+  "scripts": {
+    "serve": "make serve",
+    "build": "make build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "chokidar-cli": "^3.0.0",
+    "http-server": "^14.1.1",
+    "pagefind": "^1.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

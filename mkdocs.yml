@@ -1,0 +1,114 @@
+site_name: SWHID.org
+site_description: "SWHID — The international standard for software artifact identification (ISO/IEC 18670)"
+site_url: https://swhid.org
+repo_url: https://github.com/swhid
+edit_uri: ''
+
+theme:
+  name: material
+  custom_dir: overrides
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.expand
+    - content.code.copy
+    - toc.integrate
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+  icon:
+    logo: material/fingerprint
+  language: en
+
+extra_css:
+  - assets/stylesheets/extra.css
+  - assets/stylesheets/pagefind-header.css
+  - assets/stylesheets/hide-version-tabs.css
+
+extra_javascript:
+  - assets/javascripts/hide-version-tabs.js
+  - assets/javascripts/pagefind-header.js
+
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - redirects:
+      redirect_maps: {}
+  - monorepo
+
+extra:
+  swhid_spec_versions:
+    - v1.2
+    - v1.1
+    - v1.0
+    - dev
+
+nav:
+# Auto-generated navigation file
+# Do not edit manually - run scripts/bootstrap-versions.sh to regenerate
+
+- Home: index.md
+- Specification: '!include .monorepo-overlays/spec-v1.2.mkdocs.yml'
+- "v1.0": '!include .monorepo-overlays/spec-v1.0.mkdocs.yml'
+- "v1.1": '!include .monorepo-overlays/spec-v1.1.mkdocs.yml'
+- "dev": '!include .monorepo-overlays/spec-dev.mkdocs.yml'
+- Governance: '!include sources/governance/mkdocs.yml'
+- FAQ: faq.md
+- News:
+  - "All news": news/index.md
+  - "SWHID standardized as ISO/IEC 18670": news/2025-04-23-swhid-standardized-as-iso-iec-18670.md
+  - "Second version of SWHID Publicly Available Specification": news/2023-11-06-second-version-of-swhid-publicly-available-specification.md
+  - "First version of SWHID Publicly Available Specification": news/2023-06-23-first-version-of-swhid-publicly-available-specification.md
+  - "Kickoff of the SWHID Working group": news/2023-03-27-kickoff-of-the-swhid-working-group.md
+  - "SWHID.org goes live": news/2022-09-07-swhid-org-goes-live.md
+  - "Decision to start the SWHID normalization process": news/2022-01-20-decision-to-start-the-swhid-normalization-process.md
+- Tags: tags/index.md
+- Publications: publications.md
+- Core Team: coreteam.md
+
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:pymdownx.emoji.twemoji
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+      title: On this page
+      toc_depth: 3
+
+copyright: Copyright &copy; 2022–2025 SWHID Contributors.
+
+use_directory_urls: true
+strict: false

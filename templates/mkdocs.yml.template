@@ -1,0 +1,90 @@
+site_name: SWHID.org
+site_description: "SWHID — The international standard for software artifact identification (ISO/IEC 18670)"
+site_url: https://swhid.org
+repo_url: https://github.com/swhid
+edit_uri: ''
+
+theme:
+  name: material
+  custom_dir: overrides
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.expand
+    - content.code.copy
+    - toc.integrate
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+  icon:
+    logo: material/fingerprint
+  language: en
+
+extra_css:
+  - assets/stylesheets/extra.css
+  - assets/stylesheets/pagefind-header.css
+  - assets/stylesheets/hide-version-tabs.css
+
+extra_javascript:
+  - assets/javascripts/hide-version-tabs.js
+  - assets/javascripts/pagefind-header.js
+
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - redirects:
+      redirect_maps: {}
+  - monorepo
+
+extra:
+  swhid_spec_versions:
+{{VERSIONS}}
+
+nav:
+{{NAVIGATION}}
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:pymdownx.emoji.twemoji
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+      title: On this page
+      toc_depth: 3
+
+copyright: Copyright &copy; 2022–2025 SWHID Contributors.
+
+use_directory_urls: true
+strict: false
