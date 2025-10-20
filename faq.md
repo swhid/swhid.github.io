@@ -7,14 +7,14 @@ permalink: /faq/
 
 ## **Frequently Asked Questions (FAQ)**
 
-### **🔍 What is a Software Hash IDentifier?**
+### **What is a Software Hash IDentifier?**
 
 A **Software Hash IDentifier (SWHID)** is a persistent, content-based identifier for software artifacts—such as source code files, directories, commits, releases, or repository snapshots. Each SWHID is computed from the artifact itself, using cryptographic hashing, without relying on any central authority. Note that for an artifact that contains other artifacts, the whole recursive content is taken into account (e.g., a directory and all its sub-directories, recursively; a commit, its entire source code tree and preceding commits, etc.) when computing its SWHID.
 
 ---
 
 
-### **🌐 Why was the SWHID standardized?**
+### **Why was the SWHID standardized?**
 
 SWHID identifiers are described in the **ISO/IEC international standard (ISO/IEC 18670:2024)**.
 
@@ -23,7 +23,7 @@ Standardization helps to ensure **interoperability, verifiability, and traceabil
 ---
 
 
-### **🏛️ Why does this matter for institutions and regulators?**
+### **Why does this matter for institutions and regulators?**
 
 SWHID identifiers enable:
 
@@ -38,14 +38,14 @@ SWHID identifiers are already adopted by leading research infrastructures and re
 ---
 
 
-### **🗂️ How does the SWHID work with SBOMs?**
+### **How does the SWHID work with SBOMs?**
 
 SWHID identifiers complement software bill of materials (SBOMs) by providing **cryptographic, content-based identifiers** that guarantee the integrity of each listed artifact. Unlike package names or version labels, a SWHID refers **exactly to a specific software artifact**, making it ideal for reproducibility and vulnerability management.
 
 ---
 
 
-### **🛠️ How is the SWHID different from Git hashes?**
+### **How is the SWHID different from Git hashes?**
 
 The SWHID standard **extends Git’s internal hashing logic** beyond the Git tool chain:
 
@@ -60,7 +60,7 @@ The SWHID standard **extends Git’s internal hashing logic** beyond the Git too
 ---
 
 
-### **🛠️ Are there existing implementations of the SWHID standard?**
+### **Are there existing implementations of the SWHID standard?**
 
 Yes, we’re aware of several open-source implementations of the **SWHID** standard. \
 They include:
@@ -78,7 +78,7 @@ If you know of other implementations, please [let us know](https://www.softwareh
 ---
 
 
-### **🕰️ What happens if the original code disappears?**
+### **What happens if the original code disappears?**
 
 SWHID identifiers can always be resolved in the **Software Heritage archive**, the largest public archive of source code. Even if the original repository is removed or rewritten, the identifier still resolves to the preserved artifact—ensuring **persistence and long-term verifiability**.
 
@@ -87,7 +87,7 @@ Keep in mind that an **SWHID**'s durability depends on the artifact it identifie
 ---
 
 
-### **🧱 Why does SWHID use SHA-1?**
+### **Why does SWHID use SHA-1?**
 
 The first, and current, version of the SWHID standard (`swh:1:`) aligns with the **de facto practice used by Git**, which computes identifiers using a variant of SHA-1 (the hash is computed not on the byte sequence of the artifact itself, but on that byte sequence _prefixed with the length and the type of the artifact_). Building the SWHID standard on top of this approach ensures compatibility with the vast ecosystem of tools and repositories already relying on this convention—billions of commits in hundreds of millions of repositories contributed by tens of millions of developers rely on it daily.
 
@@ -96,14 +96,14 @@ The SWHID standard does not invent a new hash scheme—it **standardizes what de
 ---
 
 
-### **🔄 Will SWHID support newer hash functions in the future?**
+### **Will SWHID support newer hash functions in the future?**
 
 Yes. The **SWHID** standard is designed to evolve: version identifiers in the scheme (`swh:1:...`, `swh:2:...`, etc.) clearly separate future upgrades. This ensures long-term security and forward compatibility, while preserving interoperability with existing systems.
 
 ---
 
 
-### **🔐 Is SHA-1 still secure?**
+### **Is SHA-1 still secure?**
 
 SHA-1 is known to be vulnerable to **collision attacks**, but the SWHID standard applies SHA-1 in a specific context—identifying source code and development history, not signing or encrypting data. Following the best practices adopted by all Git based platforms today, **SWHID identifiers are calculated in a way that prevents collisions produced from currently known attacks to return valid identifiers**, using techniques such as structured preambles and collision detection tools. This is analogous to what recent versions of Git do—using the so-called “sha1collisiondetection” hashing scheme—in the wake of the SHAttered attack. The **SWHID** standard computes SHA-1 on payloads that are prefixed by their length (see: "Why does SWHID use SHA-1?"). This means that even in the case of a new attack, only collisions that do not alter the payload's length are theoretically possible.
 
