@@ -53,6 +53,7 @@ nav:
 - "v1.0": '!include .monorepo-overlays/spec-v1.0.mkdocs.yml'
 - "v1.1": '!include .monorepo-overlays/spec-v1.1.mkdocs.yml'
 - "dev": '!include .monorepo-overlays/spec-dev.mkdocs.yml'
+- "Implementations": implementations.md
 - Governance: '!include sources/governance/mkdocs.yml'
 - FAQ: faq.md
 - News:
