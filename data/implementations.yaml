@@ -1,0 +1,100 @@
+reference_implementation:
+  name: "swhid-rs"
+  repository: "https://github.com/swhid/swhid-rs"
+  language: "Rust"
+  description: "Reference implementation of the SWHID standard"
+  license: "MIT"
+  license_url: "https://github.com/swhid/swhid-rs/blob/main/LICENSE"
+  types:
+    - cnt
+    - dir
+    - rev
+    - rel
+    - snp
+  qualifiers:
+    - origin
+    - visit
+    - anchor
+    - path
+    - lines
+    - bytes
+
+test_suite:
+  repository: "https://github.com/swhid/test-suite"
+  description: "Test suite for validating SWHID implementations"
+
+implementations:
+  - name: "swh-model"
+    repository: "https://gitlab.softwareheritage.org/swh/devel/swh-model/"
+    language: "Python"
+    maintainer: "Software Heritage"
+    description: "Command line tool and library"
+    license: "GPL v3"
+    license_url: "https://gitlab.softwareheritage.org/swh/devel/swh-model/-/blob/master/LICENSE"
+    types:
+      - cnt
+      - dir
+      - rev
+      - rel
+      - snp
+    qualifiers:
+      - origin
+      - visit
+      - anchor
+      - path
+      - lines
+
+  - name: "swhid for OCaml"
+    repository: "https://github.com/OCamlPro/swhid"
+    language: "OCaml"
+    maintainer: "OCamlPro"
+    description: "OCaml library"
+    license: "ISC"
+    license_url: "https://github.com/OCamlPro/swhid/blob/master/LICENSE.md"
+    types:
+      - cnt
+      - dir
+      - rev
+    qualifiers:
+      - origin
+      - path
+
+  - name: "swhid grammar tooling"
+    repository: "https://github.com/barais/swhidgrammartooling"
+    language: "JavaScript"
+    maintainer: "Olivier Barais"
+    description: "PEG.js grammar for SWHID parsing"
+    license: "---"
+    types:
+      - cnt
+      - dir
+      - rev
+      - rel
+      - snp
+    qualifiers:
+      - origin
+      - visit
+      - anchor
+      - path
+      - lines
+      - bytes
+
+  - name: "swhid-ruby"
+    repository: "https://github.com/andrew/swhid"
+    language: "Ruby"
+    maintainer: "Andrew Newsbitt"
+    description: "Ruby implementation of the SWHID standard"
+    license: "---"
+    types:
+      - cnt
+      - dir
+      - rev
+      - rel
+      - snp
+    qualifiers:
+      - origin
+      - visit
+      - anchor
+      - path
+      - lines
+      - bytes

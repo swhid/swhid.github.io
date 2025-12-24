@@ -159,6 +159,7 @@ echo "📝 Generating navigation file: $nav_yml"
   if printf '%s\n' "${versions[@]}" | grep -q "^dev$"; then
     echo "- \"dev\": '!include .monorepo-overlays/spec-dev.mkdocs.yml'"
   fi
+  echo "- \"Implementations\": implementations.md"
   echo "- Governance: '!include sources/governance/mkdocs.yml'"
   echo "- FAQ: faq.md"
   echo "- News:"
@@ -190,6 +191,14 @@ if [ -f "$ROOT/scripts/generate-tags.py" ]; then
     python3 "$ROOT/scripts/generate-tags.py"
 else
     echo "⚠️  generate-tags.py not found, skipping tags page generation"
+fi
+
+# 6.5) Generate implementations page
+echo "  • Generating implementations page..."
+if [ -f "$ROOT/scripts/generate-implementations.py" ]; then
+    python3 "$ROOT/scripts/generate-implementations.py"
+else
+    echo "⚠️  generate-implementations.py not found, skipping implementations page generation"
 fi
 
 # 7) Expose outputs (for GitHub Actions)

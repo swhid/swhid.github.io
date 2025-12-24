@@ -55,18 +55,7 @@ The SWHID standard **extends Git’s internal hashing logic** beyond the Git too
 
 ## Are there existing implementations of the SWHID standard?
 
-Yes, we’re aware of several open-source implementations of the **SWHID** standard. \
-They include:
-
-- Command line tool and library, as part of the Python library [swh-model](https://gitlab.softwareheritage.org/swh/devel/swh-model/), by Software Heritage
-
-- OCaml [swhid](https://github.com/OCamlPro/swhid) library, by OCamlPro
-
-- Rust SWHID data type, as part of the [swh-graph](https://gitlab.softwareheritage.org/swh/devel/swh-graph) crate, by Software Heritage
-
-- PEG.js grammar [swhid grammar tooling](https://github.com/barais/swhidgrammartooling), by Olivier Barais
-
-If you know of other implementations, please [let us know](https://www.softwareheritage.org/contact/)!
+Yes! See the [Implementations](implementations.md) page for a comprehensive list of known implementations, including their supported types and qualifiers, the reference implementation, and the test suite.
 
 ---
 
@@ -98,6 +87,6 @@ Yes. The **SWHID** standard is designed to evolve: version identifiers in the sc
 
 ## Is SHA-1 still secure?
 
-SHA-1 is known to be vulnerable to **collision attacks**, but the SWHID standard applies SHA-1 in a specific context—identifying source code and development history, not signing or encrypting data. Following the best practices adopted by all Git based platforms today, **SWHID identifiers are calculated in a way that prevents collisions produced from currently known attacks to return valid identifiers**, using techniques such as structured preambles and collision detection tools. This is analogous to what recent versions of Git do—using the so-called “sha1collisiondetection” hashing scheme—in the wake of the SHAttered attack. The **SWHID** standard computes SHA-1 on payloads that are prefixed by their length (see: "Why does SWHID use SHA-1?"). This means that even in the case of a new attack, only collisions that do not alter the payload's length are theoretically possible.
+SHA-1 is known to be vulnerable to **collision attacks**, but the SWHID standard applies SHA-1 in a specific context—identifying source code and development history, not signing or encrypting data. Following the best practices adopted by all Git based platforms today, **SWHID identifiers are calculated in a way that prevents collisions produced from currently known attacks to return valid identifiers**, using techniques such as structured preambles and collision detection tools. This is analogous to what recent versions of Git do—using the so-called “sha1collisiondetection” hashing scheme—in the wake of the SHAttered attack. The **SWHID** standard computes SHA-1 on payloads that are prefixed by their length (see: "Why does SWHID use SHA-1?"). This means that even in the case of a new attack, collisions that alter the payload's length look highly improbable.
 
 We recognize that **no hash function is future-proof**, which is why the SWHID standard includes an **explicit version number** (`swh:1:...`) that allows smooth upgrades to stronger hash algorithms in future versions.
