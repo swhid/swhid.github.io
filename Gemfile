@@ -36,6 +36,9 @@ gem "wdm", "~> 0.1.0", :platforms => [:mingw, :x64_mingw, :mswin]
 # kramdown v1, comment out this line.
 gem "kramdown-parser-gfm"
 
+# Security: Update rexml to fix multiple CVEs
+gem "rexml", ">= 3.3.9"
+
 # Themes
 gem "just-the-docs"
 gem "jekyll-theme-tactile"
