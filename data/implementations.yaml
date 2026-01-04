@@ -84,7 +84,8 @@ implementations:
     language: "Ruby"
     maintainer: "Andrew Newsbitt"
     description: "Ruby implementation of the SWHID standard"
-    license: "---"
+    license: "MIT"
+    license_url: "https://github.com/andrew/swhid/blob/main/LICENSE"
     types:
       - cnt
       - dir
