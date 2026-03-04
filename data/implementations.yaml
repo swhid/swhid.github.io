@@ -58,13 +58,14 @@ implementations:
     qualifiers:
       - origin
       - path
-
-  - name: "swhid grammar tooling"
-    repository: "https://github.com/barais/swhidgrammartooling"
-    language: "JavaScript"
-    maintainer: "Olivier Barais"
-    description: "PEG.js grammar for SWHID parsing"
-    license: "---"
+    
+  - name: "swhid-go"
+    repository: "https://github.com/andrew/swhid-go"
+    language: "Go"
+    maintainer: "Andrew Newsbitt"
+    description: "Go implementation of the SWHID standard"
+    license: "MIT"
+    license_url: "https://github.com/andrew/swhid-go/blob/main/LICENSE"
     types:
       - cnt
       - dir
@@ -86,6 +87,26 @@ implementations:
     description: "Ruby implementation of the SWHID standard"
     license: "MIT"
     license_url: "https://github.com/andrew/swhid/blob/main/LICENSE"
+    types:
+      - cnt
+      - dir
+      - rev
+      - rel
+      - snp
+    qualifiers:
+      - origin
+      - visit
+      - anchor
+      - path
+      - lines
+      - bytes
+  
+  - name: "swhid grammar tooling"
+    repository: "https://github.com/barais/swhidgrammartooling"
+    language: "JavaScript"
+    maintainer: "Olivier Barais"
+    description: "PEG.js grammar for SWHID parsing"
+    license: "---"
     types:
       - cnt
       - dir
