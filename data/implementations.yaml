@@ -19,6 +19,10 @@ reference_implementation:
     - lines
     - bytes
 
+test_suite_dashboard:
+  repository: "https://swhid.org/test-suite"
+  description: "A dashboard with current validation output for the listed SWHID implementations"
+
 test_suite:
   repository: "https://github.com/swhid/test-suite"
   description: "Test suite for validating SWHID implementations"

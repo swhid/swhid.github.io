@@ -108,6 +108,18 @@ This page provides information about SWHID implementations, the reference implem
 The test suite can be used to validate that implementations correctly handle SWHID parsing, generation, and validation according to the specification.
 
 """
+
+    # Add test suite results dashboard section
+    test_suite_dashboard = data.get('test_suite_dashboard', {})
+    if test_suite_dashboard:
+        content += """## Test Suite Results Dashboard
+
+"""
+        content += f"""{test_suite_dashboard.get('description', '')} is available at [{test_suite_dashboard.get('repository', '')}]({test_suite_dashboard.get('repository', '')})
+
+This dashboard is automatically updated whenever upstream implementations change, or when the test suite is extended.
+
+"""
     
     # Add known implementations section
     implementations = data.get('implementations', [])
